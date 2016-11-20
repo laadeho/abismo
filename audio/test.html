@@ -1,9 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>prueba 1</title>
-</head>
-<body>
+	<head>
+		<title>prueba 1</title>
+				<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<script type="text/javascript" src="../js/third/flocking-all.js"></script>
+		<script type="text/javascript" src="../js/third/p5.js"></script>
 
-</body>
+	</head>
+	<body>
+		<h1>Hola Aimée.</h1>
+		</br>
+		<button onclick="check();reset();">Hazme sonar</button>
+
+		<!-- AUDIO -->
+		<script type="text/javascript">
+			var environment = flock.init();
+			var encendido = false;
+
+			function check(){
+				encendido=!encendido;
+				if(encendido){
+					environment.start();
+				} else {
+					environment.stop();
+				}
+			}
+		</script>
+		<script type="text/javascript" src="test01.js"></script>
+		<script type="text/javascript" src="test02.js"></script>
+		<!-- VIDEO -->
+		<script type="text/javascript" src="../grafica/v_test01.js"></script>
+	</body>
 </html>
