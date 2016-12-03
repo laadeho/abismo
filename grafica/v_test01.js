@@ -4,7 +4,6 @@ function setup(){
 }
 function draw(){
 	ellipse(random(width), random(height), 10, 10)
-
 }
 
 function reset(){
