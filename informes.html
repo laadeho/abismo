@@ -1,0 +1,271 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- <meta http-equiv="refresh" content="0; URL='http://abismo.cc" /> -->
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+		<meta name="title" content="abismo // próximo" />
+		<meta name="DC.Title" content="abismo // próximo" />
+		<meta http-equiv="title" content="abismo // próximo" />
+		<meta name="author" content="LAAd, Laboratorio de Arte, Arquitectura y Diseño. Arquitecto Eduardo Hernandez Obieta, Aimée Theriot. abismo // próximo" />
+		<meta name="DC.Creator" content="LAAd, Laboratorio de Arte, Arquitectura y Diseño. Arquitecto Eduardo Hernandez Obieta, Aimée Theriot. abismo // próximo" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="keywords" content="abismo // próximo, hackpact, LAAd, Arte, Arquitecto, Eduardo, Hernández, Obieta, Eduardo Hernández, Eduardo Obieta, Laboratorio, Arte, Arquitectura, Dise&ntilde;o, Aimée Theriot, Arte Relacional, Proximidad, Levinas, Cara a Cara, Sonido, Música, Arte Sonoro, Audiovisual, EEG, Sensor, Programación" />
+		<meta name="description" content="abismo // próximo project by Eduardo Hernandez Obieta & Aimée Theriot." />
+		<meta http-equiv="description" content="abismo // próximo project by Eduardo Hernandez Obieta & Aimée Theriot.. " />
+		<meta http-equiv="DC.Description" content="abismo // próximo project by Eduardo Hernandez Obieta & Aimée Theriot.." />
+		<meta name="vw96.objectype" content="Document" />
+		<meta name="resource-type" content="Document" />
+		<meta http-equiv="Content-Type" content="ISO-8859-1" />
+		<meta name="distribution" content="all" />
+		<meta name="robots" content="all" />
+		<meta name="revisit" content="10 days" />
+
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<title>abismo - Informe 01</title>
+	</head>
+	<body>
+		<div class="encabezado">
+			<h1>abismo // próximo</h1>
+			<p><em>Proyecto multimedia en torno a la proximidad y el reconocimiento humano. </em></p>
+			| <a href="index.html" target="_self"> inicio </a> 
+			| <a href="info.html" target="_self"> info </a> 
+			| <a href="demo.html" target="_self"> demo </a> 
+			| <a href="contacto.php" target="_self"> contacto </a>
+			|<br>
+			<img src="images/SecretariaCultura.png" ><br>
+			<div id="leyenda"> - Proyecto apoyado por el Fondo Nacional para la Cultura y las Artes - </div>
+		</div>
+		<div class="contenido">
+			<div class="titulo">
+				<h1>Informe 01</h1> 1er. CUATRIMESTRE / de Septiembre a Diciembre
+			</div>
+			<div class="texto-desc">
+				Durante el primer cuatrimestre los trabajos realizados son los siguientes: <br>
+				<p><strong> - ELECTRONICA - </strong>
+				<ul>1. Se compraron los sensores neuronales "muse" (4)</ul> 				<div>
+					<img src="images/muse.png" class="center-img">
+				</div>
+				<ul>Se han instalado las dependencias necesarias y se generaron pruebas de conexión con las plataformas que estaremos trabajando (Processing - gráfica y SuperCollider - sonoro).</ul>
+				<div>
+					<img src="images/code01.png" class="center-img">
+				</div>
+				
+				<ul>2. También se compraron sensores de pulso cardiaco y componentes para desarrollar sensores de resistencia galvánica de la piel (GSR), además de microcontroladores (Arduino Mini PRO),<br> <br>
+				</ul>
+				<div>
+					<img src="images/circuit01.png"  class="center-img"><br>
+					<img src="images/circuit02.png"  class="center-img">
+				</div>
+				<ul>
+					Se comenzó el desarrollo, programación y armado de los circuitos. Por un lado prototipando con Arduino UNO y posteriormente se migrará al Arduino Mini PRO.
+				</ul>
+				<div>
+					<img src="images/abismo_bb.png"  class="center-img">
+				</div>
+				<div>
+					<img src="images/abismo_scheme.png"  class="center-img">
+				</div>
+				</p>
+				<p><strong> - GRAFICA - </strong>
+					<ul>Para comenzar, analizamos los tipos de datos que se estarán sensando;<br>
+					<p><strong>Sensor de ondas neuronales.</strong></p>
+					</ul>
+				</p>
+				<div class="referencias" >
+					<ul>
+						<i>WHAT TYPES OF BRAINWAVES DOES MUSE MEASURE?
+						<p>
+						<ul>Muse detects a full range of brainwave activity. Brainwaves are typically broken up into five bands and the Muse headband is capable of detecting all five bands. The five bands are:</p>
+							<ul>
+							<li>Delta waves which are most present during deep sleep.</li>
+							<li>Theta waves which are associated with drowsyness, light sleep, and visualization.</li>
+							<li>Alpha waves which occur during wakeful relaxation.</li>
+							<li>Beta waves which occur when alert, actively thinking or problem-solving.</li>
+							<li>Gamma waves which occur when involved in higher mental activity and consolidation of information.</li>
+							</ul>
+							</ul></p>
+
+						<p>In creating the Muse app, we started from these brainwaves and then spent years doing intensive research on higher-order combinations of primary, secondary and tertiary characteristics of raw EEG data and how they interact with focused-attention meditation.</p>
+						</i>
+					</ul>
+				</div>
+				<div class="referencias">
+					<ul><i>Fuente: <a href="https://muse.zendesk.com/hc/en-us/articles/204481949-WHAT-TYPES-OF-BRAINWAVES-DOES-MUSE-MEASURE-" target="_blank" >"What types of brainwaves does Muse measure?"</a></i></ul>
+					<img src="images/measure_muse_sensors.jpg" class="center-img">
+					<ul><i>Fuente: <a href="http://www.choosemuse.com/what-does-muse-measure/" target="_blank" >"What does Muse measure?"</a></i>
+					</ul>
+				</div>
+				<div>
+					<ul>Con este sensor se analizarán, además de las ondas alfa, beta, gamma, delta y theta; estados mentales como la tranquilidad y la concentración de los usuarios.</ul>
+				</div>
+				<div>
+					<ul><p><strong>Sensor de pulso.</strong></p>
+					<p>Será conectado al microcontrolador arduino, y se colocará en un guante <i>(junto al GSR)</i> 
+					</p>
+					<p>La frecuencia cardiaca se analizará para complementar el estudio del estado de tranquilidad en el que se encuentran los visitantes.
+					</p></ul>
+				</div>
+				<div>
+					<ul>
+					<p><strong>GSR. Sensor de Resistencia Galvánica.</strong></p>
+					<p>La resistencia eléctrica de la piel responde a sensaciones como el miedo, la ira u otros estímulos; es conocido como "Galvanic Skin Response" o GSR. Este sensor, solo medirá si los participantes son incitados emocionalmente o no; puesto que no ofrece una medición precisa de la dirección de los estímulos.</p>
+					</ul>
+				</div>
+				<div> Primera grafica desarrollada.
+					<img src="images/vis_01.jpg"  class="center-img"><br>
+					<img src="images/vis_02.jpg"  class="center-img"><br>
+					<img src="images/vis_03.jpg"  class="center-img"><br>
+					<img src="images/vis_04.jpg"  class="center-img"><br>
+					<a href="demo.html" target="_self">Ver avances</a>
+				</div>
+				</p>
+				<p><strong> - SONORO - </strong>
+					<ul>Durante este período se han realizado diversas exploraciones sonoras utilizando el sensor EEG Muse y el software SuperCollider con disposición estéreo y de 4 canales. Así mismo, se han hecho pruebas en el software de síntesis sonora en línea <a href="http://flockingjs.org/">Flocking</a>.<br> Se han construído diversos sintetizadores cuyos parámetros son manipulados con los datos de las ondas Delta, Alpha, Theta y Beta. Así mismo, se han construído sintetizadores que leen los parpadeos del usuario y utilizan este dato para controlar ciertos parámetros, o bien, prender o apagar los sintetizadores. El diseño sonoro en esta etapa ha consistido en la exploración de las posibilidades de síntesis en conjunto con los datos del sensor EEG, el plan es continuar la exploración con sonidos grabados y sampleos utilizando diversas fuentes sonoras. 
+					</ul>
+					<div class="audios">
+						bandPass<br>
+						<audio controls>
+						<source src="audio/samples/bandPass.ogg" type="audio/ogg">
+						<source src="audio/samples/bandPass.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/bandPass.scd" target="_new">Descarga Código</a>
+					</div>
+
+					<div class="audios">
+						chanExp<br>
+						<audio controls>
+						<source src="audio/samples/chanExp.ogg" type="audio/ogg">
+						<source src="audio/samples/chanExp.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/chanExp.scd" target="_new">Descarga Código</a>
+					</div>
+
+					<div class="audios">
+						harmonics_stereo_4chan<br>
+						<audio controls>
+						<source src="audio/samples/harmonics_stereo_4chan.ogg" type="audio/ogg">
+						<source src="audio/samples/harmonics_stereo_4chan.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/harmonics_stereo_4chan.scd" target="_new">Descarga Código</a>
+					</div>
+
+					<div class="audios">
+						MoogLFSaw<br>
+						<audio controls>
+						<source src="audio/samples/MoogLFSaw.ogg" type="audio/ogg">
+						<source src="audio/samples/MoogLFSaw.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/MoogLFSaw.scd" target="_new">Descarga Código</a>
+					</div>
+
+					<div class="audios">
+						pan4_LFN<br>
+						<audio controls>
+						<source src="audio/samples/pan4_LFN.ogg" type="audio/ogg">
+						<source src="audio/samples/pan4_LFN.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/pan4_LFN.scd" target="_new">Descarga Código</a>
+					</div>
+
+					<div class="audios">
+						pinkNoise<br>
+						<audio controls>
+						<source src="audio/samples/pinkNoise.ogg" type="audio/ogg">
+						<source src="audio/samples/pinkNoise.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/pinkNoise.scd" target="_new">Descarga Código</a>
+					</div>
+
+					<div class="audios">
+						ritmos_clicks_1<br>
+						<audio controls>
+						<source src="audio/samples/ritmos_clicks_1.ogg" type="audio/ogg">
+						<source src="audio/samples/ritmos_clicks_1.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/ritmos_clicks_1.scd" target="_new">Descarga Código</a>
+					</div>
+
+					<div class="audios">
+						xlineBin<br>
+						<audio controls>
+						<source src="audio/samples/xlineBin.ogg" type="audio/ogg">
+						<source src="audio/samples/xlineBin.mp3" type="audio/mpeg">
+						Audio no soportado en Safari o Internet Explorer.
+						</audio>
+						<br><a href="audio/code/xlineBin.scd" target="_new">Descarga Código</a>
+					</div>
+				</p>
+				<p><strong> - SITIO WEB - </strong>
+					<ul>
+						<p><strong>Frontend</strong>.<br> Se han diseñado las pantallas principales del sitio web, así como propuestas gráficas que representarán los datos obtenidos por los diversos sensores durante las dos etapas de difusión del proyecto <i> (registro-exposición)</i>, así como la interacción que tendrán con lo sonoro. <br>Se comenzará a programar la propuesta de diseño.</p>
+						<p><strong>Backend</strong>.<br> Además se ha comenzado el desarrollo de la estructura que permitirá almancenar los datos obtenidos y su sincronía con los usuarios en la red para visualización e interacción en tiempo real. </p>
+					</ul>
+				</p>
+				<p><strong> - REDES - </strong>
+					<ul>
+						<p>Se han generado los espacios en las redes sociales en los que se promueve el proyecto, avances y otros anuncios pertinentes.
+						</p>
+						<p>
+							<a href="https://www.facebook.com/abismoproximo/" target="_blank">Facebook</a><br>
+							<a href="https://soundcloud.com/abismoproximo" target="_blank">SoundCloud</a><br>
+							<a href="https://vimeo.com/abismoproximo" target="_blank">Vimeo</a><br>
+							<a href="https://github.com/laadeho/abismo" target="_blank">Github</a>
+						</p>
+						En el repositorio de <a href="https://github.com/laadeho/abismo" target="_blank"> github</a> se estará subiendo y actualizando el código. Es la herramienta de trabajo que usaremos para compartir nuestros avances.
+					</ul>
+				</p>
+				</div>
+			</div>
+<!-- 			<div class="agradecimiento">
+				
+			</div> -->
+		</div>
+	</body>
+</html>
+<!-- 
+Eduardo H. Obieta:
+	Generar diseño de imagen de proyecto para redes sociales
+	Comprar dominio y contratar hostig para sitio web
+	Diseñar página web
+	Iniciar el diseño visual
+	Diseño de imagen para publicidad
+	Comprar materiales para sensores
+	Construir y probar sensores
+	Iniciar con la programación de herramientas de vídeo (Processing)
+Aimée Theriot 
+	Iniciar con la promoción en medios digitales del proyecto y de la página web
+	Iniciar con la programación de herramientas de audio (SuperCollider)
+	Iniciar el diseño sonoro
+Diego Montesinos
+	Programación de sitio web
+
+Metas por cuatrimestre:
+	1 Página web 
+		- REGISTRO
+		- VISUALIZACION EN TIEMPO REAL / Ve y Escucha 
+	4 Sensores de resistencia galvánica de la piel
+	4 Sensores de pulsos cardíacos
+	Bocetos de aplicaciones de audio y video
+
+ -->
+<!-- 
+VISITAR WEB
+http://www.ohnitsch.net/2015/03/18/measuring-heart-rate-with-a-piezoelectric-vibration-sensor/ 
+
+COMPRAR PARCHES 
+Parches Para Electro Estimulador De Hydrogel De 5x5 Cm 
+https://http2.mlstatic.com/4-parches-para-electro-estimulador-de-hydrogel-de-5x5-cm-D_NQ_NP_329605-MLM25068278064_092016-F.webp
+
+OTROS Curso Unreal
+https://www.udemy.com/unrealcourse/?utm_source=facebook&utm_term=_._ag_Unreal-Affinity-World-_._ci_657932_._._pi_1440826615957398_._gi_all_._ai_18--65_._an_evXxPC&pmtag=ec1c8cb3-1373-4053-96a9-2e666987d10f&k_clickid=8c5d8717-2437-48d2-8b75-69cb47e90ded_115053903&utm_campaign=NEW-FB-PROS-TECH-Dev-Game-Dev-Core-Unreal-EN-ENG_._ci_657932_._sl_ENG_._vi_TECH_._sd_All_._la_EN_.&utm_medium=udemyads
+
+-->
