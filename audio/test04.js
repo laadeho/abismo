@@ -3,7 +3,7 @@ var synth = flock.synth({
         ugen: "flock.ugen.playBuffer",
         buffer: {
             id: "chord",
-            url: "samples/ae.mp3"
+            url: "samples/bandPass.mp3"
         },
 
         speed: {
