@@ -22,16 +22,32 @@
 		<meta name="revisit" content="10 days" />
 
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-        <script type="text/javascript" src="js/third/p5.min.js"></script>
-		
-
+		<script type="text/javascript" src="js/third/flocking-all.js"></script>
+        <script type="text/javascript" src="js/third/p5.js"></script>
 		<title>abismo // próximo</title>
 	</head>
 
 	<body style="overflow: hidden !important;">
+		<p onmousedown="check();/*cambiaGraph();*/">Click the text!</p>
+
+		<!-- AUDIO -->
+		<script type="text/javascript">
+			var environment = flock.init();
+			var encendido = false;
+
+			function check(){
+				encendido=!encendido;
+				if(encendido){
+					environment.start();
+				} else {
+					environment.stop();
+				}
+			}
+		</script>
 		<div id='container'>
+
 			<script type="text/javascript" src="js/demo.js"></script>
-		</div>
+		</div>	
 		<div class="encabezadoDemo" style="color:white;">
 			<h1>abismo // próximo</h1>
 			| <a href="index.html" target="_self"> inicio </a> 

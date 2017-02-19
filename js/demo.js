@@ -1,7 +1,12 @@
+// VARIABLES DE AUDIO
+var gateS = 1;
+var freqS = 440;
+
+// VARIABLES DE GRAFICA
 var filaDeg, alfaIntro;
-var alpha, beta, gamma, delta, theta, conc, med, gsr, BPM;
+var alfa, beta, gamma, delta, theta, conc, med, gsr, BPM;
 var datos = [
-	"alpha", "beta", "gamma", "delta", "theta", "conc", "med", "gsr", "BPM"
+	"alfa", "beta", "gamma", "delta", "theta", "conc", "med", "gsr", "BPM"
 ];
 var numVal = 9;
 var val = [];
@@ -135,7 +140,7 @@ function degradado(){
 }
 
 function simulaDatos(){
-	alpha = nf(noise(frameCount*0.01),1,2);
+	alfa = nf(noise(frameCount*0.01),1,2);
 	beta = nf(noise(frameCount*0.018),1,2);
 	gamma = nf(noise(frameCount*0.019),1,2);
 	delta = nf(noise(frameCount*0.05),1,2);
@@ -145,7 +150,7 @@ function simulaDatos(){
 	gsr = nf(noise(frameCount*0.00086),1,2);
 	BPM = int(50+noise(second()*0.25)*50);
 
-	val[0] = alpha;
+	val[0] = alfa;
 	val[1] = beta;
 	val[2] = gamma;
 	val[3] = delta;
@@ -154,8 +159,16 @@ function simulaDatos(){
 	val[6] = med;
 	val[7] = gsr;
 	val[8] = BPM;
-}
 
+ 	freqS = 440+theta*150;
+
+ 	if(BPM>80){
+ 		gateS=1;
+ 	} else {
+ 		gateS=0;
+ 	}	
+
+}
 function windowResized() {
 	resizeCanvas(windowWidth, windowHeight);
 	filaDeg = 100/height;
@@ -175,3 +188,17 @@ function keyPressed(){
 			grafica = numGraficas-1;
 	}
 }
+
+function cambiaGraph(){
+	grafica++;
+	grafica=grafica%numGraficas;
+}
+
+// Triggers a note whenever the mouse is clicked.
+var synth = flock.synth({
+    synthDef: {
+        ugen: "flock.ugen.sinOsc",
+        freq: freqS,
+        mul: 0.25
+    }
+});
