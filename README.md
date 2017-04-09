@@ -7,7 +7,7 @@ En el archivo .gitignore estan las carpetas /images/ y /audio/samples/ para evit
 ![alt tag](http://abismo.cc/images/agradecimiento_coverFB.png)
 
 Interfaz envío OSC
-![alt tag](https://github.com/laadeho/abismo/images/UIosc.png)
+![alt tag](abismo/images/UIosc.png)
 
 // Learn Git
 https://try.github.io/levels/1/challenges/1
