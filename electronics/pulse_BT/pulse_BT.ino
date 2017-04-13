@@ -25,16 +25,17 @@ void loop() {
 
   if (Signal > Threshold) {
     digitalWrite(pinLed, HIGH);
-    pulso = 1;
+    pulso = 3;
     if (escribe) {
       BTserial.write(pulso);
     }
   } else {
     digitalWrite(pinLed, LOW);
-    pulso = 0;
+    pulso = 2;
     if (escribe) {
       BTserial.write(pulso);
     }
   }
-  delay(10);
+  delay(30);
+  // Revisar si al cambiar el delay de 10 a 30 la cola de mensajes seriales no se hace tan larga
 }
