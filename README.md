@@ -11,16 +11,16 @@ abismo
 
 #### ToDo List
 * website
-** Rediseño para lanzamiento 2017 (30 Abril)
-** Diseño de sistema de registro y programación
+- - Rediseño para lanzamiento 2017 (30 Abril)
+- -  Diseño de sistema de registro y programación
 * electronics
-** Sensor Resistencia Galvánica / parches electroestimuladores
+- -  Sensor Resistencia Galvánica / parches electroestimuladores
 * grafica
-** Crear los 8 ambientes que se presentarán en la pieza
+- -  Crear los 8 ambientes que se presentarán en la pieza
 * sonido
-** 8 ambientes sonoros que respondan a los diversos estímulos de 2 usuarios (2Muse, 2Sensor Pulso Cardiaco, 2Sensor Resistencia Galvánica)
+- -  8 ambientes sonoros que respondan a los diversos estímulos de 2 usuarios (2Muse, 2Sensor Pulso Cardiaco, 2Sensor Resistencia Galvánica)
 * herramientas (GettingData)
-** Conexión Muse<-OSC->Grafica/Sonido
+- -  Conexión Muse<-OSC->Grafica/Sonido
 
 #### Tecnologías utilizadas:
 * website; HTML, CSS, JavaScript, 
