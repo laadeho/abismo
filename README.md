@@ -2,20 +2,15 @@
 Proyecto multimedia en torno a la proximidad y el reconocimiento humano.
 
 #### Sensaciones
-0. Entendimiento / Tranquilidad 0:00 - 1:29
-Espacio en el que se pretende que el participante entienda el funcionamiento de la pieza, representando de manera clara e incluso literal los valores recibidos por los diversos sensores
+0. Entendimiento / Tranquilidad 0:00 - 1:29 Funcionamiento de la pieza.
 
-1. Expectativa 1:30 - 2:59
-En este momento los participantes estarán atentos y a la expectativa de lo que sucede a continuación, será un momento de entendimiento con la pieza. Palabras clave: futuro, esperanza, cautela, posibilidad...
+1. Expectativa 1:30 - 2:59 Futuro, esperanza, cautela, posibilidad...
 
-2. Miedo 3:00 - 4:29
-Adrenalina y amenaza, miedo a lo desconocido, sonidos e imágenes que sacan de la zona de confort, y que evocan peligro. Sonidos e imágenes que provoquen a los participantes el sentimiento de querer huir o esconderse. 
+2. Miedo 3:00 - 4:29 Adrenalina y amenaza, miedo a lo desconocido, peligro, salir de zona de confort.
 
-3. Asombro 4:30 - 5:59
-Sonidos e imágenes que evoquen la introspección, que recuerden lo pequeño que es el ser humano en relación a las cosas, la naturaleza. Lo extraordinario e inesperado. Sorpresa, “El asombro puede provocarse por un acontecimiento positivo (agradable), pero también por un hecho negativo (dañino o doloroso).”
+3. Asombro 4:30 - 5:59 Introspección, que recuerden lo pequeño que es el ser humano en relación a las cosas, la naturaleza. Lo extraordinario e inesperado. Sorpresa, “El asombro puede provocarse por un acontecimiento positivo (agradable), pero también por un hecho negativo (dañino o doloroso).”
 
-4. Euforia 6:00 - 7:29
-Momento de éxtasis, excitación; bombardeo de imágenes y sonidos a una velocidad mayor al ritmo cardíaco del visitante, y analizar si lo podemos acelerar ligeramente.
+4. Euforia 6:00 - 7:29 Momento de éxtasis, excitación; bombardeo de imágenes y sonidos a una velocidad mayor al ritmo cardíaco del visitante, y analizar si lo podemos acelerar ligeramente.
 
 5. Tristeza 7:30 - 8:59
 Será muy contrastante a la parte anterior, se notarán mucho los cambios en tempo, volumen y texturas.
