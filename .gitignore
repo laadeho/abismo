@@ -31,11 +31,17 @@
 .Trashes
 
 # VisualStudio
+*.db
+*.suo
+.vs/*
 
 
 */obj/*
 */bin/*
 Debug/
+grafica/abismo_grafica/abismo_grafica/obj/
+grafica/abismo_grafica/abismo_grafica/bin/
+grafica/abismo_grafica/abismo_grafica.VC.db
 
 ehthumbs.db
 Thumbs.db
