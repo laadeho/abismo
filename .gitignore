@@ -29,6 +29,14 @@
 ._*
 .Spotlight-V100
 .Trashes
+
+# VisualStudio
+
+
+*/obj/*
+*/bin/*
+Debug/
+
 ehthumbs.db
 Thumbs.db
 audio/samples/

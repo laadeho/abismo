@@ -7,7 +7,7 @@ Proyecto multimedia en torno a la proximidad y el reconocimiento humano.
 - Neuronal (Muse - OSC)
 - Pulso Cardiaco (Arduino/PulseSensor - Bluetooth/Serial)
 - Respuesta Galvánica de la Piel (Arduino/Parches Electroestimuladores - Bluetooth/Serial)
-2. Sensaciones a graficar: Entendimiento / Tranquilidad, Expectativa (futuro, esperanza, cautela, posibilidad), Miedo, Asombro, Euforia, Tristeza, Abismo, Felicidad, Reconocimiento.
+2. Sensaciones: Entendimiento / Tranquilidad, Expectativa (futuro, esperanza, cautela, posibilidad), Miedo, Asombro, Euforia, Tristeza, Abismo, Felicidad, Reconocimiento.
 
 #### Herramientas a utilizar
 * [OpenFrameworks] C++
