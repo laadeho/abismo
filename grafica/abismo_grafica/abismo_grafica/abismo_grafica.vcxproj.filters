@@ -79,40 +79,40 @@
       <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons">
-      <UniqueIdentifier>{0da8860e-b5d2-4c31-a1b3-bec446a0eb0e}</UniqueIdentifier>
+      <UniqueIdentifier>{1e46580c-6ea8-4cd7-b5d5-bf1b1878872d}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxGui">
-      <UniqueIdentifier>{49139bb4-3bc1-44a9-8f43-23c5a164bf52}</UniqueIdentifier>
+      <UniqueIdentifier>{5d43c4a8-0400-4756-afd6-e0041c908c92}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxGui\src">
-      <UniqueIdentifier>{cfe3a007-457a-45d5-b15f-4718f8bb1b0b}</UniqueIdentifier>
+      <UniqueIdentifier>{d47f0e6d-eab1-4292-abb9-99b50e9fde2e}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc">
-      <UniqueIdentifier>{fd641df4-dc13-44c6-a83f-185fa21a9238}</UniqueIdentifier>
+      <UniqueIdentifier>{bf506e78-1659-4f6e-99ef-88725449951f}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\src">
-      <UniqueIdentifier>{a9a1d00c-a2f4-4595-a17b-1b2f25b4e2ce}</UniqueIdentifier>
+      <UniqueIdentifier>{7d9ad0a5-549d-4c6b-87f6-8941e2259f53}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs">
-      <UniqueIdentifier>{1c8ea60e-4b2d-488c-a983-14de1b9741d4}</UniqueIdentifier>
+      <UniqueIdentifier>{fdd0a96f-be6d-4687-8aea-799b9bdb0115}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack">
-      <UniqueIdentifier>{e1285189-7ccb-4ff4-9602-532c0c40dcee}</UniqueIdentifier>
+      <UniqueIdentifier>{bbc4a758-b444-46ea-86e8-d95aeacac5fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src">
-      <UniqueIdentifier>{b167cb2e-456d-4dd3-8682-e20486984c47}</UniqueIdentifier>
+      <UniqueIdentifier>{194f72cb-5ba0-433e-b344-2861fd36dc24}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip">
-      <UniqueIdentifier>{2451fc3a-a1d7-4c3e-af55-9ca9e0b86515}</UniqueIdentifier>
+      <UniqueIdentifier>{386215dc-270c-41be-b6bb-c9ff3404dc69}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\posix">
-      <UniqueIdentifier>{0bcba96b-2236-4cae-b939-03d041fcd238}</UniqueIdentifier>
+      <UniqueIdentifier>{8ce6280b-cfa7-4563-a1f7-1037e3e5e4ae}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\win32">
-      <UniqueIdentifier>{86f0aa7f-b07d-4ca9-852c-a9e390666364}</UniqueIdentifier>
+      <UniqueIdentifier>{974d0b20-1cf9-470a-97cb-e3ac4c7497d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
-      <UniqueIdentifier>{5df0a036-90ef-4313-8173-bf536376c588}</UniqueIdentifier>
+      <UniqueIdentifier>{7053898b-6d9d-4433-8947-d39434c90bb6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -95,7 +95,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxNetwork\src;
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
@@ -121,7 +121,7 @@ D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncl
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxNetwork\src;
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
@@ -147,7 +147,7 @@ D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncl
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxNetwork\src;
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
@@ -176,7 +176,7 @@ D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncl
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxNetwork\src;
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
 D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
