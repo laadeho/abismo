@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
+#include "ofxOsc.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +23,47 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+		/////////////////////////////
+		bool debug = true;
+		string sensaciones[10];
+
+		int escena;
+		int numEscenas = 10;
+
+
+		/////////// GUI //////////////////
+		ofxIntSlider escenas;
+		// Brain
+		ofxToggle alpha;
+		ofxToggle beta;
+		ofxToggle gamma;
+		ofxToggle delta;
+		ofxToggle theta;
+		// Artifacts
+		ofxToggle artifacts;
+		ofxToggle museOn;
+		ofxButton blink;
+		ofxButton jawClench;
+		// Accelerometer
+		ofxToggle acc;
+		ofxFloatSlider accX;
+		ofxFloatSlider accY;
+		ofxFloatSlider accZ;
+		// Gyro
+		ofxToggle gyro;
+		ofxFloatSlider gyroX;
+		ofxFloatSlider gyroY;
+		ofxFloatSlider gyroZ;
+		//Connections
+		ofxToggle isGood;
+		ofxFloatSlider EEG1;
+		ofxFloatSlider EEG2;
+		ofxFloatSlider EEG3;
+		ofxFloatSlider EEG4;
+		ofxFloatSlider auxLeft;
+		ofxFloatSlider auxRight;
+		// GUI
+		ofxPanel gui;
+		/////////////// GUI //////////////////		
 };
