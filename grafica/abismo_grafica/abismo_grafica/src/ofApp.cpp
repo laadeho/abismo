@@ -73,8 +73,28 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	if(alpha)
-		std::cout << "Alpha: " << alpha << endl;
+	if (alpha)
+		valSensores[0] = ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25*0.5 + 1)));
+	if (beta)
+		valSensores[1] = ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25*1 + 1)));
+	if (gamma)
+		valSensores[2] = ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25*2 + 1)));
+	if (delta)
+		valSensores[3] = ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25*3 + 1)));
+	if (theta)
+		valSensores[4] = ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25*4 + 1)));
+	if (acc) {
+		accX = ofNoise(ofGetElapsedTimeMillis()*0.00025);
+		accY = ofNoise(ofGetElapsedTimeMillis()*0.0005);
+		accZ = ofNoise(ofGetElapsedTimeMillis()*0.00075);
+	}
+
+
+	if (emularSensorMuse) {
+		for (int i = 0; i < 5; i++) {
+			valSensores[i] = ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25 * i + 1)));
+		}
+	}
 
 	switch (escena)
 	{
@@ -153,9 +173,21 @@ void ofApp::draw(){
 /////////////// ESCENA 01
 void ofApp::escena01() { 
 	// ENTENDIMIENTO // TRANQUILIDAD //
+
 	for (int i = 0; i < 5; i++) {
-		dibujaOnda(i, posIniX, ofGetHeight() - 100 - 120 * i, ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25*i+1))));
+		dibujaOnda(i, posIniX, ofGetHeight() - 100 - 120 * i, valSensores[i]);
 	}
+	dibujaOrientacion(ofGetWidth()/2-100, 100);
+
+	ofPushMatrix();
+	ofTranslate(ofGetWidth(),0,0);
+	ofScale(-1, 1, 1);
+	for (int i = 0; i < 5; i++) {
+		dibujaOnda(i, posIniX, ofGetHeight() - 100 - 120 * i, valSensores[i]);
+	}
+	dibujaOrientacion(ofGetWidth() / 2 - 100, 100);
+	ofPopMatrix();
+
 	/*
 	float val = ofNoise(ofRandomf());
 	std::cout << val << endl;
@@ -183,7 +215,25 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
 	}
 	ofSetColor(255, opa01);
 	ofFill();
-	ofEllipse(posOndaX, pY-50+ofMap(val, 0, 1, 25, -25), 5*val, 5*val);
+	ofEllipse(posOndaX, pY-50+ofMap(val, 0, 1, 25, -25), 5*val,5*val);
+}
+void ofApp::dibujaOrientacion(int pX, int pY) {
+	ofPushMatrix();
+	ofTranslate(pX, pY, 0);
+	ofSetColor(0);
+	ofFill();
+	ofRect(-50, -50, 100, 100);
+	ofRotateX(accX*360);
+	ofRotateY(accY*360);
+	ofRotateZ(accZ*360);
+
+	ofSetColor(255, 0, 0, 50);
+	ofFill();
+	ofBox(50);
+	ofSetColor(255);
+	ofNoFill();
+	ofBox(50);
+	ofPopMatrix();
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -194,6 +244,8 @@ void ofApp::keyPressed(int key) {
 		debug = !debug;
 	if (key == 'g' || key == 'G')
 		showGui = !showGui;
+	if (key == 'e' || key == 'E')
+		emularSensorMuse = !emularSensorMuse;
 	if (key == OF_KEY_LEFT)
 		escena--;
 	if (key == OF_KEY_RIGHT)

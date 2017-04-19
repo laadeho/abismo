@@ -31,9 +31,13 @@ class ofApp : public ofBaseApp{
 
 		int escena;
 		int numEscenas = 10;
+		bool emularSensorMuse = false;
+		float valSensores[5] = {0,0,0,0,0};
 		/////// ESCENAS //////////////////////////
 		void escena01();
 		void dibujaOnda(int, int, int, float);
+		void dibujaOrientacion(int, int);
+
 		float opaGral = 0.0;
 		float opa01 = 0.0;
 		string ondas[5];
