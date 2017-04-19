@@ -41,6 +41,7 @@
 */bin/*
 Debug/
 grafica/abismo_grafica/abismo_grafica/obj/
+grafica/abismo_grafica/abismo_grafica/bin/abismo*
 grafica/abismo_grafica/abismo_grafica/bin/*.exe
 grafica/abismo_grafica/abismo_grafica/bin/*.exp
 grafica/abismo_grafica/abismo_grafica/bin/*.ilk
