@@ -23,15 +23,18 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-
 		/////////////////////////////
-		bool debug = true;
-		bool showGui = true;
+		bool debug = false;
+		bool showGui = false;
 		string sensaciones[10];
-		ofTrueTypeFont titulos;
+		ofTrueTypeFont titulos, texto1;
 
 		int escena;
 		int numEscenas = 10;
+		/////////////////////////////////
+		void escena01();
+		void dibujaOnda(int, int, int, float);
+		string ondas[5];
 
 
 		/////////// GUI //////////////////

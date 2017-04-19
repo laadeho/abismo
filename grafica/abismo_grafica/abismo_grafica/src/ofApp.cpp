@@ -3,11 +3,11 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofSetBackgroundColor(200);
-	ofSetCircleResolution(50);
+	ofSetBackgroundColor(0);
 	//ofTrueTypeFont titulos;
 	//titulos.setLineHeight(10);
 	titulos.loadFont("Helvetica Bold.ttf", 20);
+	texto1.loadFont("Helvetica Normal.ttf", 12);
 
 	sensaciones[0] = "Entendimiento / Tranquilidad";
 	sensaciones[1] = "Expectativa ";
@@ -19,6 +19,12 @@ void ofApp::setup(){
 	sensaciones[7] = "Felicidad";
 	sensaciones[8] = "Reconocimiento";
 	sensaciones[9] = "Proximidad";
+	// ESC 01 /////////////////////////
+	ondas[0] = "alpha";
+	ondas[1] = "beta";
+	ondas[2] = "gamma";
+	ondas[3] = "delta";
+	ondas[4] = "theta";
 
 	///////////////////// GUI ///////////////
 	gui.setup();
@@ -56,8 +62,6 @@ void ofApp::setup(){
 	gui.add(auxRight.setup("auxRight", 0.1f, 0.0f, 1.0f));
 	////////////// GUI //////////////////
 
-
-
 	/*
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
 	std::cout << "Alto: " << ofGetScreenHeight() << endl;
@@ -71,25 +75,36 @@ void ofApp::update() {
 	if(alpha)
 		std::cout << "Alpha: " << alpha << endl;
 
+	switch (escena)
+	{
+	case 0:
+		ofSetCircleResolution(50);
+		break;
+	default:
+		break;
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	if (debug) {
+		ofSetColor(255, 0, 0);
+		ofFill();
+		ofDrawBitmapString("- D E B U G -", 100, 50);
 		for (int i = 0; i < 10; i++) {
-			//ofDrawBitmapString(sensaciones[i], 100, 125+20*i);
+			ofDrawBitmapString(sensaciones[i], 100, 125+20*i);
 		}
 	}
 	///// DRAW ///////////////////////////////////////////////////////
-	//ofDrawBitmapString(sensaciones[escena], ofGetWidth()/2, 225 + 20);
 	ofSetColor(255);
 	ofFill();
-	titulos.drawString(escena +": "+sensaciones[escena], 100, 100);
+	titulos.drawString(ofToString(escena) +": "+sensaciones[escena], 100, 100);
 
 	ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, 100);
 	switch (escena)
 	{
 	case 0:
+		escena01();
 		break;
 	case 1:
 		break;
@@ -178,5 +193,29 @@ void ofApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
+
+}
+
+/////////////// ESCENA 01
+void ofApp::escena01() { 
+	// ENTENDIMIENTO // TRANQUILIDAD //
+	for (int i = 0; i < 5; i++) {
+		dibujaOnda(i, 100, ofGetHeight() - 100 - 150 * i, ofRandomf());
+	}
+
+}
+
+void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
+	ofSetColor(255);
+	ofFill(); 
+	texto1.drawString(ondas[indice], pX, pY);
+	ofSetColor(255);
+	ofFill();
+	for (int i = 0; i < 11; i++) {
+		ofLine(pX+((ofGetWidth() - pX * 2) /10)*i, pY - 25, pX + ((ofGetWidth() - pX * 2) / 10)*i, pY - 125);
+	}
+	ofSetColor(100);
+	ofFill();
+	ofLine(pX, pY - 75, ofGetWidth() - pX-2, pY - 75);
 
 }
