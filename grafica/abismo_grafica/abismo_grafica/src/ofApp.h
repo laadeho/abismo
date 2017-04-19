@@ -31,11 +31,15 @@ class ofApp : public ofBaseApp{
 
 		int escena;
 		int numEscenas = 10;
-		/////////////////////////////////
+		/////// ESCENAS //////////////////////////
 		void escena01();
 		void dibujaOnda(int, int, int, float);
+		float opaGral = 0.0;
+		float opa01 = 0.0;
 		string ondas[5];
-
+		float valOnda[5];
+		int posIniX = 100;
+		float posOndaX = posIniX;
 
 		/////////// GUI //////////////////
 		ofxIntSlider escenas;

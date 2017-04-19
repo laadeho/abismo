@@ -4,10 +4,11 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofSetBackgroundColor(0);
+	ofSetBackgroundAuto(false);
 	//ofTrueTypeFont titulos;
 	//titulos.setLineHeight(10);
 	titulos.loadFont("Helvetica Bold.ttf", 20);
-	texto1.loadFont("Helvetica Normal.ttf", 12);
+	texto1.loadFont("Helvetica Normal.ttf", 10);
 
 	sensaciones[0] = "Entendimiento / Tranquilidad";
 	sensaciones[1] = "Expectativa ";
@@ -78,7 +79,20 @@ void ofApp::update() {
 	switch (escena)
 	{
 	case 0:
-		ofSetCircleResolution(50);
+		//ofSetCircleResolution(50);
+		if (ofGetFrameNum() > 500) {
+			if (opa01 < 255) {
+				opa01 += 0.025;
+			}
+			if (opaGral < 255) {
+				opaGral += 0.05;
+			}
+			posOndaX += 0.25;
+		}
+		if (posOndaX > ofGetWidth() / 2) {
+			posOndaX = posIniX;
+			ofBackground(0);
+		}
 		break;
 	default:
 		break;
@@ -94,13 +108,16 @@ void ofApp::draw(){
 		for (int i = 0; i < 10; i++) {
 			ofDrawBitmapString(sensaciones[i], 100, 125+20*i);
 		}
+		ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, 100);
 	}
 	///// DRAW ///////////////////////////////////////////////////////
-	ofSetColor(255);
+	ofSetColor(0);
+	ofFill();
+	ofRect(95,75,450,35);
+	ofSetColor(255, opaGral);
 	ofFill();
 	titulos.drawString(ofToString(escena) +": "+sensaciones[escena], 100, 100);
 
-	ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, 100);
 	switch (escena)
 	{
 	case 0:
@@ -133,8 +150,46 @@ void ofApp::draw(){
 		gui.draw();
 }
 
+/////////////// ESCENA 01
+void ofApp::escena01() { 
+	// ENTENDIMIENTO // TRANQUILIDAD //
+	for (int i = 0; i < 5; i++) {
+		dibujaOnda(i, posIniX, ofGetHeight() - 100 - 120 * i, ofNoise(float(ofGetElapsedTimeMillis()*.005*(0.25*i+1))));
+	}
+	/*
+	float val = ofNoise(ofRandomf());
+	std::cout << val << endl;
+	*/
+}
+
+void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
+	ofSetColor(0);
+	ofFill();
+	ofRect(pX-5, pY-20, 50,25);
+	ofSetColor(255, opa01);
+	ofFill();
+	texto1.drawString(ondas[indice], pX, pY);
+
+	ofSetLineWidth(0.15);
+	ofSetColor(100, opa01);
+	ofNoFill();
+	ofLine(pX, pY - 50, ofGetWidth()/2, pY - 50);
+
+	ofSetColor(255, opa01);
+	ofNoFill();
+	ofSetLineWidth(1);
+	for (int i = 0; i < 6; i++) {
+		ofLine(pX+((ofGetWidth() - pX * 2) /10)*i, pY - 25, pX + ((ofGetWidth() - pX * 2) / 10)*i, pY - 75);
+	}
+	ofSetColor(255, opa01);
+	ofFill();
+	ofEllipse(posOndaX, pY-50+ofMap(val, 0, 1, 25, -25), 5*val, 5*val);
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
+void ofApp::keyPressed(int key) {
 	if (key == 'd' || key == 'D')
 		debug = !debug;
 	if (key == 'g' || key == 'G')
@@ -147,75 +202,51 @@ void ofApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){
+void ofApp::keyReleased(int key) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
+void ofApp::mouseMoved(int x, int y) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
+void ofApp::mouseDragged(int x, int y, int button) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
+void ofApp::mousePressed(int x, int y, int button) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
+void ofApp::mouseReleased(int x, int y, int button) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
+void ofApp::mouseEntered(int x, int y) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
+void ofApp::mouseExited(int x, int y) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
+void ofApp::windowResized(int w, int h) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
+void ofApp::gotMessage(ofMessage msg) {
 
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
-}
-
-/////////////// ESCENA 01
-void ofApp::escena01() { 
-	// ENTENDIMIENTO // TRANQUILIDAD //
-	for (int i = 0; i < 5; i++) {
-		dibujaOnda(i, 100, ofGetHeight() - 100 - 150 * i, ofRandomf());
-	}
-
-}
-
-void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
-	ofSetColor(255);
-	ofFill(); 
-	texto1.drawString(ondas[indice], pX, pY);
-	ofSetColor(255);
-	ofFill();
-	for (int i = 0; i < 11; i++) {
-		ofLine(pX+((ofGetWidth() - pX * 2) /10)*i, pY - 25, pX + ((ofGetWidth() - pX * 2) / 10)*i, pY - 125);
-	}
-	ofSetColor(100);
-	ofFill();
-	ofLine(pX, pY - 75, ofGetWidth() - pX-2, pY - 75);
+void ofApp::dragEvent(ofDragInfo dragInfo) {
 
 }
