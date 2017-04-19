@@ -26,7 +26,9 @@ class ofApp : public ofBaseApp{
 
 		/////////////////////////////
 		bool debug = true;
+		bool showGui = true;
 		string sensaciones[10];
+		ofTrueTypeFont titulos;
 
 		int escena;
 		int numEscenas = 10;

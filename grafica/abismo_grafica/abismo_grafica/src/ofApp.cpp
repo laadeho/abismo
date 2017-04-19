@@ -1,7 +1,14 @@
 #include "ofApp.h"
+#include <ofTrueTypeFont.h>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	ofSetBackgroundColor(200);
+	ofSetCircleResolution(50);
+	//ofTrueTypeFont titulos;
+	//titulos.setLineHeight(10);
+	titulos.loadFont("Helvetica Bold.ttf", 20);
+
 	sensaciones[0] = "Entendimiento / Tranquilidad";
 	sensaciones[1] = "Expectativa ";
 	sensaciones[2] = "Miedo";
@@ -15,6 +22,8 @@ void ofApp::setup(){
 
 	///////////////////// GUI ///////////////
 	gui.setup();
+	gui.setPosition(ofGetWidth() - 250, 50);
+	gui.setName("abismo // proximo UI");
 	gui.add(escenas.setup("Escena",0,0,9));
 	// Brain
 	gui.add(alpha.setup("alpha", false));
@@ -68,20 +77,58 @@ void ofApp::update() {
 void ofApp::draw(){
 	if (debug) {
 		for (int i = 0; i < 10; i++) {
-			ofDrawBitmapString(sensaciones[i], 100, 125+20*i);
+			//ofDrawBitmapString(sensaciones[i], 100, 125+20*i);
 		}
 	}
+	///// DRAW ///////////////////////////////////////////////////////
+	//ofDrawBitmapString(sensaciones[escena], ofGetWidth()/2, 225 + 20);
+	ofSetColor(255);
+	ofFill();
+	titulos.drawString(escena +": "+sensaciones[escena], 100, 100);
 
 	ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, 100);
-	if(debug)
-		gui.draw();
+	switch (escena)
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
+		break;
+	case 8:
+		break;
+	case 9:
+		break;
+	default:
+		break;
+	}
 
+	///// DRAW ///////////////////////////////////////////////////////
+	if(showGui)
+		gui.draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	if (key == 'd' || key == 'D')
 		debug = !debug;
+	if (key == 'g' || key == 'G')
+		showGui = !showGui;
+	if (key == OF_KEY_LEFT)
+		escena--;
+	if (key == OF_KEY_RIGHT)
+		escena++;
+	escena = escena % numEscenas;
 }
 
 //--------------------------------------------------------------

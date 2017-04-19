@@ -41,7 +41,7 @@
 */bin/*
 Debug/
 grafica/abismo_grafica/abismo_grafica/obj/
-grafica/abismo_grafica/abismo_grafica/bin/
+# grafica/abismo_grafica/abismo_grafica/bin/
 grafica/abismo_grafica/abismo_grafica.VC.db
 grafica/abismo_grafica/abismo_grafica.VC.VC.opendb
 ehthumbs.db
