@@ -1,6 +1,32 @@
 # abismo // próximo 
 Proyecto multimedia en torno a la proximidad y el reconocimiento humano.
 
+## PENDIENTES CUATRIMESTRE
+Eduardo H. Obieta:
+* Continuar el desarrollo de programación de herramientas de vídeo (Processing).
+* Continuar con el desarrollo visual de la pieza.
+* Diseño de mobiliario.
+* Hacer pruebas de los sensores construido.
+
+Aimée Theriot 
+* Continuar con la difusión de la página en medios digitales
+* Continuar el desarrollo de programación de herramientas de audio (SuperCollider)
+* Continuar con el diseño sonoro
+* Hacer pruebas de los sensores construidos
+
+Diego Montesinos
+* Programación y mantenimiento de sitio web
+* Programación para comunicación con aplicación de audio y video
+* Hacer pruebas de los sensores construidos
+
+### Metas por cuatrimestre:
+
+* 1 Aplicación en SuperCollider para transformar los datos en sonido
+* 1 Aplicación en Processing para transformar los datos en vídeo
+* Conexión entre aplicaciones y el sitio web
+
+## /////////////
+
 #### Sensaciones
 0. Entendimiento / Tranquilidad 0:00 - 1:29 Funcionamiento de la pieza.
 
@@ -35,7 +61,40 @@ abismo
 - /sonido
 - /herramientas
 
-#### ToDo List
+### etiquetas de los mensajes OSC:
+//Estos valores son *Relative*
+- /alpha
+- /beta
+- /gamma
+- /delta
+- /theta
+
+Artifacts
+- /blink (solo cuando parpadea)
+- /jawClench (solo cuando tensas la mandíbula)
+
+Accelerometer
+- /accX
+- /accY
+- /accZ
+
+Gyroscope
+- /gyroX
+- /gyroY
+- /gyroZ
+
+Is Good (Revisa que los sensores estén bien colocados)
+- /eeg1
+- /eeg2
+- /eeg3
+- /eeg4
+- /auxLeft
+- /auxRight
+
+Battery %
+- /battery
+
+### ToDo List
 * website
 ** Rediseño para lanzamiento 2017 (30 Abril)
 ** Diseño de sistema de registro y programación
@@ -66,8 +125,9 @@ En el archivo .gitignore esta la carpeta /audio/samples/ para evitar la subida d
 
 ![alt tag](http://abismo.cc/images/agradecimiento_coverFB.png)
 
-Interfaz envío OSC
-![alt tag](https://github.com/laadeho/abismo/blob/master/website/images/UIosc.png?raw=true)
+## Interfaz envío OSC
+
+![alt tag](https://github.com/laadeho/abismo/blob/master/website/images/UI_200417.png?raw=true)
 
 // Learn Git
 https://try.github.io/levels/1/challenges/1

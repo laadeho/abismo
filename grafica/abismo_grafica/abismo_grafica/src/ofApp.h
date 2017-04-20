@@ -4,6 +4,9 @@
 #include "ofxGui.h"
 #include "ofxOsc.h"
 
+#define PORT 7000
+#define NUM_MSG_STRINGS 20
+
 
 class ofApp : public ofBaseApp{
 
@@ -44,6 +47,27 @@ class ofApp : public ofBaseApp{
 		float valOnda[5];
 		int posIniX = 100;
 		float posOndaX = posIniX;
+		float velOndaX = 0.05;
+
+
+
+
+
+
+		///// TEST OSC ////////////////////////////
+		ofTrueTypeFont font;
+		ofxOscReceiver receiver;
+
+		int current_msg_string;
+		string msg_strings[NUM_MSG_STRINGS];
+		float timers[NUM_MSG_STRINGS];
+
+		int mouseX, mouseY;
+		string mouseButtonState;
+
+		ofImage receivedImage;
+		///// TEST OSC ////////////////////////////
+		void updateOSC();
 
 		/////////// GUI //////////////////
 		ofxIntSlider escenas;
