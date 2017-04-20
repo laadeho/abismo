@@ -6,9 +6,9 @@ Proyecto multimedia en torno a la proximidad y el reconocimiento humano.
 * Eduardo H. Obieta:
 
 	** Continuar el desarrollo de programación de herramientas de vídeo (Processing)
-Continuar con el desarrollo visual de la pieza
-Diseño de mobiliario
-Hacer pruebas de los sensores construidos
+	** Continuar con el desarrollo visual de la pieza
+	** Diseño de mobiliario
+	** Hacer pruebas de los sensores construido
 
 * Aimée Theriot 
 
