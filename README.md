@@ -35,6 +35,35 @@ abismo
 - /sonido
 - /herramientas
 
+### etiquetas de los mensajes OSC:
+//Estos valores son *Relative*
+- /alpha
+- /beta
+- /gamma
+- /delta
+- /theta
+Artifacts
+- /blink (solo cuando parpadea)
+- /jawClench (solo cuando tensas la mandíbula)
+Accelerometer
+- /accX
+- /accY
+- /accZ
+Gyroscope
+- /gyroX
+- /gyroY
+- /gyroZ
+Is Good (Revisa que los sensores estén bien colocados)
+- /eeg1
+- /eeg2
+- /eeg3
+- /eeg4
+- /auxLeft
+- /auxRight
+
+Battery %
+- /battery
+
 #### ToDo List
 * website
 ** Rediseño para lanzamiento 2017 (30 Abril)
