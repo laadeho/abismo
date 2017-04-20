@@ -12,10 +12,10 @@ Hacer pruebas de los sensores construidos
 
 * Aimée Theriot 
 
-Continuar con la difusión de la página en medios digitales
+*Continuar con la difusión de la página en medios digitales*
 Continuar el desarrollo de programación de herramientas de audio (SuperCollider)
 Continuar con el diseño sonoro
-Hacer pruebas de los sensores construidos
+*Hacer pruebas de los sensores construidos*
 
 * Diego Montesinos
 
