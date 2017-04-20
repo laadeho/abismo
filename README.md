@@ -42,17 +42,21 @@ abismo
 - /gamma
 - /delta
 - /theta
+
 Artifacts
 - /blink (solo cuando parpadea)
 - /jawClench (solo cuando tensas la mandíbula)
+
 Accelerometer
 - /accX
 - /accY
 - /accZ
+
 Gyroscope
 - /gyroX
 - /gyroY
 - /gyroZ
+
 Is Good (Revisa que los sensores estén bien colocados)
 - /eeg1
 - /eeg2
@@ -64,7 +68,7 @@ Is Good (Revisa que los sensores estén bien colocados)
 Battery %
 - /battery
 
-#### ToDo List
+### ToDo List
 * website
 ** Rediseño para lanzamiento 2017 (30 Abril)
 ** Diseño de sistema de registro y programación
