@@ -1,6 +1,36 @@
 # abismo // próximo 
 Proyecto multimedia en torno a la proximidad y el reconocimiento humano.
 
+
+## PENDIENTES CUATRIMESTRE
+* Eduardo H. Obieta:
+
+Continuar el desarrollo de programación de herramientas de vídeo (Processing)
+Continuar con el desarrollo visual de la pieza
+Diseño de mobiliario
+Hacer pruebas de los sensores construidos
+
+* Aimée Theriot 
+
+Continuar con la difusión de la página en medios digitales
+Continuar el desarrollo de programación de herramientas de audio (SuperCollider)
+Continuar con el diseño sonoro
+Hacer pruebas de los sensores construidos
+
+* Diego Montesinos
+
+Programación y mantenimiento de sitio web
+Programación para comunicación con aplicación de audio y video
+Hacer pruebas de los sensores construidos
+
+### Metas por cuatrimestre:
+
+1 Aplicación en SuperCollider para transformar los datos en sonido
+1 Aplicación en Processing para transformar los datos en vídeo
+Conexión entre aplicaciones y el sitio web
+
+## /////////////
+
 #### Sensaciones
 0. Entendimiento / Tranquilidad 0:00 - 1:29 Funcionamiento de la pieza.
 
@@ -67,35 +97,6 @@ Is Good (Revisa que los sensores estén bien colocados)
 
 Battery %
 - /battery
-
-## PENDIENTES CUATRIMESTRE
-* Eduardo H. Obieta:
-
-Continuar el desarrollo de programación de herramientas de vídeo (Processing)
-Continuar con el desarrollo visual de la pieza
-Diseño de mobiliario
-Hacer pruebas de los sensores construidos
-
-* Aimée Theriot 
-
-Continuar con la difusión de la página en medios digitales
-Continuar el desarrollo de programación de herramientas de audio (SuperCollider)
-Continuar con el diseño sonoro
-Hacer pruebas de los sensores construidos
-
-* Diego Montesinos
-
-Programación y mantenimiento de sitio web
-Programación para comunicación con aplicación de audio y video
-Hacer pruebas de los sensores construidos
-
-### Metas por cuatrimestre:
-
-1 Aplicación en SuperCollider para transformar los datos en sonido
-1 Aplicación en Processing para transformar los datos en vídeo
-Conexión entre aplicaciones y el sitio web
-
-
 
 ### ToDo List
 * website
