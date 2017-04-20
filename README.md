@@ -126,7 +126,7 @@ En el archivo .gitignore esta la carpeta /audio/samples/ para evitar la subida d
 ![alt tag](http://abismo.cc/images/agradecimiento_coverFB.png)
 
 Interfaz envío OSC
-![alt tag](https://github.com/laadeho/abismo/blob/master/website/images/UIosc.png?raw=true)
+![alt tag](https://github.com/laadeho/abismo/blob/master/website/images/UI_200417.png?raw=true)
 
 // Learn Git
 https://try.github.io/levels/1/challenges/1
