@@ -25,10 +25,7 @@
     "uniqCompNum": 44,
     "versionPublish": "3.12.1",
     "favicon": "",
-    "noImageResize": "",
-    "publishFtpPath": "public_html",
-    "publishType": "local",
-    "publishPath": "file:///G:/LAAd/LAAd%2017/2.%20Arte/0.%20Abismo/abismo/website/test"
+    "noImageResize": ""
   },
   "pages": {
     "index.html": {
