@@ -31,30 +31,27 @@ class ofApp : public ofBaseApp{
 		bool showGui = false;
 		string sensaciones[10];
 		ofTrueTypeFont titulos, texto1;
-
 		int escena;
 		int numEscenas = 10;
 		bool emularSensorMuse = false;
 		float valSensores[5] = {0,0,0,0,0};
 		/////// ESCENAS //////////////////////////
+		bool titulo = false;
 		void escena01();
+		void museConectado(int, int);
 		void dibujaOnda(int, int, int, float);
-		void dibujaOrientacion(int, int);
+		void dibujaOrientaciones(int, int, float, float, float, ofColor);
 
 		float opaGral = 0.0;
 		float opa01 = 0.0;
 		string ondas[5];
 		float valOnda[5];
 		int posIniX = 100;
-		float posOndaX = posIniX;
+		float posOndaX = 0;
 		float velOndaX = 0.05;
+		ofFbo ondasFbo[5];
 
-
-
-
-
-
-		///// TEST OSC ////////////////////////////
+		///// OSC ////////////////////////////
 		ofTrueTypeFont font;
 		ofxOscReceiver receiver;
 
@@ -62,11 +59,7 @@ class ofApp : public ofBaseApp{
 		string msg_strings[NUM_MSG_STRINGS];
 		float timers[NUM_MSG_STRINGS];
 
-		int mouseX, mouseY;
-		string mouseButtonState;
-
-		ofImage receivedImage;
-		///// TEST OSC ////////////////////////////
+		///// OSC ////////////////////////////
 		void updateOSC();
 
 		/////////// GUI //////////////////
