@@ -95,27 +95,21 @@ Battery %
 - /battery
 
 ### ToDo List
-* website
+website
+* Rediseño para lanzamiento 2017 (30 Abril)
+* Diseño de sistema de registro y programación
 
-** Rediseño para lanzamiento 2017 (30 Abril)
+electronics
+* Sensor Resistencia Galvánica / parches electroestimuladores
 
-** Diseño de sistema de registro y programación
+grafica
+* Crear los 8 ambientes que se presentarán en la pieza
 
-* electronics
+sonido
+* 8 ambientes sonoros que respondan a los diversos estímulos de 2 usuarios (2Muse, 2Sensor Pulso Cardiaco, 2Sensor Resistencia Galvánica)
 
-** Sensor Resistencia Galvánica / parches electroestimuladores
-
-* grafica
-
-** Crear los 8 ambientes que se presentarán en la pieza
-
-* sonido
-
-** 8 ambientes sonoros que respondan a los diversos estímulos de 2 usuarios (2Muse, 2Sensor Pulso Cardiaco, 2Sensor Resistencia Galvánica)
-
-* herramientas (GettingData)
-
-** Conexión Muse<-OSC->Grafica/Sonido
+herramientas (GettingData)
+* Conexión Muse<-OSC->Grafica/Sonido
 
 #### Tecnologías utilizadas:
 * website; HTML, CSS, JavaScript, 
