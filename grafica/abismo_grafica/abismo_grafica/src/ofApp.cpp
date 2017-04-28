@@ -4,7 +4,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	// listen on the given port
-	cout << "listening for osc messages on port " << PORT << "\n";
+	//cout << "listening for osc messages on port " << PORT << "\n";
 	receiver.setup(PORT);
 
 	current_msg_string = 0;
@@ -171,7 +171,6 @@ void ofApp::update() {
 	}
 }
 
-
 //--------------------------------------------------------------
 void ofApp::updateOSC() {
 	// hide old messages
@@ -244,24 +243,19 @@ void ofApp::updateOSC() {
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	if (debug) {
-		ofSetColor(255, 0, 0);
-		ofFill();
-		ofDrawBitmapString("- D E B U G -", 100, 50);
-		for (int i = 0; i < 10; i++) {
-			ofDrawBitmapString(sensaciones[i], 100, 125+20*i);
-		}
-		ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, 100);
-	}
 	///// DRAW ///////////////////////////////////////////////////////
+	/*
 	ofSetColor(0);
 	ofFill();
 	ofRect(95,75,450,35);
-	ofSetColor(255, opaGral);
-	ofFill();
-	if(titulo)
-		titulos.drawString(ofToString(escena) +": "+sensaciones[escena], 100, 100);
+	*/
 	
+	if (titulo) {
+		ofSetColor(255, opaGral);
+		ofFill();
+		titulos.drawString(ofToString(escena) + ": " + sensaciones[escena], 100, 100);
+	}
+
 	museConectado(100,150);
 	
 	switch (escena)
@@ -294,6 +288,20 @@ void ofApp::draw(){
 	///// DRAW ///////////////////////////////////////////////////////
 	if(showGui)
 		gui.draw();
+
+	debugF();
+}
+
+void ofApp::debugF() {
+	if (debug) {
+		ofSetColor(255, 0, 0);
+		ofFill();
+		ofDrawBitmapString("- D E B U G -", 100, 50);
+		for (int i = 0; i < 10; i++) {
+			ofDrawBitmapString(sensaciones[i], 100, 125 + 20 * i);
+		}
+		ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, 100);
+	}
 }
 
 /////////////// ESCENA 01

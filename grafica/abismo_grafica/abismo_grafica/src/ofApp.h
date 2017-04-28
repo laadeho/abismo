@@ -28,6 +28,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		/////////////////////////////
 		bool debug = false;
+		void debugF();
 		bool showGui = false;
 		string sensaciones[10];
 		ofTrueTypeFont titulos, texto1;
@@ -37,7 +38,7 @@ class ofApp : public ofBaseApp{
 		float valSensores[5] = {0,0,0,0,0};
 		/////// ESCENAS //////////////////////////
 		bool titulo = false;
-		void escena01();
+		void escena00(), escena01(), escena02(), escena03(), escena04(), escena05(), escena06(), escena07(), escena08();
 		void museConectado(int, int);
 		void dibujaOnda(int, int, int, float);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor);
