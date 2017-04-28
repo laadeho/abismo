@@ -98,6 +98,7 @@ Battery %
 * website
 
 ** Rediseño para lanzamiento 2017 (30 Abril)
+
 ** Diseño de sistema de registro y programación
 
 * electronics
@@ -137,6 +138,3 @@ En el archivo .gitignore esta la carpeta /audio/samples/ para evitar la subida d
 ## Interfaz envío OSC
 
 ![alt tag](https://github.com/laadeho/abismo/blob/master/website/images/UI_200417.png?raw=true)
-
-// Learn Git
-https://try.github.io/levels/1/challenges/1
