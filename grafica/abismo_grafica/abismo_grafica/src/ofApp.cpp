@@ -141,12 +141,13 @@ void ofApp::update() {
 		gyro = false;
 		isGood = false;
 	}
-
+	//ofBackground(0);
 	switch (escena)
 	{
 	case 0:
-		ofBackground(100);
-
+		
+		break;
+	case 1:
 		//ofSetCircleResolution(50);
 		if (ofGetFrameNum() > 500) {
 			if (opa01 < 255) {
@@ -244,12 +245,6 @@ void ofApp::updateOSC() {
 //--------------------------------------------------------------
 void ofApp::draw(){
 	///// DRAW ///////////////////////////////////////////////////////
-	/*
-	ofSetColor(0);
-	ofFill();
-	ofRect(95,75,450,35);
-	*/
-	
 	if (titulo) {
 		ofSetColor(255, opaGral);
 		ofFill();
@@ -261,9 +256,10 @@ void ofApp::draw(){
 	switch (escena)
 	{
 	case 0:
-		escena01();
+		escena00();
 		break;
 	case 1:
+		escena01();
 		break;
 	case 2:
 		break;
@@ -304,8 +300,12 @@ void ofApp::debugF() {
 	}
 }
 
+/////////////// ESCENA 00
+void ofApp::escena00() {
+
+}
 /////////////// ESCENA 01
-void ofApp::escena01() { 
+void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
 	ofPushStyle();
 	for (int i = 0; i < 5; i++) {
