@@ -30,28 +30,34 @@ class ofApp : public ofBaseApp{
 		bool debug = false;
 		void debugF();
 		bool showGui = false;
-		string sensaciones[10];
+		string sensaciones[11];
 		ofTrueTypeFont titulos, texto1;
-		int escena;
-		int numEscenas = 10;
 		bool emularSensorMuse = false;
 		float valSensores[5] = {0,0,0,0,0};
 		/////// ESCENAS //////////////////////////
 		bool titulo = false;
-		void escena00(), escena01(), escena02(), escena03(), escena04(), escena05(), escena06(), escena07(), escena08(), escena09();
+		int escena;
+		int numEscenas = 11;
+		void escena00(), escena01(), escena02(), escena03(),
+			escena04(), escena05(), escena06(), escena07(), 
+			escena08(), escena09(), escena10();
+		
 		void museConectado(int, int);
-		void dibujaOnda(int, int, int, float);
+		void dibujaOnda(int, int, int, float, int);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor);
 
 		float opaGral = 0.0;
 		float opa01 = 0.0;
 		string ondas[5];
+		int anchoOndaVentana;
 		float valOnda[5];
 		int posIniX = 100;
+		int sep = 50;
 		float posOndaX = 0;
-		float velOndaX = 0.05;
+		float velOndaX = 0.5;
 		ofFbo ondasFbo[5];
 
+		ofImage captura;
 		///// OSC ////////////////////////////
 		ofTrueTypeFont font;
 		ofxOscReceiver receiver;
@@ -60,11 +66,12 @@ class ofApp : public ofBaseApp{
 		string msg_strings[NUM_MSG_STRINGS];
 		float timers[NUM_MSG_STRINGS];
 
-		///// OSC ////////////////////////////
 		void updateOSC();
+		///// OSC ////////////////////////////
 
 		/////////// GUI //////////////////
 		ofxIntSlider escenas;
+		ofxToggle guardaFrame;
 		// Brain
 		ofxToggle alpha;
 		ofxToggle beta;

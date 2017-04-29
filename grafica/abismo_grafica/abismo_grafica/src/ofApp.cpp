@@ -10,42 +10,44 @@ void ofApp::setup(){
 	current_msg_string = 0;
 
 	ofBackground(0);
-	ofSetBackgroundAuto(false);
+	//ofSetBackgroundAuto(false);
 	//ofTrueTypeFont titulos;
 	//titulos.setLineHeight(10);
 	titulos.loadFont("Helvetica Bold.ttf", 20);
 	texto1.loadFont("Helvetica Normal.ttf", 10);
 
-	sensaciones[0] = "Entendimiento / Tranquilidad";
-	sensaciones[1] = "Expectativa ";
-	sensaciones[2] = "Miedo";
-	sensaciones[3] = "Asombro";
-	sensaciones[4] = "Euforia";
-	sensaciones[5] = "Tristeza, Soledad";
-	sensaciones[6] = "Abismo";
-	sensaciones[7] = "Felicidad";
-	sensaciones[8] = "Reconocimiento";
-	sensaciones[9] = "Proximidad";
+	sensaciones[0] = "...";
+	sensaciones[1] = "Entendimiento / Tranquilidad";
+	sensaciones[2] = "Expectativa ";
+	sensaciones[3] = "Miedo";
+	sensaciones[4] = "Asombro";
+	sensaciones[5] = "Euforia";
+	sensaciones[6] = "Tristeza, Soledad";
+	sensaciones[7] = "Abismo";
+	sensaciones[8] = "Felicidad";
+	sensaciones[9] = "Reconocimiento";
+	sensaciones[10] = "Proximidad";
+
 	// ESC 01 /////////////////////////
 	ondas[0] = "alpha";
 	ondas[1] = "beta";
 	ondas[2] = "gamma";
 	ondas[3] = "delta";
 	ondas[4] = "theta";
+	anchoOndaVentana = ofGetWidth() / 2 - posIniX-sep;
 	for (int i = 0; i < 5; i++) {
-		ondasFbo[i].allocate(ofGetWidth() / 2 - posIniX, 100, GL_RGBA);
-
+		ondasFbo[i].allocate(anchoOndaVentana, 100, GL_RGBA);
 		ondasFbo[i].begin();
 		ofBackground(0);
 		ondasFbo[i].end();
 	}
 	
-
 	///////////////////// GUI ///////////////
 	gui.setup();
 	gui.setPosition(ofGetWidth() - 250, 50);
 	gui.setName("abismo // proximo UI");
-	gui.add(escenas.setup("Escena",0,0,9));
+	gui.add(escenas.setup("Escena", 0, 0, 11));
+	gui.add(guardaFrame.setup("Salvar Frames ", false));
 	// Brain
 	gui.add(alpha.setup("alpha", false));
 	gui.add(beta.setup("beta", false));
@@ -76,49 +78,60 @@ void ofApp::setup(){
 	gui.add(auxLeft.setup("auxLeft", 0.1f, 0.0f, 1.0f));
 	gui.add(auxRight.setup("auxRight", 0.1f, 0.0f, 1.0f));
 	////////////// GUI //////////////////
-
 	/*
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
 	std::cout << "Alto: " << ofGetScreenHeight() << endl;
 	*/
-
-	
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
+	if (guardaFrame) {
+		captura.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
+		captura.save("frames/" + ofToString(ofGetFrameNum()) + ".tif");
+		//ofSaveScreen("frames/"+ ofToString(ofGetFrameNum()) + ".tif");
+		//ofSaveImage("frames/" + ofToString(ofGetFrameNum()) + ".tif");
+	}
+
+	switch (escena)
+	{
+	case 0:
+		if (opa01 != 0) {
+			opa01 = 0;
+			for (int i = 0; i < 5; i++) {
+				ondasFbo[i].begin();
+				ofBackground(0);
+				ondasFbo[i].end();
+			}
+		}
+			
+		break;
+	case 1:
+		//ofSetCircleResolution(50);
+		if (opa01 < 255) {
+			opa01 += 1;
+		}
+		if (opaGral < 255) {
+			opaGral += 1;
+		}
+		posOndaX += velOndaX;
+
+		if (posOndaX > ondasFbo[0].getWidth()) {
+			posOndaX = 0;
+			for (int i = 0; i < 5; i++) {
+				ondasFbo[i].begin();
+				ofBackground(0);
+				ondasFbo[i].end();
+			}
+		}
+		break;
+	default:
+		break;
+	}
+	escena = escenas;
+
 	updateOSC();
-
-	if (alpha)
-		valSensores[0] = ofNoise(float(ofGetElapsedTimeMillis()*.0015*(0.25*0.5 + 1)));
-	if (beta)
-		valSensores[1] = ofNoise(float(ofGetElapsedTimeMillis()*.0005*(0.25*1 + 1)));
-	if (gamma)
-		valSensores[2] = ofNoise(float(ofGetElapsedTimeMillis()*.00075*(0.25*2 + 1)));
-	if (delta)
-		valSensores[3] = ofNoise(float(ofGetElapsedTimeMillis()*.00055*(0.25*3 + 1)));
-	if (theta)
-		valSensores[4] = ofNoise(float(ofGetElapsedTimeMillis()*.00085*(0.25*4 + 1)));
-	if (acc) {
-		accX = ofNoise(ofGetElapsedTimeMillis()*0.000025);
-		accY = ofNoise(ofGetElapsedTimeMillis()*0.000005);
-		accZ = ofNoise(ofGetElapsedTimeMillis()*0.000075);
-	}
-	if (gyro) {
-		gyroX = ofNoise(ofGetElapsedTimeMillis()*0.000325);
-		gyroY = ofNoise(ofGetElapsedTimeMillis()*0.000045);
-		gyroZ = ofNoise(ofGetElapsedTimeMillis()*0.0000225);
-	}
-	if (isGood) {
-		EEG1 = ofNoise(ofGetElapsedTimeMillis()*0.000025);
-		EEG2 = ofNoise(ofGetElapsedTimeMillis()*0.00025);
-		EEG3 = ofNoise(ofGetElapsedTimeMillis()*0.00002325);
-		EEG4 = ofNoise(ofGetElapsedTimeMillis()*0.00005);
-		auxLeft = ofNoise(ofGetElapsedTimeMillis()*0.00075);
-		auxRight = ofNoise(ofGetElapsedTimeMillis()*0.00025);
-
-	}
-
+	/////////////// DATOS EMULADOS
 	if (emularSensorMuse) {
 		artifacts = true;
 		alpha = true;
@@ -141,34 +154,34 @@ void ofApp::update() {
 		gyro = false;
 		isGood = false;
 	}
-	//ofBackground(0);
-	switch (escena)
-	{
-	case 0:
-		
-		break;
-	case 1:
-		//ofSetCircleResolution(50);
-		if (ofGetFrameNum() > 500) {
-			if (opa01 < 255) {
-				opa01 += 1;
-			}
-			if (opaGral < 255) {
-				opaGral += 1;
-			}
-			posOndaX += velOndaX;
-		}
-		if (posOndaX > ondasFbo[0].getWidth()) {
-			posOndaX = 0;
-			for (int i = 0; i < 5; i++) {
-				ondasFbo[i].begin();
-				ofBackground(0);
-				ondasFbo[i].end();
-			}
-		}
-		break;
-	default:
-		break;
+
+	if (alpha)
+		valSensores[0] = ofNoise(float(ofGetFrameNum()*.015*(0.25*0.5 + 1)));
+	if (beta)
+		valSensores[1] = ofNoise(float(ofGetFrameNum()*.005*(0.25*1 + 1)));
+	if (gamma)
+		valSensores[2] = ofNoise(float(ofGetFrameNum()*.0075*(0.25*2 + 1)));
+	if (delta)
+		valSensores[3] = ofNoise(float(ofGetFrameNum()*.0055*(0.25*3 + 1)));
+	if (theta)
+		valSensores[4] = ofNoise(float(ofGetFrameNum()*.0085*(0.25*4 + 1)));
+	if (acc) {
+		accX = ofNoise(ofGetFrameNum()*0.00025);
+		accY = ofNoise(ofGetFrameNum()*0.00005);
+		accZ = ofNoise(ofGetFrameNum()*0.00075);
+	}
+	if (gyro) {
+		gyroX = ofNoise(ofGetFrameNum()*0.00325);
+		gyroY = ofNoise(ofGetFrameNum()*0.0045);
+		gyroZ = ofNoise(ofGetFrameNum()*0.00225);
+	}
+	if (isGood) {
+		EEG1 = ofNoise(ofGetFrameNum()*0.0025);
+		EEG2 = ofNoise(ofGetFrameNum()*0.0025);
+		EEG3 = ofNoise(ofGetFrameNum()*0.002325);
+		EEG4 = ofNoise(ofGetFrameNum()*0.005);
+		auxLeft = ofNoise(ofGetFrameNum()*0.0075);
+		auxRight = ofNoise(ofGetFrameNum()*0.0025);
 	}
 }
 
@@ -246,12 +259,10 @@ void ofApp::updateOSC() {
 void ofApp::draw(){
 	///// DRAW ///////////////////////////////////////////////////////
 	if (titulo) {
-		ofSetColor(255, opaGral);
+		ofSetColor(255);
 		ofFill();
 		titulos.drawString(ofToString(escena) + ": " + sensaciones[escena], 100, 100);
 	}
-
-	museConectado(100,150);
 	
 	switch (escena)
 	{
@@ -284,7 +295,6 @@ void ofApp::draw(){
 	///// DRAW ///////////////////////////////////////////////////////
 	if(showGui)
 		gui.draw();
-
 	debugF();
 }
 
@@ -309,34 +319,73 @@ void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
 	ofPushStyle();
 	for (int i = 0; i < 5; i++) {
-		dibujaOnda(i, posIniX, ofGetHeight() - 150 - 130 * i, valSensores[i]);
+		dibujaOnda(i, posIniX, ofGetHeight() - 150 - 130 * i, valSensores[i], anchoOndaVentana);
 	}
 	ofPopStyle();
-
+	museConectado(100, 150);
+	// Gyro y Acc
 	dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0,204,204));
 	dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204,0,0));
 
-	/*
 	ofPushMatrix();
 	ofTranslate(ofGetWidth(),0,0);
 	ofScale(-1, 1, 1);
+
+	ofPushStyle();
 	for (int i = 0; i < 5; i++) {
-		dibujaOnda(i, posIniX, ofGetHeight() - 100 - 120 * i, valSensores[i]);
+		dibujaOnda(i, posIniX, ofGetHeight() - 150 - 130 * i, valSensores[i], anchoOndaVentana);
 	}
+	ofPopStyle();
+	museConectado(100, 150);
+	// Gyro y Acc
 	dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0, 204, 204));
 	dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204, 0, 0));
+
 	ofPopMatrix();
-
-	*/
-
 
 	/*
 	float val = ofNoise(ofRandomf());
 	std::cout << val << endl;
 	*/
 }
+/////////////// ESCENA 00
+void ofApp::escena02() {
 
-void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
+}
+/////////////// ESCENA 00
+void ofApp::escena03() {
+
+}
+/////////////// ESCENA 00
+void ofApp::escena04() {
+
+}
+/////////////// ESCENA 00
+void ofApp::escena05() {
+
+}
+/////////////// ESCENA 00
+void ofApp::escena06() {
+
+}
+/////////////// ESCENA 00
+void ofApp::escena07() {
+
+}
+/////////////// ESCENA 00
+void ofApp::escena08() {
+
+}
+/////////////// ESCENA 00
+void ofApp::escena09() {
+
+}
+/////////////// ESCENA 00
+void ofApp::escena10() {
+
+}
+
+void ofApp::dibujaOnda(int indice, int pX, int pY, float val, int ancho) {
 	ofSetColor(255, opaGral);
 	ondasFbo[indice].begin();
 	ofSetColor(255, opa01-val*50);
@@ -346,33 +395,10 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
 	ondasFbo[indice].end();
 	ondasFbo[indice].draw(pX, pY);
 	//////////////////////
-	/*
-	
-	ofSetLineWidth(0.15);
-	ofSetColor(100, opa01);
-	ofNoFill();
-	ofLine(pX, pY - 50, ofGetWidth() / 2, pY - 50);
-	///
-	
-	ofSetColor(255, opa01);
-	ofFill();
-	ofEllipse(posOndaX, pY - 50 + ofMap(val, 0, 1, 25, -25), 5 * val, 5 * val);
-	//////////////////////
-	
-
-	ofSetColor(0);
-	ofFill();
-	ofRect(pX-5, pY-20, 50,25);
-	ofSetColor(255, opa01);
-	ofFill();
-	texto1.drawString(ondas[indice], pX, pY);
-	*/
-	
 	ofSetColor(255, opa01);
 	ofFill();
 	texto1.drawString(ondas[indice], pX, pY-10);
-
-	ofSetColor(255, opa01); // opa1
+	ofSetColor(255, opa01);
 	ofSetLineWidth(1);
 	ofNoFill();
 	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
@@ -384,6 +410,7 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
 	ofNoFill();
 	ofLine(pX, pY+50, pX+ondasFbo[0].getWidth(), pY+50);
 }
+//////// Funcion para Gyro y Acc
 void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, ofColor col) {
 	ofPushMatrix();
 	ofTranslate(pX, pY, 0);
@@ -391,7 +418,7 @@ void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, of
 	ofRotateY(rY*360);
 	ofRotateZ(rZ*360);
 
-	ofSetLineWidth(2);
+	ofSetLineWidth(1);
 	ofSetColor(255, 0, 0, opa01);
 	ofNoFill();
 	ofLine(0, 0, 50, 0);
@@ -410,39 +437,40 @@ void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, of
 	ofBox(50);
 	ofPopMatrix();
 }
+//////// Funcion muse conectado
 void ofApp::museConectado(int pX, int pY) {
 	ofPushMatrix();
 	ofTranslate(pX, pY);
 
 	if (museOn) {
-		ofSetColor(64, 255, 0);
+		ofSetColor(64, 255, 0, opaGral);
 		ofFill();
 		ofRect(0, 0, 10, 10);
+	
+		ofSetColor(255, opaGral);
+		ofNoFill();
+		ofRect(0, 0, 10, 10);
 	}
-	ofSetColor(255);
-	ofNoFill();
-	ofRect(0, 0, 10, 10);
-
 	if (blink) {
-		ofSetColor(64, 255, 0);
+		ofSetColor(64, 255, 0, opaGral);
 		ofFill();
 		ofRect(0, 20, 10, 10);
-	}
-	ofSetColor(255);
-	ofNoFill();
-	ofRect(0, 20, 10, 10);
 
+		ofSetColor(255, opaGral);
+		ofNoFill();
+		ofRect(0, 20, 10, 10);
+	}
 	if (jawClench) {
-		ofSetColor(64, 255, 0);
+		ofSetColor(64, 255, 0, opaGral);
 		ofFill();
 		ofRect(0, 40, 10, 10);
-	}
-	ofSetColor(255);
-	ofNoFill();
-	ofRect(0, 40, 10, 10);
 
+		ofSetColor(255, opaGral);
+		ofNoFill();
+		ofRect(0, 40, 10, 10);
+	}
 	if (isGood) {
-		ofSetColor(64, 255, 0);
+		ofSetColor(64, 255, 0, opaGral);
 		ofFill();
 		ofRect(30, 0, EEG1*50, 10);
 		ofRect(30, 20, EEG2*50, 10);
@@ -450,7 +478,7 @@ void ofApp::museConectado(int pX, int pY) {
 		ofRect(30, 60, EEG4*50, 10);
 		ofRect(30, 80, auxLeft * 50, 10);
 		ofRect(30, 100, auxRight * 50, 10);
-		ofSetColor(255);
+		ofSetColor(255, opaGral);
 		ofNoFill();
 		ofRect(30, 0, 50, 10);
 		ofRect(30, 20, 50, 10);
@@ -478,12 +506,19 @@ void ofApp::keyPressed(int key) {
 		titulo = !titulo;
 	if (key == 'i' || key == 'I')
 		isGood = !isGood;
+	if (key == 's' || key == 'S')
+		guardaFrame = !guardaFrame;
 
-	if (key == OF_KEY_LEFT)
+	if (key == OF_KEY_LEFT) {
 		escena--;
-	if (key == OF_KEY_RIGHT)
+		if(escena < 0)
+			escena = numEscenas - 1;
+	}
+	if (key == OF_KEY_RIGHT) {
 		escena++;
-	escena = escena % numEscenas;
+		escena = escena % numEscenas;
+	}
+	escenas = escena;
 }
 
 //--------------------------------------------------------------
