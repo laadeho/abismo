@@ -205,23 +205,25 @@ void ofApp::updateOSC() {
 		// check for mouse moved message
 		if (m.getAddress() == "/alpha") {
 			valSensores[0] = m.getArgAsFloat(0);
-		}
-		if (m.getAddress() == "/beta") {
+		} else if (m.getAddress() == "/beta") {
 			valSensores[1] = m.getArgAsFloat(0);
-		}
-		if (m.getAddress() == "/gamma") {
+		} else if (m.getAddress() == "/gamma") {
 			valSensores[2] = m.getArgAsFloat(0);
-		}
-		if (m.getAddress() == "/delta") {
+		} else if (m.getAddress() == "/delta") {
 			valSensores[3] = m.getArgAsFloat(0);
-		}
-		if (m.getAddress() == "/theta") {
+		} else if (m.getAddress() == "/theta") {
 			valSensores[4] = m.getArgAsFloat(0);
-		}
-		if (m.getAddress() == "/accelerometer") {
-			std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
-		}
-		else {
+		} else if (m.getAddress() == "/accelerometer") {
+			accX = m.getArgAsDouble(0);
+			accY = m.getArgAsDouble(1);
+			accZ = m.getArgAsDouble(2);
+			//std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
+		} else if (m.getAddress() == "/gyro") {
+			gyroX = m.getArgAsDouble(0);
+			gyroY = m.getArgAsDouble(1);
+			gyroZ = m.getArgAsDouble(2);
+			//std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
+		} else {
 			// unrecognized message: display on the bottom of the screen
 			string msg_string;
 			msg_string = m.getAddress();
