@@ -1,7 +1,7 @@
 {
   "settings": {
     "name": "abismo",
-    "currentPage": "avances.html",
+    "currentPage": "registro.html",
     "theme": {
       "name": "mobirise3",
       "title": "Mobirise 3",
@@ -22,13 +22,10 @@
       }
     },
     "versionFirst": "3.12.1",
-    "uniqCompNum": 70,
+    "uniqCompNum": 106,
     "versionPublish": "3.12.1",
     "favicon": "",
-    "noImageResize": "",
-    "publishFtpPath": "public_html",
-    "publishType": "local",
-    "publishPath": "@PROJECT_PATH@"
+    "noImageResize": ""
   },
   "pages": {
     "index.html": {
@@ -155,7 +152,7 @@
               "color": "@primaryColor"
             },
             ".link[aria-expanded=\"true\"], .dropdown-item[aria-expanded=\"true\"]": {
-              "color": "#c0a375!important"
+              "color": "#b8312f!important"
             }
           },
           "_name": "ext.menu",
@@ -241,8 +238,8 @@
     "contacto.html": {
       "settings": {
         "title": "Contáctanos",
-        "meta_descr": "mas info / abismo",
-        "order": 7
+        "meta_descr": "avance primer cuatrimestre / abismo",
+        "order": 9
       },
       "components": [
         {
@@ -481,8 +478,43 @@
             "showText": true,
             "showButton": false
           },
-          "title": "INFORME 01",
-          "text": "<p>1er. CUATRIMESTRE / de Septiembre a Diciembre</p><p>Durante el primer cuatrimestre los trabajos realizados son los siguientes:&nbsp;</p>",
+          "title": "<a href=\"avance01.html\">INFORME 01</a>",
+          "text": "<p>1er. CUATRIMESTRE / de Septiembre a Diciembre</p>",
+          "button": "<a data-app-btn=\"true\" class=\"btn btn-secondary\" href=\"https://mobirise.com\">SEE ALL TEMPLATES</a>"
+        },
+        {
+          "_inherit": "msg-box8",
+          "_styles": {
+            ".mbr-section-title, p": {
+              "color": "#000"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "msg-box3",
+          "_anchor": "msg-box3-2s",
+          "_params": {
+            "paddingTop": "2",
+            "paddingBottom": "1",
+            "parallax": true,
+            "bgImageRadio": false,
+            "bgImage": "@THEME_PATH@/components/_images/desert.jpg",
+            "bgColor": "#F2F2F2",
+            "bgColorRadio": true,
+            "bgVideo": {
+              "url": "https://www.youtube.com/watch?v=uNCr7NdOJgw"
+            },
+            "bgVideoRadio": false,
+            "overlay": false,
+            "overlayOpacity": 0.5,
+            "overlayColor": "#222",
+            "showTitle": true,
+            "showText": true,
+            "showButton": false
+          },
+          "title": "<a href=\"avance02.html\">INFORME 02</a>",
+          "text": "<p>2o. CUATRIMESTRE / de Enero a Abril</p>",
           "button": "<a data-app-btn=\"true\" class=\"btn btn-secondary\" href=\"https://mobirise.com\">SEE ALL TEMPLATES</a>"
         },
         {
@@ -511,19 +543,6 @@
           },
           "title": "Electrónica",
           "meta": ""
-        },
-        {
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "content1",
-          "_anchor": "content1-1m",
-          "_params": {
-            "paddingTop": 1,
-            "paddingBottom": 1,
-            "bgColor": "#fff"
-          },
-          "text": "<p>1. Se compraron los sensores neuronales \"muse\" (4)</p><p>Se han instalado las dependencias necesarias y se generaron pruebas de conexión con las plataformas que estaremos trabajando (Processing - gráfica y SuperCollider - sonoro).</p><p>2. También se compraron sensores de pulso cardiaco y componentes para desarrollar sensores de resistencia galvánica de la piel (GSR), además de microcontroladores (Arduino Mini PRO),</p><p>Se comenzó el desarrollo, programación y armado de los circuitos. Por un lado prototipando con Arduino UNO y posteriormente se migrará al Arduino Mini PRO.</p>"
         },
         {
           "_inherit": "menu",
@@ -617,86 +636,27 @@
           "items": "<li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"info.html\">info</a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"registro.html\"><p>inscripciones</p></a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"avances.html\">avances</a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"contacto.html\">contacto</a></li><li class=\"nav-item nav-btn\"><a data-app-btn=\"true\" data-button=\"\" data-app-selector=\".btn\" class=\"nav-link btn btn-primary\" href=\"https://mobirise.com/\">BUY</a></li>"
         },
         {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            },
+            "H3": {
+              "color": "#000000"
+            }
+          },
           "_tags": [
             "Theme"
           ],
-          "_name": "gallery1",
+          "_name": "header3",
+          "_anchor": "header3-1o",
           "_params": {
-            "paddingTop": "0",
-            "paddingBottom": 0,
-            "images": [
-              {
-                "tags": "Awesome",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/muse-800x400.png",
-                "image": "@PROJECT_PATH@/assets/images/muse.png",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Awesome",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/code01-800x400.png",
-                "image": "@PROJECT_PATH@/assets/images/code01.png",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Awesome",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/circuit01-800x400.png",
-                "image": "@PROJECT_PATH@/assets/images/circuit01.png",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Awesome",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/circuit02-800x400.png",
-                "image": "@PROJECT_PATH@/assets/images/circuit02.png",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Awesome",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/abismo-bb-800x400.png",
-                "image": "@PROJECT_PATH@/assets/images/abismo_bb.png",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Awesome",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/abismo-scheme-800x604.png",
-                "image": "@PROJECT_PATH@/assets/images/abismo_scheme.png",
-                "caption": "Type caption here",
-                "active": true
-              }
-            ],
-            "spacing": "0",
-            "showText": false,
-            "filter": false,
-            "bgColor": "#ffffff",
-            "filterBgColor": false,
-            "fullWidth": false,
-            "showBullets": true
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#c1c1c1",
+            "showMeta": true
           },
-          "_anchor": "gallery1-1i",
-          "articleLayout": false,
-          "allItem": "All"
+          "title": "Gráfica",
+          "meta": ""
         },
         {
           "_styles": {
@@ -711,123 +671,15 @@
             "Theme"
           ],
           "_name": "header3",
-          "_anchor": "header3-1o",
+          "_anchor": "header3-1r",
           "_params": {
             "paddingTop": 1,
             "paddingBottom": 1,
             "bgColor": "#000000",
             "showMeta": true
           },
-          "title": "Gráfica",
-          "meta": ""
-        },
-        {
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "content1",
-          "_anchor": "content1-1p",
-          "_params": {
-            "paddingTop": 1,
-            "paddingBottom": 1,
-            "bgColor": "#fff"
-          },
-          "text": "<p>Para comenzar, analizamos los tipos de datos que se estarán sensando;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Sensor de ondas neuronales.</b></p><p><br></p><pre><span style=\"line-height: 1.5;\"><b>WHAT TYPES OF BRAINWAVES DOES MUSE MEASURE?</b></span><br></pre><pre>    Muse detects a full range of brainwave activity. Brainwaves are typically broken up into five bands and the Muse headband is capable of detecting all five bands. The five bands are:</pre><p></p><pre><ul><li>Delta waves which are most present during deep sleep.</li></ul></pre><p></p><pre><ul><li>Theta waves which are associated with drowsyness, light sleep, and visualization.</li></ul></pre><pre><ul><li>Alpha waves which occur during wakeful relaxation.</li></ul></pre><pre><ul><li>Beta waves which occur when alert, actively thinking or problem-solving.</li></ul></pre><pre><ul><li>Gamma waves which occur when involved in higher mental activity and consolidation of information.</li></ul><p><span style=\"line-height: 1.5;\"><br></span></p><pre><span style=\"line-height: 1.5;\">In creating the Muse app, we started from these brainwaves and then spent years doing intensive research on higher-order combinations of primary, secondary and tertiary characteristics of raw EEG data and how they interact with focused-attention meditation.</span></pre><pre><span style=\"line-height: 1.5;\">Fuente: \"<a href=\"https://muse.zendesk.com/hc/en-us/articles/204481949-WHAT-TYPES-OF-BRAINWAVES-DOES-MUSE-MEASURE-\" target=\"_blank\">What types of brainwaves does Muse measure?</a>\"</span></pre></pre><p>&nbsp; &nbsp;</p><p>Con este sensor se analizarán, además de las ondas <i>alfa, beta, gamma, delta y theta;</i> estados mentales como la tranquilidad y la concentración de los usuarios.</p><p><br></p><p><b>Sensor de pulso.</b></p><p><br></p><p>Será conectado al microcontrolador arduino, y se colocará en un guante (junto al GSR)</p><p><br></p><p>La frecuencia cardiaca se analizará para complementar el estudio del estado de tranquilidad en el que se encuentran los visitantes.</p><p><br></p><p><b>GSR. Sensor de Resistencia Galvánica.</b></p><p><br></p><p>La resistencia eléctrica de la piel responde a sensaciones como el miedo, la ira u otros estímulos; es conocido como \"Galvanic Skin Response\" o GSR. Este sensor, solo medirá si los participantes son incitados emocionalmente o no; puesto que no ofrece una medición precisa de la dirección de los estímulos.</p><p><br></p><p><b>Primera grafica desarrollada.</b></p>"
-        },
-        {
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "gallery1",
-          "_params": {
-            "paddingTop": 0,
-            "paddingBottom": 0,
-            "images": [
-              {
-                "tags": "Awesome",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/vis-01-800x473.jpg",
-                "image": "@PROJECT_PATH@/assets/images/vis_01.jpg",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Responsive",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/vis-02-800x473.jpg",
-                "image": "@PROJECT_PATH@/assets/images/vis_02.jpg",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Creative",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/vis-03-800x473.jpg",
-                "image": "@PROJECT_PATH@/assets/images/vis_03.jpg",
-                "caption": "Type caption here",
-                "active": false
-              },
-              {
-                "tags": "Animated",
-                "playVideo": false,
-                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
-                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
-                "thumb": "@PROJECT_PATH@/assets/images/vis-04-800x473.jpg",
-                "image": "@PROJECT_PATH@/assets/images/vis_04.jpg",
-                "caption": "Type caption here",
-                "active": true
-              }
-            ],
-            "spacing": 0,
-            "showText": false,
-            "filter": false,
-            "bgColor": "#FFFFFF",
-            "filterBgColor": false,
-            "fullWidth": false,
-            "showBullets": true
-          },
-          "_anchor": "gallery1-1q",
-          "articleLayout": false,
-          "allItem": "All"
-        },
-        {
-          "_styles": {
-            ".mbr-section-title, .mbr-section-subtitle": {
-              "text-align": "center"
-            }
-          },
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "header3",
-          "_anchor": "header3-1r",
-          "_params": {
-            "paddingTop": 1,
-            "paddingBottom": 1,
-            "bgColor": "#fff",
-            "showMeta": true
-          },
           "title": "Sonoro",
           "meta": ""
-        },
-        {
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "content1",
-          "_anchor": "content1-1s",
-          "_params": {
-            "paddingTop": 1,
-            "paddingBottom": 1,
-            "bgColor": "#fff"
-          },
-          "text": "<p>Durante este período se han realizado diversas exploraciones sonoras utilizando el sensor EEG Muse y el software SuperCollider con disposición estéreo y de 4 canales. Así mismo, se han hecho pruebas en el software de síntesis sonora en línea Flocking.</p><p>Se han construído diversos sintetizadores cuyos parámetros son manipulados con los datos de las ondas Delta, Alpha, Theta y Beta. Así mismo, se han construído sintetizadores que leen los parpadeos del usuario y utilizan este dato para controlar ciertos parámetros, o bien, prender o apagar los sintetizadores. El diseño sonoro en esta etapa ha consistido en la exploración de las posibilidades de síntesis en conjunto con los datos del sensor EEG, el plan es continuar la exploración con sonidos grabados y sampleos utilizando diversas fuentes sonoras.</p>"
         },
         {
           "soundURL": "url=http%3A%2F%2Fapi.soundcloud.com%2Fusers%2F264242696",
@@ -858,24 +710,11 @@
           "_params": {
             "paddingTop": 1,
             "paddingBottom": 1,
-            "bgColor": "#fff",
+            "bgColor": "#cccccc",
             "showMeta": true
           },
           "title": "Sitio web",
-          "meta": "By John Smith posted July 20, 2016"
-        },
-        {
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "content1",
-          "_anchor": "content1-1v",
-          "_params": {
-            "paddingTop": 1,
-            "paddingBottom": 1,
-            "bgColor": "#fff"
-          },
-          "text": "<p><b><span style=\"font-size: 1.07rem; line-height: 1.5;\">Frontend.</span><br></b></p><p>Se han diseñado las pantallas principales del sitio web, así como propuestas gráficas que representarán los datos obtenidos por los diversos sensores durante las dos etapas de difusión del proyecto (registro-exposición), así como la interacción que tendrán con lo sonoro.&nbsp;</p><p>Se comenzará a programar la propuesta de diseño.</p><p><br></p><p><b>Backend.</b></p><p>Además se ha comenzado el desarrollo de la estructura que permitirá almancenar los datos obtenidos y su sincronía con los usuarios en la red para visualización e interacción en tiempo real.</p>"
+          "meta": ""
         },
         {
           "_styles": {
@@ -899,19 +738,6 @@
           },
           "title": "Redes",
           "meta": ""
-        },
-        {
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "content1",
-          "_anchor": "content1-1x",
-          "_params": {
-            "paddingTop": 1,
-            "paddingBottom": 1,
-            "bgColor": "#fff"
-          },
-          "text": "<p>Se han generado los espacios en las redes sociales en los que se promueve el proyecto, avances y otros anuncios pertinentes.</p><p><br></p><p><a href=\"https://www.facebook.com/abismoproximo\" target=\"_blank\">Facebook</a></p><p><a href=\"https://soundcloud.com/abismoproximo\" target=\"_blank\">SoundCloud</a></p><p><a href=\"https://vimeo.com/abismoproximo\" target=\"_blank\">Vimeo</a></p><p><a href=\"https://github.com/laadeho/abismo\" target=\"_blank\">Github</a>&nbsp;<span style=\"font-size: 1.07rem; line-height: 1.5;\">En el repositorio de github se estará subiendo y actualizando el código. Es la herramienta de trabajo que usaremos para compartir nuestros avances.</span></p>"
         }
       ]
     },
@@ -956,20 +782,6 @@
           "title": "GENERA TU CITA",
           "text": "Siguiendo estos pasos:",
           "button": "<a data-app-btn=\"true\" class=\"btn btn-secondary\" href=\"https://mobirise.com\" data-toolbar=\"-mbrBtnMove\">SEE ALL TEMPLATES</a>"
-        },
-        {
-          "_tags": [
-            "Theme"
-          ],
-          "_name": "content6",
-          "_anchor": "content6-1e",
-          "_params": {
-            "paddingTop": 1,
-            "paddingBottom": 1,
-            "bgColor": "#fff"
-          },
-          "text1": "<p>Make your own website in a few clicks! Mobirise helps you cut down development time by providing you with a flexible website editor with a drag and drop interface. MobiRise Website Builder creates responsive, retina and mobile friendly websites in a few clicks. Mobirise is one of the easiest website development tools available today. It also gives you the freedom to develop as many websites as you like given the fact that it is a desktop app.</p>",
-          "text2": "<p>Make your own website in a few clicks! Mobirise helps you cut down development time by providing you with a flexible website editor with a drag and drop interface. MobiRise Website Builder creates responsive, retina and mobile friendly websites in a few clicks. Mobirise is one of the easiest website development tools available today. It also gives you the freedom to develop as many websites as you like given the fact that it is a desktop app.</p>"
         },
         {
           "_inherit": "menu",
@@ -1021,7 +833,7 @@
               "color": "@primaryColor"
             },
             ".link[aria-expanded=\"true\"], .dropdown-item[aria-expanded=\"true\"]": {
-              "color": "#c1c1c1!important"
+              "color": "#b8312f!important"
             }
           },
           "_name": "ext.menu",
@@ -1098,39 +910,51 @@
           },
           "media1": {
             "image": {
-              "src": "@THEME_PATH@/components/_images/gallery/table.jpg",
+              "src": "@PROJECT_PATH@/assets/images/abismologo-143x128.png",
               "class": "card-img-top",
               "width": 600,
-              "active": true
+              "active": true,
+              "link": "",
+              "alt": "",
+              "title": "",
+              "linkInNewWindow": false
             }
           },
           "title1": "1.&nbsp;",
           "subtitle1": "Bootstrap 4 has been noted",
-          "caption1": "Bootstrap 4 has been noted as one of the most reliable and proven frameworks and Mobirise has been equipped to develop websites using this framework.",
+          "caption1": "Visita nuevamente <i><a href=\"index.html\">abismo</a></i> a partir del 15 de Junio, momento en que se habilitará la sección de registro.",
           "button1": "<a data-app-btn=\"true\" href=\"https://mobirise.com\" class=\"btn btn-primary\" data-toolbar=\"-mbrBtnMove\">MORE</a>",
           "media2": {
             "image": {
-              "src": "@THEME_PATH@/components/_images/gallery/desktop.jpg",
+              "src": "@PROJECT_PATH@/assets/images/vita-1.png",
               "class": "card-img-top",
               "width": 600,
-              "active": true
+              "active": true,
+              "link": "",
+              "alt": "",
+              "title": "",
+              "linkInNewWindow": false
             }
           },
           "title2": "2.&nbsp;",
           "subtitle2": "One of Bootstrap 4's big points",
-          "caption2": "One of Bootstrap 4's big points is responsiveness and Mobirise makes effective use of this by generating highly responsive website for you.",
+          "caption2": "Regístrate con un nombre de usuario, contraseña y otros datos para poder comunicarnos mas adelante.",
           "button2": "<a data-app-btn=\"true\" href=\"https://mobirise.com\" class=\"btn btn-primary\">MORE</a>",
           "media3": {
             "image": {
-              "src": "@THEME_PATH@/components/_images/gallery/coworkers.jpg",
+              "src": "@PROJECT_PATH@/assets/images/calendario-1.png",
               "class": "card-img-top",
               "width": 600,
-              "active": true
+              "active": true,
+              "link": "",
+              "alt": "",
+              "title": "",
+              "linkInNewWindow": false
             }
           },
           "title3": "3.&nbsp;",
           "subtitle3": "Google has a highly exhaustive list of fonts",
-          "caption3": "Google has a highly exhaustive list of fonts compiled into its web font platform and Mobirise makes it easy for you to use them on your website easily and freely.",
+          "caption3": "Revisa el calendario, selecciona fecha y horario que mas te convenga. Genera tu cita.",
           "button3": "<a data-app-btn=\"true\" href=\"https://mobirise.com\" class=\"btn btn-primary\">MORE</a>",
           "media4": {
             "image": {
@@ -1142,7 +966,7 @@
           },
           "title4": "4.&nbsp;",
           "subtitle4": "Mobirise gives you the freedom to develop",
-          "caption4": "Mobirise gives you the freedom to develop as many websites as you like given the fact that it is a desktop app.",
+          "caption4": "<b>Listo¡¡ </b><br>Nos comunicaremos contigo unos días antes de tu cita para confirmar.",
           "button4": "<a data-app-btn=\"true\" href=\"https://mobirise.com\" class=\"btn btn-primary\">MORE</a>",
           "media5": {
             "image": {
@@ -1181,7 +1005,7 @@
             "bgImageRadio": false,
             "parallax": true,
             "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
-            "bgColor": "#F2F2F2",
+            "bgColor": "#000000",
             "bgColorRadio": true,
             "bgVideo": {
               "url": "https://www.youtube.com/watch?v=uNCr7NdOJgw"
@@ -1191,12 +1015,12 @@
             "overlayOpacity": 0.5,
             "overlayColor": "#222",
             "inverse": false,
-            "showButtons": true,
+            "showButtons": false,
             "showText": true,
             "showTitle": true
           },
           "button": "<a data-app-btn=\"true\" class=\"btn btn-black\" href=\"https://mobirise.com\" data-toolbar=\"-mbrBtnMove\">INSCRIBIRME AHORA</a>",
-          "text": "Create awesome mobile-friendly websites. No coding and free.",
+          "text": "Inscripciones abiertas próximamente¡¡¡ <b style=\"font-style: normal;\">15 de Junio</b>",
           "title": ""
         }
       ]
@@ -1496,6 +1320,11 @@
             "Theme"
           ],
           "_name": "content6",
+          "_styles": {
+            "P": {
+              "text-align": "left"
+            }
+          },
           "_anchor": "content6-1c",
           "_params": {
             "paddingTop": "6",
@@ -1503,36 +1332,36 @@
             "bgColor": "#fff"
           },
           "text1": "<p><b>Abismo / / Próximo</b> es un proyecto multimedia a cargo de <b><i>Eduardo H. Obieta (EHO)</i> </b>y <i><b>Aimée Theriot</b></i>. El proyecto pretende poner en cuestión aspectos como la inmediatez, la frivolidad y la anonimidad que traen consigo los medios digitales en las relaciones interpersonales. La idea es utilizar la tecnología como una herramienta que vaya más allá de un encuentro superficial, y se convierta en un evento de proximidad en donde se reconozca la parte más humana y vulnerable de los participantes y se genere un espacio de creación e interacción por medio de las artes.&nbsp;</p><p><br></p><p>El proyecto está sustentado en ideas como las de <i><b>Emmanuel Levinas </b></i>quien comenta <i>que el encuentro cara a cara—<b>el encuentro con el Otro</b>—es un fenómeno en el cual la proximidad y la distancia del Otro son percibidas profundamente</i>. Tomando también como fuente a <i><b>Slavoj Zizek</b></i>, quien sostiene que sitios como <b>Tinder</b> “<i>ofrecen el amor sin la caída, sin la parte impredecible y traumática del encuentro (...), cada vez estamos más temerosos de estos encuentros; queremos la cosa, sin el precio que debemos de pagar por ella</i>.” <b>Abismo // Próximo</b> busca ser un espacio para encuentros entre personas que no se conocen, utilizando la web como punto de partida para la planeación de estos encuentros, y posteriormente citando a las personas en un espacio y tiempo específico con el objetivo de crear una pieza multimedia a partir de los datos biológicos de los participantes.&nbsp;</p>",
-          "text2": "<p><span style=\"font-size: 1.07rem; line-height: 1.5;\">Sobre estas líneas, Aimée Y Eduardo quieren invitar a la comunidad en general a participar activamente dentro del proyecto. La participación de los interesados será una parte fundamental del proyecto. La idea será acudir a una sesión de registro en donde estará la instalación audiovisual en la que están trabajando. <b>En esta sesión el trabajo del participante será sentarse mientras diversos sensores biométricos recopilan datos que son convertidos en material audiovisual</b>. Al mismo tiempo, otra persona, idealmente participantes que no se conozcan entre sí, estará al otro lado de la instalación, y sus datos también generarán el ambiente audiovisual. Así, esta será una colaboración puesta en marcha por los creadores del proyecto, pero realizada <b>en vivo por dos extraños quienes se reúnen por primera vez en cierto espacio y tiempo para crear sonidos y visuales </b>con los impulsos involuntarios de su cuerpo: Ondas cerebrales (EEG), pulsos cardíacos, galvanicidad de la piel.&nbsp;</span><br></p><p><br></p><p>El período de registro para participar en el proyecto iniciará a finales del mes de Mayo a través de su página web <a href=\"http://www.abismo.cc\" target=\"_blank\" class=\"text-danger\">www.abismo.cc</a> los invitamos a seguir al proyecto en redes para estar al tanto de las noticias, el avance del mismo y la fecha oficial de inicio de registro <a href=\"https://www.facebook.com/abismoproximo/\" target=\"_blank\" class=\"text-danger\">https://www.facebook.com/abismoproximo/</a></p>",
-          "_styles": {
-            "P": {
-              "text-align": "left"
-            }
-          }
+          "text2": "<p><span style=\"font-size: 1.07rem; line-height: 1.5;\">Sobre estas líneas, Aimée Y Eduardo quieren invitar a la comunidad en general a participar activamente dentro del proyecto. La participación de los interesados será una parte fundamental del proyecto. La idea será acudir a una sesión de registro en donde estará la instalación audiovisual en la que están trabajando. <b>En esta sesión el trabajo del participante será sentarse mientras diversos sensores biométricos recopilan datos que son convertidos en material audiovisual</b>. Al mismo tiempo, otra persona, idealmente participantes que no se conozcan entre sí, estará al otro lado de la instalación, y sus datos también generarán el ambiente audiovisual. Así, esta será una colaboración puesta en marcha por los creadores del proyecto, pero realizada <b>en vivo por dos extraños quienes se reúnen por primera vez en cierto espacio y tiempo para crear sonidos y visuales </b>con los impulsos involuntarios de su cuerpo: Ondas cerebrales (EEG), pulsos cardíacos, galvanicidad de la piel.&nbsp;</span><br></p><p><br></p><p>El período de registro para participar en el proyecto iniciará a finales del mes de Mayo a través de su página web <a href=\"http://www.abismo.cc\" target=\"_blank\" class=\"text-danger\">www.abismo.cc</a> los invitamos a seguir al proyecto en redes para estar al tanto de las noticias, el avance del mismo y la fecha oficial de inicio de registro <a href=\"https://www.facebook.com/abismoproximo/\" target=\"_blank\" class=\"text-danger\">https://www.facebook.com/abismoproximo/</a></p>"
         },
         {
           "_tags": [
             "Theme"
           ],
           "_name": "content1",
+          "_styles": {
+            "PRE": {
+              "text-align": "left"
+            }
+          },
           "_anchor": "content1-1f",
           "_params": {
             "paddingTop": "2",
             "paddingBottom": "2",
             "bgColor": "#c1c1c1"
           },
-          "text": "<p><b>¿Cómo funcionará el proyecto?</b></p><p><br></p><p>&nbsp; &nbsp; La <b>primera fase </b>consiste en hacer una invitación abierta a la comunidad para ser participantes del proyecto. Los participantes serán seleccionados en base a 4 criterios fundamentales.</p><p><br></p><pre>1. <b>Orden</b>: Se dará prioridad a las solicitudes en orden cronológico.</pre><pre><span style=\"line-height: 1.5;\">2. <b>Edad</b>: Sólo podrán participar personas mayores de edad.</span></pre><pre><span style=\"line-height: 1.5;\">3. <b>D</b></span><span style=\"line-height: 1.5;\"><b>iversidad</b>: Buscaremos incluir a personas diversas en cuanto a género, edad, estado civil, ubicación geográfica, etc.</span></pre><pre><span style=\"line-height: 1.5;\">4. <b>Horarios</b>: Cada participante seleccionará sus fechas de disponibilidad para ser parte del proyecto.</span><br></pre><p><br></p><p>&nbsp; &nbsp;&nbsp;<span style=\"font-size: 1.07rem; line-height: 1.5;\">La </span><b style=\"font-size: 1.07rem; line-height: 1.5;\">segunda fase</b><span style=\"font-size: 1.07rem; line-height: 1.5;\"> será el levantamiento de datos, en esta instancia, los participantes acudirán en parejas, en cierta fecha y hora al espacio en donde estará la instalación multimedia. Durante 15 minutos, cada pareja se sentará en silencio, frente a una pantalla que lo separa del otro, mientras diversos instrumentos de medición biológica recopilan sus datos (<i>pulsos cardiacos, galvanicidad de la piel, EEG, etc.</i>) </span></p><p><span style=\"font-size: 1.07rem; line-height: 1.5;\">Estos encuentros y los datos que generen serán usados para producir sonido y video, mismo que será albergado en esta página de internet.</span></p>",
-          "_styles": {
-            "PRE": {
-              "text-align": "left"
-            }
-          }
+          "text": "<p><b>¿Cómo funcionará el proyecto?</b></p><p><br></p><p>&nbsp; &nbsp; La <b>primera fase </b>consiste en hacer una invitación abierta a la comunidad para ser participantes del proyecto. Los participantes serán seleccionados en base a 4 criterios fundamentales.</p><p><br></p><pre>1. <b>Orden</b>: Se dará prioridad a las solicitudes en orden cronológico.</pre><pre><span style=\"line-height: 1.5;\">2. <b>Edad</b>: Sólo podrán participar personas mayores de edad.</span></pre><pre><span style=\"line-height: 1.5;\">3. <b>D</b></span><span style=\"line-height: 1.5;\"><b>iversidad</b>: Buscaremos incluir a personas diversas en cuanto a género, edad, estado civil, ubicación geográfica, etc.</span></pre><pre><span style=\"line-height: 1.5;\">4. <b>Horarios</b>: Cada participante seleccionará sus fechas de disponibilidad para ser parte del proyecto.</span><br></pre><p><br></p><p>&nbsp; &nbsp;&nbsp;<span style=\"font-size: 1.07rem; line-height: 1.5;\">La </span><b style=\"font-size: 1.07rem; line-height: 1.5;\">segunda fase</b><span style=\"font-size: 1.07rem; line-height: 1.5;\"> será el levantamiento de datos, en esta instancia, los participantes acudirán en parejas, en cierta fecha y hora al espacio en donde estará la instalación multimedia. Durante 15 minutos, cada pareja se sentará en silencio, frente a una pantalla que lo separa del otro, mientras diversos instrumentos de medición biológica recopilan sus datos (<i>pulsos cardiacos, galvanicidad de la piel, EEG, etc.</i>) </span></p><p><span style=\"font-size: 1.07rem; line-height: 1.5;\">Estos encuentros y los datos que generen serán usados para producir sonido y video, mismo que será albergado en esta página de internet.</span></p>"
         },
         {
           "_tags": [
             "Theme"
           ],
           "_name": "msg-box1",
+          "_styles": {
+            "H2": {
+              "text-align": "right"
+            }
+          },
           "_anchor": "msg-box1-1d",
           "_params": {
             "paddingTop": "2",
@@ -1556,12 +1385,7 @@
           },
           "button": "<a data-app-btn=\"true\" class=\"btn btn-black\" href=\"infomas.html\" data-toolbar=\"-mbrBtnMove\">SABER MAS...</a>",
           "text": "Sigue el desarrollo de la pieza",
-          "title": "",
-          "_styles": {
-            "H2": {
-              "text-align": "right"
-            }
-          }
+          "title": ""
         }
       ]
     },
@@ -1706,6 +1530,959 @@
           "button": "<a data-app-btn=\"true\" class=\"btn btn-black\" href=\"avances.html\" data-toolbar=\"-mbrBtnMove\">SABER MAS...</a>",
           "text": "",
           "title": ""
+        }
+      ]
+    },
+    "avance01.html": {
+      "settings": {
+        "title": "avance 01",
+        "meta_descr": "avance primer cuatrimestre / abismo",
+        "order": 7
+      },
+      "components": [
+        {
+          "_styles": {
+            ".mbr-section-title, p": {
+              "color": "#fff"
+            },
+            ".mbr-section-title": {
+              "color": "#000000"
+            },
+            ".lead P": {
+              "color": "#000000"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "msg-box8",
+          "_anchor": "msg-box8-1y",
+          "_params": {
+            "paddingTop": "4",
+            "paddingBottom": "1",
+            "parallax": true,
+            "bgImageRadio": false,
+            "bgImage": "@THEME_PATH@/components/_images/desert.jpg",
+            "bgColor": "#ffffff",
+            "bgColorRadio": true,
+            "bgVideo": {
+              "url": "https://www.youtube.com/watch?v=uNCr7NdOJgw"
+            },
+            "bgVideoRadio": false,
+            "overlay": true,
+            "overlayOpacity": 0.5,
+            "overlayColor": "#222",
+            "showTitle": true,
+            "showText": true,
+            "showButton": false
+          },
+          "title": "INFORME 01",
+          "text": "<p>1er. CUATRIMESTRE / de Septiembre a Diciembre</p><p>Durante el primer cuatrimestre los trabajos realizados son los siguientes:&nbsp;</p>",
+          "button": "<a data-app-btn=\"true\" class=\"btn btn-secondary\" href=\"https://mobirise.com\">SEE ALL TEMPLATES</a>"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            },
+            "H3": {
+              "text-align": "right",
+              "color": "#ffffff"
+            },
+            "SMALL": {
+              "text-align": "right"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-1z",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#000000",
+            "showMeta": true
+          },
+          "title": "Electrónica",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-20",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p>1. Se compraron los sensores neuronales \"muse\" (4)</p><p>Se han instalado las dependencias necesarias y se generaron pruebas de conexión con las plataformas que estaremos trabajando (Processing - gráfica y SuperCollider - sonoro).</p><p>2. También se compraron sensores de pulso cardiaco y componentes para desarrollar sensores de resistencia galvánica de la piel (GSR), además de microcontroladores (Arduino Mini PRO),</p><p>Se comenzó el desarrollo, programación y armado de los circuitos. Por un lado prototipando con Arduino UNO y posteriormente se migrará al Arduino Mini PRO.</p>"
+        },
+        {
+          "_inherit": "menu",
+          "_tags": [
+            "Theme"
+          ],
+          "_styles": {
+            ".hide-buttons .nav-btn": {
+              "display": "none !important"
+            },
+            ".navbar-caption": {
+              "color": "#ffffff"
+            },
+            ".navbar-toggler": {
+              "color": "#ffffff"
+            },
+            ".close-icon::before, .close-icon::after": {
+              "background-color": "#ffffff"
+            },
+            ".link, .dropdown-item": {
+              "color": "#ffffff"
+            },
+            ".link": {
+              "font-size": "0.85rem"
+            },
+            ".dropdown-item, .nav-dropdown-sm .link": {
+              "font-size": "0.921rem"
+            },
+            ".link:hover, .dropdown-item:hover, .link:focus, .dropdown-item:focus": {
+              "color": "@primaryColor"
+            },
+            ".link[aria-expanded=\"true\"], .dropdown-menu": {
+              "background": "#0e0e0e"
+            },
+            ".nav-dropdown-sm .link:focus, .nav-dropdown-sm .link:hover, .nav-dropdown-sm .dropdown-item:focus, .nav-dropdown-sm .dropdown-item:hover": {
+              "background": "#202020!important"
+            },
+            ".navbar, .nav-dropdown-sm, .nav-dropdown-sm .link[aria-expanded=\"true\"], .nav-dropdown-sm .dropdown-menu": {
+              "background": "#282828"
+            },
+            ".bg-color.transparent .link": {
+              "color": "#ffffff",
+              "transition": "none"
+            },
+            ".bg-color.transparent.opened .link": {
+              "transition": "color .2s ease-in-out"
+            },
+            ".bg-color.transparent.opened .link:hover, .bg-color.transparent.opened .link:focus": {
+              "color": "@primaryColor"
+            },
+            ".link[aria-expanded=\"true\"], .dropdown-item[aria-expanded=\"true\"]": {
+              "color": "#b8312f!important"
+            }
+          },
+          "_name": "ext.menu",
+          "_anchor": "ext_menu-21",
+          "_params": {
+            "bgColor": "#282828",
+            "fontSize": "0.85",
+            "fontName": {},
+            "fontColor": "#ffffff",
+            "fontHoverColor": "@primaryColor",
+            "transparent": false,
+            "sticky": true,
+            "logo": true,
+            "showBrand": true,
+            "collapsed": true,
+            "hideButtons": true
+          },
+          "logo": {
+            "image": {
+              "active": true,
+              "src": "@PROJECT_PATH@/assets/images/abismologo-143x128.png",
+              "height": 128,
+              "alt": "abismo",
+              "link": "index.html",
+              "title": "abismo Index",
+              "linkInNewWindow": false
+            },
+            "iconFont": {
+              "class": "mbr-iconfont mbr-iconfont-menu",
+              "linkInNewWindow": false,
+              "name": "mobirise",
+              "family": "MobiriseIcons",
+              "link": "index.html",
+              "size": 0,
+              "newWindow": false
+            }
+          },
+          "brand": "<a class=\"navbar-caption text-white\" data-app-btn=\"true\" data-app-selector=\".navbar-caption\" href=\"index.html\" data-app-placeholder=\"Type Brand Name\" data-toolbar=\"-mbrBtnMove,-mbrBtnAdd,-mbrBtnRemove,mbrColor\">abismo - próximo</a>",
+          "items": "<li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"info.html\">info</a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"registro.html\"><p>inscripciones</p></a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"avances.html\">avances</a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"contacto.html\">contacto</a></li><li class=\"nav-item nav-btn\"><a data-app-btn=\"true\" data-button=\"\" data-app-selector=\".btn\" class=\"nav-link btn btn-primary\" href=\"https://mobirise.com/\">BUY</a></li>"
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "gallery1",
+          "_params": {
+            "paddingTop": "0",
+            "paddingBottom": 0,
+            "images": [
+              {
+                "tags": "Awesome",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/muse-800x400.png",
+                "image": "@PROJECT_PATH@/assets/images/muse.png",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Awesome",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/code01-800x400.png",
+                "image": "@PROJECT_PATH@/assets/images/code01.png",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Awesome",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/circuit01-800x400.png",
+                "image": "@PROJECT_PATH@/assets/images/circuit01.png",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Awesome",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/circuit02-800x400.png",
+                "image": "@PROJECT_PATH@/assets/images/circuit02.png",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Awesome",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/abismo-bb-800x400.png",
+                "image": "@PROJECT_PATH@/assets/images/abismo-bb.png",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Awesome",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/abismo-scheme-800x604.png",
+                "image": "@PROJECT_PATH@/assets/images/abismo-scheme.png",
+                "caption": "Type caption here",
+                "active": true
+              }
+            ],
+            "spacing": "0",
+            "showText": false,
+            "filter": false,
+            "bgColor": "#ffffff",
+            "filterBgColor": false,
+            "fullWidth": false,
+            "showBullets": true
+          },
+          "_anchor": "gallery1-22",
+          "articleLayout": false,
+          "allItem": "All"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            },
+            "H3": {
+              "color": "#ffffff"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-23",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#000000",
+            "showMeta": true
+          },
+          "title": "Gráfica",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-24",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p>Para comenzar, analizamos los tipos de datos que se estarán sensando;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;<b>Sensor de ondas neuronales.</b></p><p><br></p><pre><span style=\"line-height: 1.5;\"><b>WHAT TYPES OF BRAINWAVES DOES MUSE MEASURE?</b></span><br></pre><pre>    Muse detects a full range of brainwave activity. Brainwaves are typically broken up into five bands and the Muse headband is capable of detecting all five bands. The five bands are:</pre><p></p><pre><ul><li>Delta waves which are most present during deep sleep.</li></ul></pre><p></p><pre><ul><li>Theta waves which are associated with drowsyness, light sleep, and visualization.</li></ul></pre><pre><ul><li>Alpha waves which occur during wakeful relaxation.</li></ul></pre><pre><ul><li>Beta waves which occur when alert, actively thinking or problem-solving.</li></ul></pre><pre><ul><li>Gamma waves which occur when involved in higher mental activity and consolidation of information.</li></ul><p><span style=\"line-height: 1.5;\"><br></span></p><pre><span style=\"line-height: 1.5;\">In creating the Muse app, we started from these brainwaves and then spent years doing intensive research on higher-order combinations of primary, secondary and tertiary characteristics of raw EEG data and how they interact with focused-attention meditation.</span></pre><pre><span style=\"line-height: 1.5;\">Fuente: \"<a href=\"https://muse.zendesk.com/hc/en-us/articles/204481949-WHAT-TYPES-OF-BRAINWAVES-DOES-MUSE-MEASURE-\" target=\"_blank\">What types of brainwaves does Muse measure?</a>\"</span></pre></pre><p>&nbsp; &nbsp;</p><p>Con este sensor se analizarán, además de las ondas <i>alfa, beta, gamma, delta y theta;</i> estados mentales como la tranquilidad y la concentración de los usuarios.</p><p><br></p><p><b>Sensor de pulso.</b></p><p><br></p><p>Será conectado al microcontrolador arduino, y se colocará en un guante (junto al GSR)</p><p><br></p><p>La frecuencia cardiaca se analizará para complementar el estudio del estado de tranquilidad en el que se encuentran los visitantes.</p><p><br></p><p><b>GSR. Sensor de Resistencia Galvánica.</b></p><p><br></p><p>La resistencia eléctrica de la piel responde a sensaciones como el miedo, la ira u otros estímulos; es conocido como \"Galvanic Skin Response\" o GSR. Este sensor, solo medirá si los participantes son incitados emocionalmente o no; puesto que no ofrece una medición precisa de la dirección de los estímulos.</p><p><br></p><p><b>Primera grafica desarrollada.</b></p>"
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "gallery1",
+          "_params": {
+            "paddingTop": 0,
+            "paddingBottom": 0,
+            "images": [
+              {
+                "tags": "Awesome",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/vis-01-800x473.jpg",
+                "image": "@PROJECT_PATH@/assets/images/vis-01.jpg",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Responsive",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/vis-02-800x473.jpg",
+                "image": "@PROJECT_PATH@/assets/images/vis-02.jpg",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Creative",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/vis-03-800x473.jpg",
+                "image": "@PROJECT_PATH@/assets/images/vis-03.jpg",
+                "caption": "Type caption here",
+                "active": false
+              },
+              {
+                "tags": "Animated",
+                "playVideo": false,
+                "videoUrl": "https://www.youtube.com/watch?v=uNCr7NdOJgw",
+                "videoPreview": "@THEME_PATH@/components/_images/gallery/preview.jpg",
+                "thumb": "@PROJECT_PATH@/assets/images/vis-04-800x473.jpg",
+                "image": "@PROJECT_PATH@/assets/images/vis-04.jpg",
+                "caption": "Type caption here",
+                "active": true
+              }
+            ],
+            "spacing": 0,
+            "showText": false,
+            "filter": false,
+            "bgColor": "#FFFFFF",
+            "filterBgColor": false,
+            "fullWidth": false,
+            "showBullets": true
+          },
+          "_anchor": "gallery1-25",
+          "articleLayout": false,
+          "allItem": "All"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-26",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff",
+            "showMeta": true
+          },
+          "title": "Sonoro",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-27",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p>Durante este período se han realizado diversas exploraciones sonoras utilizando el sensor EEG Muse y el software SuperCollider con disposición estéreo y de 4 canales. Así mismo, se han hecho pruebas en el software de síntesis sonora en línea Flocking.</p><p>Se han construído diversos sintetizadores cuyos parámetros son manipulados con los datos de las ondas Delta, Alpha, Theta y Beta. Así mismo, se han construído sintetizadores que leen los parpadeos del usuario y utilizan este dato para controlar ciertos parámetros, o bien, prender o apagar los sintetizadores. El diseño sonoro en esta etapa ha consistido en la exploración de las posibilidades de síntesis en conjunto con los datos del sensor EEG, el plan es continuar la exploración con sonidos grabados y sampleos utilizando diversas fuentes sonoras.</p>"
+        },
+        {
+          "soundURL": "url=http%3A%2F%2Fapi.soundcloud.com%2Fusers%2F264242696",
+          "alias": "soundcloud",
+          "_tags": [
+            "Extension"
+          ],
+          "_name": "soundcloud1",
+          "_params": {
+            "sound": "https://soundcloud.com/abismoproximo",
+            "autoplay": false,
+            "fullWidth": false
+          },
+          "iframeSRC": "https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fusers%2F264242696&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-28",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff",
+            "showMeta": true
+          },
+          "title": "Sitio web",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-29",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p><b><span style=\"font-size: 1.07rem; line-height: 1.5;\">Frontend.</span><br></b></p><p>Se han diseñado las pantallas principales del sitio web, así como propuestas gráficas que representarán los datos obtenidos por los diversos sensores durante las dos etapas de difusión del proyecto (registro-exposición), así como la interacción que tendrán con lo sonoro.&nbsp;</p><p>Se comenzará a programar la propuesta de diseño.</p><p><br></p><p><b>Backend.</b></p><p>Además se ha comenzado el desarrollo de la estructura que permitirá almancenar los datos obtenidos y su sincronía con los usuarios en la red para visualización e interacción en tiempo real.</p>"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            },
+            "H3": {
+              "color": "#ffffff"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-2a",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#000000",
+            "showMeta": true
+          },
+          "title": "Redes",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-2b",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p>Se han generado los espacios en las redes sociales en los que se promueve el proyecto, avances y otros anuncios pertinentes.</p><p><br></p><p><a href=\"https://www.facebook.com/abismoproximo\" target=\"_blank\">Facebook</a></p><p><a href=\"https://soundcloud.com/abismoproximo\" target=\"_blank\">SoundCloud</a></p><p><a href=\"https://vimeo.com/abismoproximo\" target=\"_blank\">Vimeo</a></p><p><a href=\"https://github.com/laadeho/abismo\" target=\"_blank\">Github</a>&nbsp;<span style=\"font-size: 1.07rem; line-height: 1.5;\">En el repositorio de github se estará subiendo y actualizando el código. Es la herramienta de trabajo que usaremos para compartir nuestros avances.</span></p>"
+        }
+      ]
+    },
+    "avance02.html": {
+      "settings": {
+        "title": "avance 02",
+        "meta_descr": "avance segundo cuatrimestre / abismo",
+        "order": 8
+      },
+      "components": [
+        {
+          "_styles": {
+            ".mbr-section-title, p": {
+              "color": "#fff"
+            },
+            ".mbr-section-title": {
+              "color": "#000000"
+            },
+            ".lead P": {
+              "color": "#000000"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "msg-box8",
+          "_anchor": "msg-box8-2c",
+          "_params": {
+            "paddingTop": "4",
+            "paddingBottom": "1",
+            "parallax": true,
+            "bgImageRadio": false,
+            "bgImage": "@THEME_PATH@/components/_images/desert.jpg",
+            "bgColor": "#ffffff",
+            "bgColorRadio": true,
+            "bgVideo": {
+              "url": "https://www.youtube.com/watch?v=uNCr7NdOJgw"
+            },
+            "bgVideoRadio": false,
+            "overlay": true,
+            "overlayOpacity": 0.5,
+            "overlayColor": "#222",
+            "showTitle": true,
+            "showText": true,
+            "showButton": false
+          },
+          "title": "INFORME 02",
+          "text": "<p>2º. CUATRIMESTRE / de Enero a Abril</p><p>Durante el segungo cuatrimestre los trabajos realizados son los siguientes:&nbsp;</p>",
+          "button": "<a data-app-btn=\"true\" class=\"btn btn-secondary\" href=\"https://mobirise.com\">SEE ALL TEMPLATES</a>"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            },
+            "H3": {
+              "text-align": "right",
+              "color": "#ffffff"
+            },
+            "SMALL": {
+              "text-align": "right"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-2d",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#000000",
+            "showMeta": true
+          },
+          "title": "Electrónica",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-2e",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p>1. Se desarrolló el circuito que complementa el uso de los sensores neuronales, con el que serán analizados el pulso cardiaco y la resistencia galvánica de la piel de los visitantes de <b><i>abismo // proximo</i></b></p><p>La comunicación con los programas de audio y video se ha realizado con éxito, el trabajo de visual se desarrolló ahora en la herramienta <a href=\"http://openframeworks.cc/\" target=\"_blank\">OpenFrameworks</a>, dado que la propuesta originalmente \"<a href=\"http://processing.org\" target=\"_blank\">Processing</a>\" ha quedado superada por los gráficos programados; es decir, se está desarrollando en una plataforma mas estable y robusta.</p>"
+        },
+        {
+          "_inherit": "menu",
+          "_tags": [
+            "Theme"
+          ],
+          "_styles": {
+            ".hide-buttons .nav-btn": {
+              "display": "none !important"
+            },
+            ".navbar-caption": {
+              "color": "#ffffff"
+            },
+            ".navbar-toggler": {
+              "color": "#ffffff"
+            },
+            ".close-icon::before, .close-icon::after": {
+              "background-color": "#ffffff"
+            },
+            ".link, .dropdown-item": {
+              "color": "#ffffff"
+            },
+            ".link": {
+              "font-size": "0.85rem"
+            },
+            ".dropdown-item, .nav-dropdown-sm .link": {
+              "font-size": "0.921rem"
+            },
+            ".link:hover, .dropdown-item:hover, .link:focus, .dropdown-item:focus": {
+              "color": "@primaryColor"
+            },
+            ".link[aria-expanded=\"true\"], .dropdown-menu": {
+              "background": "#0e0e0e"
+            },
+            ".nav-dropdown-sm .link:focus, .nav-dropdown-sm .link:hover, .nav-dropdown-sm .dropdown-item:focus, .nav-dropdown-sm .dropdown-item:hover": {
+              "background": "#202020!important"
+            },
+            ".navbar, .nav-dropdown-sm, .nav-dropdown-sm .link[aria-expanded=\"true\"], .nav-dropdown-sm .dropdown-menu": {
+              "background": "#282828"
+            },
+            ".bg-color.transparent .link": {
+              "color": "#ffffff",
+              "transition": "none"
+            },
+            ".bg-color.transparent.opened .link": {
+              "transition": "color .2s ease-in-out"
+            },
+            ".bg-color.transparent.opened .link:hover, .bg-color.transparent.opened .link:focus": {
+              "color": "@primaryColor"
+            },
+            ".link[aria-expanded=\"true\"], .dropdown-item[aria-expanded=\"true\"]": {
+              "color": "#b8312f!important"
+            }
+          },
+          "_name": "ext.menu",
+          "_anchor": "ext_menu-2f",
+          "_params": {
+            "bgColor": "#282828",
+            "fontSize": "0.85",
+            "fontName": {},
+            "fontColor": "#ffffff",
+            "fontHoverColor": "@primaryColor",
+            "transparent": false,
+            "sticky": true,
+            "logo": true,
+            "showBrand": true,
+            "collapsed": true,
+            "hideButtons": true
+          },
+          "logo": {
+            "image": {
+              "active": true,
+              "src": "@PROJECT_PATH@/assets/images/abismologo-143x128.png",
+              "height": 128,
+              "alt": "abismo",
+              "link": "index.html",
+              "title": "abismo Index",
+              "linkInNewWindow": false
+            },
+            "iconFont": {
+              "class": "mbr-iconfont mbr-iconfont-menu",
+              "linkInNewWindow": false,
+              "name": "mobirise",
+              "family": "MobiriseIcons",
+              "link": "index.html",
+              "size": 0,
+              "newWindow": false
+            }
+          },
+          "brand": "<a class=\"navbar-caption text-white\" data-app-btn=\"true\" data-app-selector=\".navbar-caption\" href=\"index.html\" data-app-placeholder=\"Type Brand Name\" data-toolbar=\"-mbrBtnMove,-mbrBtnAdd,-mbrBtnRemove,mbrColor\">abismo - próximo</a>",
+          "items": "<li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"info.html\">info</a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"registro.html\"><p>inscripciones</p></a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"avances.html\">avances</a></li><li class=\"nav-item\"><a data-app-btn=\"true\" class=\"nav-link link\" href=\"contacto.html\">contacto</a></li><li class=\"nav-item nav-btn\"><a data-app-btn=\"true\" data-button=\"\" data-app-selector=\".btn\" class=\"nav-link btn btn-primary\" href=\"https://mobirise.com/\">BUY</a></li>"
+        },
+        {
+          "_inherit": "msg-box5",
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "msg-box4",
+          "_anchor": "msg-box4-2v",
+          "_params": {
+            "imageSize": 50,
+            "paddingTop": "1",
+            "paddingBottom": "1",
+            "parallax": true,
+            "bgImageRadio": false,
+            "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
+            "bgColor": "#efefef",
+            "bgColorRadio": true,
+            "bgVideo": {
+              "url": "https://www.youtube.com/watch?v=uNCr7NdOJgw"
+            },
+            "bgVideoRadio": false,
+            "overlay": false,
+            "overlayOpacity": 0.5,
+            "overlayColor": "#fff",
+            "inverse": false,
+            "showTitle": true,
+            "showText": true,
+            "showButtons": false
+          },
+          "media": {
+            "image": {
+              "width": 1400,
+              "src": "@THEME_PATH@/components/_images/gallery/desktop.jpg"
+            },
+            "video": {
+              "active": true,
+              "src": "https://youtu.be/5ht-c7v2blA",
+              "aspectratio": "16:9",
+              "autoplay": "on",
+              "loop": "on"
+            },
+            "iconFont": {
+              "class": "mbr-iconfont mbr-iconfont-msg-box4",
+              "link": "",
+              "size": 250
+            }
+          },
+          "title": "sensor",
+          "text": "<p>- Fue necesario desarrollar una aplicación para la comunicación entre los sensores neuronales y las herramientas de audio y video</p>",
+          "buttons": "<a data-app-btn=\"true\" class=\"btn btn-primary\" href=\"https://mobirise.com\">MORE</a>",
+          "_styles": {
+            "H3": {
+              "color": "#000000"
+            },
+            "P": {
+              "color": "#000000"
+            }
+          }
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            },
+            "H3": {
+              "color": "#ffffff"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-2h",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#000000",
+            "showMeta": true
+          },
+          "title": "Gráfica",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-2i",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p><br></p><p><b>Con la información del sensor neuronal, el s</b><b style=\"font-size: 1.07rem; line-height: 1.5;\">ensor de pulso, el&nbsp;</b><b style=\"font-size: 1.07rem; line-height: 1.5;\">Sensor de Resistencia Galvánica (GSR).</b></p><p><br></p><p>Se desarrollaron conceptos gráficos acordes a una serie de palabras y conceptos que abordarán y experimentarán los visitantes:</p><p><b>Sensaciones:</b></p><ol><li>Entendimiento / Tranquilidad <i><b>0:00 - 1:29</b></i> Funcionamiento de la pieza.</li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Expectativa <i><b>1:30 - 2:59</b></i> Futuro, esperanza, cautela, posibilidad...</span></li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Miedo <b><i>3:00 - 4:29</i></b> Adrenalina y amenaza, miedo a lo desconocido, peligro, salir de zona de confort.</span></li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Asombro<b><i> 4:30 - 5:59</i></b> Introspección, que recuerden lo pequeño que es el ser humano en relación a las cosas, la naturaleza. Lo extraordinario e inesperado. Sorpresa, “El asombro puede provocarse por un acontecimiento positivo (agradable), pero también por un hecho negativo (dañino o doloroso).”</span></li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Euforia <b><i>6:00 - 7:29</i></b> Momento de éxtasis, excitación; bombardeo de imágenes y sonidos a una velocidad mayor al ritmo cardíaco del visitante, y analizar si lo podemos acelerar ligeramente.</span></li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Tristeza <i><b>7:30 - 8:59</b></i> Será muy contrastante a la parte anterior, se notarán mucho los cambios en tempo, volumen y texturas.</span></li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Abismo <b>9:00 - 10:29</b> Esta será una parte climática e introspectiva. Palabras clave: Incomprensible, profundidad, pensamiento, alma, muerte, incertidumbre...</span></li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Felicidad <i><b>10:30 - 11:59</b></i> Conceptos que generen sensaciones de satisfacción, felicidad, plenitud</span></li><li><span style=\"font-size: 1.07rem; line-height: 1.5;\">Reconocimiento<i><b> 12:00 - 13:29 </b></i>Gradualmente se incita a la reflexión, paz; introspección que da pié al reconocimiento entre los participantes.</span></li></ol><p><br></p><ul><li>Proximidad Terminan mediciones, se retiran sensores y continúa la etapa de “reconocimiento” entre usuarios; platican, se conocen y hacemos una breve entrevista, cerrando la experiencia.</li></ul>"
+        },
+        {
+          "_inherit": "msg-box5",
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "msg-box4",
+          "_anchor": "msg-box4-2w",
+          "_params": {
+            "imageSize": 50,
+            "paddingTop": "1",
+            "paddingBottom": "1",
+            "parallax": true,
+            "bgImageRadio": false,
+            "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
+            "bgColor": "#efefef",
+            "bgColorRadio": true,
+            "bgVideo": {
+              "url": "https://www.youtube.com/watch?v=uNCr7NdOJgw"
+            },
+            "bgVideoRadio": false,
+            "overlay": false,
+            "overlayOpacity": 0.5,
+            "overlayColor": "#fff",
+            "inverse": true,
+            "showTitle": true,
+            "showText": true,
+            "showButtons": false
+          },
+          "media": {
+            "image": {
+              "width": 1400,
+              "src": "@THEME_PATH@/components/_images/gallery/desktop.jpg"
+            },
+            "video": {
+              "active": true,
+              "src": "https://youtu.be/3d09FBQ29Qg",
+              "aspectratio": "16:9",
+              "autoplay": "on",
+              "loop": "on"
+            },
+            "iconFont": {
+              "class": "mbr-iconfont mbr-iconfont-msg-box4",
+              "link": "",
+              "size": 250
+            }
+          },
+          "title": "conexión",
+          "text": "<p>- Posteriormente, se envían mensajes con los datos de los distintos sensores a las aplicaciones de audio y video</p>",
+          "buttons": "<a data-app-btn=\"true\" class=\"btn btn-primary\" href=\"https://mobirise.com\">MORE</a>"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-2k",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff",
+            "showMeta": true
+          },
+          "title": "Sonoro",
+          "meta": ""
+        },
+        {
+          "_inherit": "msg-box5",
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "msg-box4",
+          "_anchor": "msg-box4-2x",
+          "_params": {
+            "imageSize": "64",
+            "paddingTop": "1",
+            "paddingBottom": "1",
+            "parallax": true,
+            "bgImageRadio": false,
+            "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
+            "bgColor": "#efefef",
+            "bgColorRadio": true,
+            "bgVideo": {
+              "url": "https://www.youtube.com/watch?v=uNCr7NdOJgw"
+            },
+            "bgVideoRadio": false,
+            "overlay": false,
+            "overlayOpacity": 0.5,
+            "overlayColor": "#fff",
+            "inverse": false,
+            "showTitle": true,
+            "showText": true,
+            "showButtons": false
+          },
+          "media": {
+            "image": {
+              "width": 1400,
+              "src": "@THEME_PATH@/components/_images/gallery/desktop.jpg"
+            },
+            "video": {
+              "active": true,
+              "src": "https://vimeo.com/215385940",
+              "aspectratio": "16:9",
+              "autoplay": "on",
+              "loop": "on"
+            },
+            "iconFont": {
+              "class": "mbr-iconfont mbr-iconfont-msg-box4",
+              "link": "",
+              "size": 250
+            }
+          },
+          "title": "audio - video",
+          "text": "<p>Una vez enlazadas las conexiones y desarrollados conceptos, se realizaron pruebas, videos de registro y difusión.</p>",
+          "buttons": "<a data-app-btn=\"true\" class=\"btn btn-primary\" href=\"https://mobirise.com\">MORE</a>"
+        },
+        {
+          "soundURL": "url=http%3A%2F%2Fapi.soundcloud.com%2Fusers%2F264242696",
+          "alias": "soundcloud",
+          "_tags": [
+            "Extension"
+          ],
+          "_name": "soundcloud1",
+          "_params": {
+            "sound": "https://soundcloud.com/abismoproximo",
+            "autoplay": false,
+            "fullWidth": false
+          },
+          "iframeSRC": "https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Fusers%2F264242696&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-2m",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff",
+            "showMeta": true
+          },
+          "title": "Sitio web",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-2n",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p><b><span style=\"font-size: 1.07rem; line-height: 1.5;\">Frontend.</span><br></b></p><p>Se rediseñó y programó un nuevo sitio web, Se redactó nuevamente la descripción del proyecto y se especifica el cómo será el registro y participación de los asistentes.</p><p><br></p><p><b>Backend.</b></p><p>Se terminó el desarrollo de la sección de \"registro de participantes\", en la que podrán hacer cita según calendarios disponibles.</p>"
+        },
+        {
+          "_styles": {
+            ".mbr-section-title, .mbr-section-subtitle": {
+              "text-align": "center"
+            },
+            "H3": {
+              "color": "#ffffff"
+            }
+          },
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "header3",
+          "_anchor": "header3-2o",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#000000",
+            "showMeta": true
+          },
+          "title": "Redes",
+          "meta": ""
+        },
+        {
+          "_tags": [
+            "Theme"
+          ],
+          "_name": "content1",
+          "_anchor": "content1-2p",
+          "_params": {
+            "paddingTop": 1,
+            "paddingBottom": 1,
+            "bgColor": "#fff"
+          },
+          "text": "<p>Se continúa la difusión en las redes sociales promueviendo el proyecto, avances y otros anuncios pertinentes.</p><p><br></p><p><a href=\"https://www.facebook.com/abismoproximo\" target=\"_blank\">Facebook</a></p><p><a href=\"https://soundcloud.com/abismoproximo\" target=\"_blank\">SoundCloud</a></p><p><a href=\"https://vimeo.com/abismoproximo\" target=\"_blank\">Vimeo</a></p><p><a href=\"https://github.com/laadeho/abismo\" target=\"_blank\">Github</a>&nbsp;<span style=\"font-size: 1.07rem; line-height: 1.5;\">En el repositorio de github se estará subiendo y actualizando el código. Es la herramienta de trabajo que usaremos para compartir nuestros avances.</span></p>"
         }
       ]
     }

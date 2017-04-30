@@ -480,7 +480,7 @@ h6,
 }
 #ext_menu-0 .link[aria-expanded="true"],
 #ext_menu-0 .dropdown-item[aria-expanded="true"] {
-  color: #c0a375!important;
+  color: #b8312f!important;
 }
 #header4-1 .mbr-section-title {
   font-family: 'Montserrat', sans-serif;
@@ -568,6 +568,10 @@ h6,
 #msg-box8-1k .lead P {
   color: #000000;
 }
+#msg-box3-2s .mbr-section-title,
+#msg-box3-2s p {
+  color: #000;
+}
 #header3-1l .mbr-section-title,
 #header3-1l .mbr-section-subtitle {
   text-align: center;
@@ -645,11 +649,14 @@ h6,
   text-align: center;
 }
 #header3-1o H3 {
-  color: #ffffff;
+  color: #000000;
 }
 #header3-1r .mbr-section-title,
 #header3-1r .mbr-section-subtitle {
   text-align: center;
+}
+#header3-1r H3 {
+  color: #ffffff;
 }
 #header3-1u .mbr-section-title,
 #header3-1u .mbr-section-subtitle {
@@ -725,7 +732,7 @@ h6,
 }
 #ext_menu-o .link[aria-expanded="true"],
 #ext_menu-o .dropdown-item[aria-expanded="true"] {
-  color: #c1c1c1!important;
+  color: #b8312f!important;
 }
 #features1-w .striped .mbr-cards-col:nth-child(2n+1) {
   background-color: #2e2e2e;
@@ -928,4 +935,218 @@ h6,
 #ext_menu-3 .link[aria-expanded="true"],
 #ext_menu-3 .dropdown-item[aria-expanded="true"] {
   color: #b8312f!important;
+}
+#msg-box8-1y .mbr-section-title,
+#msg-box8-1y p {
+  color: #fff;
+}
+#msg-box8-1y .mbr-section-title {
+  color: #000000;
+}
+#msg-box8-1y .lead P {
+  color: #000000;
+}
+#header3-1z .mbr-section-title,
+#header3-1z .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-1z H3 {
+  text-align: right;
+  color: #ffffff;
+}
+#header3-1z SMALL {
+  text-align: right;
+}
+#ext_menu-21 .hide-buttons .nav-btn {
+  display: none !important;
+}
+#ext_menu-21 .navbar-caption {
+  color: #ffffff;
+}
+#ext_menu-21 .navbar-toggler {
+  color: #ffffff;
+}
+#ext_menu-21 .close-icon::before,
+#ext_menu-21 .close-icon::after {
+  background-color: #ffffff;
+}
+#ext_menu-21 .link,
+#ext_menu-21 .dropdown-item {
+  color: #ffffff;
+}
+#ext_menu-21 .link {
+  font-size: 0.85rem;
+}
+#ext_menu-21 .dropdown-item,
+#ext_menu-21 .nav-dropdown-sm .link {
+  font-size: 0.921rem;
+}
+#ext_menu-21 .link:hover,
+#ext_menu-21 .dropdown-item:hover,
+#ext_menu-21 .link:focus,
+#ext_menu-21 .dropdown-item:focus {
+  color: #b8312f;
+}
+#ext_menu-21 .link[aria-expanded="true"],
+#ext_menu-21 .dropdown-menu {
+  background: #0e0e0e;
+}
+#ext_menu-21 .nav-dropdown-sm .link:focus,
+#ext_menu-21 .nav-dropdown-sm .link:hover,
+#ext_menu-21 .nav-dropdown-sm .dropdown-item:focus,
+#ext_menu-21 .nav-dropdown-sm .dropdown-item:hover {
+  background: #202020!important;
+}
+#ext_menu-21 .navbar,
+#ext_menu-21 .nav-dropdown-sm,
+#ext_menu-21 .nav-dropdown-sm .link[aria-expanded="true"],
+#ext_menu-21 .nav-dropdown-sm .dropdown-menu {
+  background: #282828;
+}
+#ext_menu-21 .bg-color.transparent .link {
+  color: #ffffff;
+  transition: none;
+}
+#ext_menu-21 .bg-color.transparent.opened .link {
+  transition: color 0.2s ease-in-out;
+}
+#ext_menu-21 .bg-color.transparent.opened .link:hover,
+#ext_menu-21 .bg-color.transparent.opened .link:focus {
+  color: #b8312f;
+}
+#ext_menu-21 .link[aria-expanded="true"],
+#ext_menu-21 .dropdown-item[aria-expanded="true"] {
+  color: #b8312f!important;
+}
+#header3-23 .mbr-section-title,
+#header3-23 .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-23 H3 {
+  color: #ffffff;
+}
+#header3-26 .mbr-section-title,
+#header3-26 .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-28 .mbr-section-title,
+#header3-28 .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-2a .mbr-section-title,
+#header3-2a .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-2a H3 {
+  color: #ffffff;
+}
+#msg-box8-2c .mbr-section-title,
+#msg-box8-2c p {
+  color: #fff;
+}
+#msg-box8-2c .mbr-section-title {
+  color: #000000;
+}
+#msg-box8-2c .lead P {
+  color: #000000;
+}
+#header3-2d .mbr-section-title,
+#header3-2d .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-2d H3 {
+  text-align: right;
+  color: #ffffff;
+}
+#header3-2d SMALL {
+  text-align: right;
+}
+#ext_menu-2f .hide-buttons .nav-btn {
+  display: none !important;
+}
+#ext_menu-2f .navbar-caption {
+  color: #ffffff;
+}
+#ext_menu-2f .navbar-toggler {
+  color: #ffffff;
+}
+#ext_menu-2f .close-icon::before,
+#ext_menu-2f .close-icon::after {
+  background-color: #ffffff;
+}
+#ext_menu-2f .link,
+#ext_menu-2f .dropdown-item {
+  color: #ffffff;
+}
+#ext_menu-2f .link {
+  font-size: 0.85rem;
+}
+#ext_menu-2f .dropdown-item,
+#ext_menu-2f .nav-dropdown-sm .link {
+  font-size: 0.921rem;
+}
+#ext_menu-2f .link:hover,
+#ext_menu-2f .dropdown-item:hover,
+#ext_menu-2f .link:focus,
+#ext_menu-2f .dropdown-item:focus {
+  color: #b8312f;
+}
+#ext_menu-2f .link[aria-expanded="true"],
+#ext_menu-2f .dropdown-menu {
+  background: #0e0e0e;
+}
+#ext_menu-2f .nav-dropdown-sm .link:focus,
+#ext_menu-2f .nav-dropdown-sm .link:hover,
+#ext_menu-2f .nav-dropdown-sm .dropdown-item:focus,
+#ext_menu-2f .nav-dropdown-sm .dropdown-item:hover {
+  background: #202020!important;
+}
+#ext_menu-2f .navbar,
+#ext_menu-2f .nav-dropdown-sm,
+#ext_menu-2f .nav-dropdown-sm .link[aria-expanded="true"],
+#ext_menu-2f .nav-dropdown-sm .dropdown-menu {
+  background: #282828;
+}
+#ext_menu-2f .bg-color.transparent .link {
+  color: #ffffff;
+  transition: none;
+}
+#ext_menu-2f .bg-color.transparent.opened .link {
+  transition: color 0.2s ease-in-out;
+}
+#ext_menu-2f .bg-color.transparent.opened .link:hover,
+#ext_menu-2f .bg-color.transparent.opened .link:focus {
+  color: #b8312f;
+}
+#ext_menu-2f .link[aria-expanded="true"],
+#ext_menu-2f .dropdown-item[aria-expanded="true"] {
+  color: #b8312f!important;
+}
+#msg-box4-2v H3 {
+  color: #000000;
+}
+#msg-box4-2v P {
+  color: #000000;
+}
+#header3-2h .mbr-section-title,
+#header3-2h .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-2h H3 {
+  color: #ffffff;
+}
+#header3-2k .mbr-section-title,
+#header3-2k .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-2m .mbr-section-title,
+#header3-2m .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-2o .mbr-section-title,
+#header3-2o .mbr-section-subtitle {
+  text-align: center;
+}
+#header3-2o H3 {
+  color: #ffffff;
 }

@@ -222,8 +222,26 @@ void ofApp::updateOSC() {
 			gyroX = m.getArgAsDouble(0);
 			gyroY = m.getArgAsDouble(1);
 			gyroZ = m.getArgAsDouble(2);
-			//std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
-		} else {
+			//std::cout << "gX: " << gyroX << ", gY: " << gyroY << ", gZ: " << gyroZ << endl;
+		} else if (m.getAddress() == "/artifacts") {
+			int mOn = m.getArgAsDouble(0);
+			int bl = m.getArgAsDouble(1);
+			int jC = m.getArgAsDouble(2);
+			
+			if (mOn != 0)
+				museOn = true;
+			else
+				museOn = false;
+			if (bl != 0)
+				blink = true;
+			else
+				blink = false;
+			if (jC != 0)
+				jawClench = true;
+			else
+				jawClench = false;
+		}
+		else {
 			// unrecognized message: display on the bottom of the screen
 			string msg_string;
 			msg_string = m.getAddress();
@@ -314,7 +332,13 @@ void ofApp::debugF() {
 
 /////////////// ESCENA 00
 void ofApp::escena00() {
-
+	ofSetColor(255);
+	ofNoFill();
+	ofPushMatrix();
+	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+	ofRotate(45);
+	ofLine(0, 0, 100, 0);
+	ofPopMatrix();
 }
 /////////////// ESCENA 01
 void ofApp::escena01() {
@@ -326,8 +350,8 @@ void ofApp::escena01() {
 	ofPopStyle();
 	museConectado(100, 150);
 	// Gyro y Acc
-	dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0,204,204));
-	dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204,0,0));
+	dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0,204,204), "Acelerometro");
+	dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204,0,0), "Giroscopio");
 
 	ofPushMatrix();
 	ofTranslate(ofGetWidth(),0,0);
@@ -340,8 +364,8 @@ void ofApp::escena01() {
 	ofPopStyle();
 	museConectado(100, 150);
 	// Gyro y Acc
-	dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0, 204, 204));
-	dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204, 0, 0));
+	dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0, 204, 204), "Acelerometro");
+	dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204, 0, 0), "Giroscopio");
 
 	ofPopMatrix();
 
@@ -392,7 +416,7 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val, int ancho) {
 	ondasFbo[indice].begin();
 	ofSetColor(255, opa01-val*50);
 	ofFill();
-	ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 5 * val, 5 * val);
+	ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1+8 * val, 1+8 * val);
 
 	ondasFbo[indice].end();
 	ondasFbo[indice].draw(pX, pY);
@@ -413,12 +437,19 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val, int ancho) {
 	ofLine(pX, pY+50, pX+ondasFbo[0].getWidth(), pY+50);
 }
 //////// Funcion para Gyro y Acc
-void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, ofColor col) {
+void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, ofColor col, string texto) {
 	ofPushMatrix();
 	ofTranslate(pX, pY, 0);
-	ofRotateX(rX*360);
-	ofRotateY(rY*360);
-	ofRotateZ(rZ*360);
+	if (texto == "Acelerometro") {
+		ofRotateX(-200 + rX * 90);
+		ofRotateZ(-rY * 90);
+		ofRotateY(90-rZ * 90);
+	}
+	else {
+		ofRotateX(-200 + rX * 0.1);
+		ofRotateZ(rY * 0.1);
+		ofRotateZ(rZ * 0.1);
+	}
 
 	ofSetLineWidth(1);
 	ofSetColor(255, 0, 0, opa01);
@@ -438,6 +469,8 @@ void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, of
 	ofNoFill();
 	ofBox(50);
 	ofPopMatrix();
+
+	texto1.drawString(texto, pX-45, pY + 70);
 }
 //////// Funcion muse conectado
 void ofApp::museConectado(int pX, int pY) {

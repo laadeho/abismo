@@ -44,7 +44,7 @@ class ofApp : public ofBaseApp{
 		
 		void museConectado(int, int);
 		void dibujaOnda(int, int, int, float, int);
-		void dibujaOrientaciones(int, int, float, float, float, ofColor);
+		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
 
 		float opaGral = 0.0;
 		float opa01 = 0.0;
@@ -81,8 +81,8 @@ class ofApp : public ofBaseApp{
 		// Artifacts
 		ofxToggle artifacts;
 		ofxToggle museOn;
-		ofxButton blink;
-		ofxButton jawClench;
+		ofxToggle blink;
+		ofxToggle jawClench;
 		// Accelerometer
 		ofxToggle acc;
 		ofxFloatSlider accX;

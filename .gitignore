@@ -50,6 +50,10 @@ grafica/abismo_grafica/abismo_grafica/bin/*.pdb
 grafica/abismo_grafica/abismo_grafica/bin/*.dll
 grafica/abismo_grafica/abismo_grafica.VC.db
 grafica/abismo_grafica/abismo_grafica.VC.VC.opendb
+webMobirise/
 ehthumbs.db
 Thumbs.db
 audio/samples/
+*.mp4
+*.aep
+frames/
