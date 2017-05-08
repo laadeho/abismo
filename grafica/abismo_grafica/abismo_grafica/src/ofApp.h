@@ -27,26 +27,33 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		/////////////////////////////
-		bool debug = false;
+		bool fullScreenDisplay = false;
+		bool debug = true;
 		void debugF();
 		bool showGui = false;
 		string sensaciones[11];
 		ofTrueTypeFont titulos, texto1;
 		bool emularSensorMuse = false;
-		float valSensores[5] = {0,0,0,0,0};
+		float valSensores[6] = {0,0,0,0,0,0};
 		/////// ESCENAS //////////////////////////
-		bool titulo = false;
-		int escena;
+		bool titulo = true;
+		float velOpa = 1.0f; // Velocidad de opacidad
+		int escena; // escena actual
 		int numEscenas = 11;
 		void escena00(), escena01(), escena02(), escena03(),
 			escena04(), escena05(), escena06(), escena07(), 
 			escena08(), escena09(), escena10();
-		
+		// escena 00
+		bool iniciaTodo = true;
+		int contador, limiteContador = 50;
+		bool entraLogo = false;
+		bool saleLogo = false;
+		ofImage logoAbismo;
+		float opaLogo;
+		// escena 01
 		void museConectado(int, int);
 		void dibujaOnda(int, int, int, float, int);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
-
-		float opaGral = 0.0;
 		float opa01 = 0.0;
 		string ondas[5];
 		int anchoOndaVentana;
@@ -56,6 +63,18 @@ class ofApp : public ofBaseApp{
 		float posOndaX = 0;
 		float velOndaX = 0.5;
 		ofFbo ondasFbo[5];
+
+		int esc01 = 0;
+		bool cambia01 = false;
+
+		int numPart = 6;
+		float radio01Fin = 350;
+		float radio01 = 0.25;
+		float tamPart[6];
+		int anillos = 20;
+		int sepAnillos = 15;
+
+		// escenas END
 
 		ofImage captura;
 		///// OSC ////////////////////////////
@@ -70,6 +89,7 @@ class ofApp : public ofBaseApp{
 		///// OSC ////////////////////////////
 
 		/////////// GUI //////////////////
+		void setupGUI();
 		ofxIntSlider escenas;
 		ofxToggle guardaFrame;
 		// Brain
@@ -101,6 +121,9 @@ class ofApp : public ofBaseApp{
 		ofxFloatSlider EEG4;
 		ofxFloatSlider auxLeft;
 		ofxFloatSlider auxRight;
+
+		ofxToggle pulseSensor;
+
 		// GUI
 		ofxPanel gui;
 		/////////////// GUI //////////////////		
