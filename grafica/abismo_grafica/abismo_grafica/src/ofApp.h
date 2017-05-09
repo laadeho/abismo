@@ -94,6 +94,8 @@ class ofApp : public ofBaseApp{
 		navegar, dando paso a la escena 3 (miedo) con
 		vértices afilados y ambientes tenebrosos
 		*/
+		int sepPart2 = 135;
+		int numPart2X, numPart2Y;
 
 		// escenas END
 

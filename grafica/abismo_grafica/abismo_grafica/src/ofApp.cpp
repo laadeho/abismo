@@ -50,7 +50,11 @@ void ofApp::setup(){
 		ofBackground(0);
 		ondasFbo[i].end();
 	}
-	
+	// ESC 02 /////////////////////////
+	numPart2X = ofGetWidth() / sepPart2;
+	numPart2Y = ofGetHeight() / sepPart2;
+	// ESC 03 /////////////////////////
+
 	
 	/*
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
@@ -593,9 +597,9 @@ void ofApp::escena01() {
 }
 /////////////// ESCENA 00
 void ofApp::escena02() {
-	for (int j = 0; j < 20; j++) {
-		for (int i = 0; i < 20; i++) {
-			ofEllipse(i*(ofGetWidth() / 19), j*(ofGetHeight() / 19),10 ,10);
+	for (int j = 0; j <= numPart2Y; j++) {
+		for (int i = 0; i <= numPart2X; i++) {
+			ofEllipse(i*sepPart2, j*sepPart2,10 ,10);
 		}
 	}
 }
