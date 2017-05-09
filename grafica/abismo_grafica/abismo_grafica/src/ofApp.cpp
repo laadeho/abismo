@@ -17,6 +17,8 @@ void ofApp::setup(){
 	//titulos.setLineHeight(10);
 	
 	setupGUI();
+	if (fullScreenDisplay)
+		ofSetFullscreen(true);
 
 	titulos.loadFont("Helvetica Bold.ttf", 20);
 	texto1.loadFont("Helvetica Normal.ttf", 10);
@@ -67,7 +69,7 @@ void ofApp::update() {
 
 	switch (escena)
 	{
-	case 0:
+	case 0: // LOGO
 		if (iniciaTodo&&contador < limiteContador){
 			contador++;
 		}
@@ -95,42 +97,109 @@ void ofApp::update() {
 			}
 		}
 		break;
-	case 1:
-		//ofSetCircleResolution(50);
-		if (!cambia01 && opa01 < 255)
+	case 1: // Reconocimiento
+		if (!cambia01 && opa01 < 255) {
 			opa01 += velOpa;
-		posOndaX += velOndaX;
-		if (posOndaX > ondasFbo[0].getWidth()) {
-			posOndaX = 0;
-			for (int i = 0; i < 5; i++) {
-				ondasFbo[i].begin();
-				ofBackground(0);
-				ondasFbo[i].end();
+		}		
+		// Solo switch de esc01
+		switch (esc01) {
+		case 0:
+			posOndaX += velOndaX;
+			if (posOndaX > ondasFbo[0].getWidth()) {
+				posOndaX = 0;
+				for (int i = 0; i < 5; i++) {
+					ondasFbo[i].begin();
+					ofBackground(0);
+					ondasFbo[i].end();
+				}
 			}
-		}
+			break;
+		case 1:
+			for (int i = 0; i < numPart; i++) {
+				particulas[i].set(
+					sin((TWO_PI / numPart)*i)*(radio01 + valSensores[i] * multSensores)*escala01,
+					cos((TWO_PI / numPart)*i)*(radio01 + valSensores[i] * multSensores)*escala01,
+					0);
+			}
+			if (radio01 < radio01Fin)
+				radio01 += 0.5;
+			break;
+		case 2:
+			if (!partInPos) {
+				for (int i = 0; i < numPart; i++) {
+					float pTempX = particulas[i].x;
+					particulas[i].set(
+						pTempX, 0, 0
+					);
 
+					if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
+						particulas[i].x += 5;
+					else
+						particulas[i].x -= 5;
+				}
+				if (particulas[0].x < -ofGetWidth() / 2 + 2) {
+					iniciaOpa01b = true;
+					partInPos = true;
+				}
+			}
+			else {
+				if (contador < 50)
+					contador++;
+				if (contador == 50) {
+					if (escala01 < 1)
+						escala01 += 0.025;
+					if (!cambia01) {
+						if (opa01b < 255)
+							opa01b++;
+					}
+				}
+			}
+			for (int i = 0; i < numPart; i++) {
+				particulas[i].set(particulas[i].x, valSensores[i] * 150 * escala01, 0);
+			}
+			break;
+		}	
+		// Switch al cambiar de escena o contenido
 		if (cambia01) {
-			if (opa01 > 0)
-				opa01 -= velOpa;
-			if(esc01 < 2){
+			switch (esc01) {
+			case 0:
+				if (opa01 > 0)
+					opa01 -= velOpa;
 				if (opa01 == 0) {
 					esc01++;
 					cambia01 = false;
 				}
-			}
-			else {
-				if (opa01 == 0) {
+				break;
+			case 1:
+				if (opa01 == 255) {
+					if (escala01 > 0)
+						escala01 -= 0.005;
+					if (escala01 < 0.01) {
+						esc01++;
+						cambia01 = false;
+					}
+				}
+				break;
+			case 2:
+				if (opa01 > 0)
+					opa01 -= velOpa;
+				if (opa01b > 0)
+					opa01b -= velOpa;
+				if (opa01 == 0 && opa01b == 0) {
+					iniciaOpa01b = false;
+					partInPos = false;
 					escena++;
 					escenas = escena;
 					cambia01 = false;
 				}
+				break;
 			}
 		}
-		if (esc01 == 1) {
-			if (radio01 < radio01Fin)
-				radio01 += 0.25;
-		}
+		break;
+	case 2:
 
+		break;
+	case 3:
 		break;
 	default:
 		break;
@@ -335,6 +404,8 @@ void ofApp::debugF() {
 		for (int i = 0; i < 10; i++) {
 			ofDrawBitmapString(ofToString(i)+": "+sensaciones[i], 100, 125 + 20 * i);
 		}
+		ofDrawBitmapString("FrameRate: " + ofToString(ofGetFrameRate()), 100, 350);
+
 		ofSetColor(255, 0, 0);
 		ofFill();
 		ofDrawCircle(0,0, 10);
@@ -367,6 +438,10 @@ void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
 	ofEnableAlphaBlending();
 	ofPushStyle();
+
+	if (debug) {
+		ofDrawBitmapString("Esc01: "+ofToString(esc01), 300,200);
+	}
 	switch (esc01) {
 	case 0:
 		ofSetColor(255, opa01);
@@ -398,51 +473,119 @@ void ofApp::escena01() {
 	case 1:
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
-		ofRotateX(-45 + accX * 90);
-		ofRotateY(-45 + accY * 90);
-		ofSetColor(255, opa01);
-		ofDrawBitmapString("esc01 1", 200, 500);
-		ofDrawBitmapString("Cambia: "+ofToString(cambia01), 200, 520);
-		////////// 
-		for (int j = 0; j < anillos; j++) {
-			for (int i = 0; i < numPart; i++) {
-				ofEllipse(
-					sin((TWO_PI / numPart)*i)*(-j * sepAnillos + radio01 + valSensores[i] * 50),
-					cos((TWO_PI / numPart)*i)*(-j * sepAnillos + radio01 + valSensores[i] * 50),
-					(anillos-j)/2, (anillos - j) / 2);
-			}
-		}
+		ofRotateX(accX * multRotaciones);
+		ofRotateY(-multRotaciones+accZ * multRotaciones);
+		ofRotateZ(accY * multRotaciones);
+		//////////
 		ofSetColor(255, opa01 / anillos);
 		ofFill();
+		// Dibujo hexagonos con relleno
 		ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 		for (int j = 0; j < anillos; j++) {
 			ofBeginShape();
 			for (int i = 0; i < numPart; i++) {
 				ofVertex(
-					sin((TWO_PI / numPart)*i)*(-j * sepAnillos + radio01 + valSensores[i] * 50),
-					cos((TWO_PI / numPart)*i)*(-j * sepAnillos + radio01 + valSensores[i] * 50)
+					particulas[i].x*((1 + j)*.08),
+					particulas[i].y*((1 + j)*.08),
+					sin(i+j*anillos+ofGetElapsedTimeMillis()*.001)*20
 				);
 			}
 			ofEndShape();
 		}
+		// Dibujo Hexagonos sin relleno
 		for (int j = 0; j < anillos; j++) {
-			ofSetColor(255, opa01-j*15);
+			ofSetColor(0, opa01-j*15);
 			ofNoFill();
 			ofBeginShape();
 			for (int i = 0; i < numPart; i++) {
 				ofVertex(
-					sin((TWO_PI / numPart)*i)*(-j * sepAnillos + radio01 + valSensores[i] * 50),
-					cos((TWO_PI / numPart)*i)*(-j * sepAnillos + radio01 + valSensores[i] * 50)
+					particulas[i].x*((1 + j)*.08),
+					particulas[i].y*((1 + j)*.08)
 				);
 			}
 			ofEndShape();
 		}
+		// Dibujo elipses
+		ofSetColor(255, opa01);
+		ofFill();
+		for (int j = 0; j < anillos; j++) {
+			for (int i = 0; i < numPart; i++) {
+				ofEllipse(
+					particulas[i].x*((1 + j)*.08),
+					particulas[i].y*((1 + j)*.08),
+					(anillos - j) / 2, (anillos - j) / 2);
+			}
+		}
 		ofPopMatrix();
 		break;
 	case 2:
+		ofPushMatrix();
+		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 		ofSetColor(255, opa01);
-		ofDrawBitmapString("esc01 2", 200, 500);
-		ofDrawBitmapString("Cambia: " + ofToString(cambia01), 200, 520);
+		ofFill();
+		for (int i = 0; i < numPart; i++) {
+			ofEllipse(
+				particulas[i].x,
+				particulas[i].y,
+				5,5);
+		}
+		/*
+		if (!partInPos) {
+			for (int i = 0; i < numPart; i++) {
+				float pTempX = particulas[i].x;
+
+				particulas[i].set(
+					pTempX, 0, 0
+				);
+
+				if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
+					particulas[i].x += 5;
+				else
+					particulas[i].x -= 5;
+			}
+			if (particulas[0].x < -ofGetWidth() / 2 + 2) {
+				iniciaOpa01b = true;
+				partInPos = true;
+			}
+		}
+		else {
+			if (contador < 50)
+				contador++;
+			if (contador == 50) {
+				if (escala01 < 1)
+					escala01 += 0.025;
+				if (!cambia01) {
+					if (opa01b < 255)
+						opa01b++;
+				}
+			}
+		}
+		*/
+		if (iniciaOpa01b) {
+			ofPushStyle();
+			ofSetColor(255, opa01b/anillos);
+			for (int j = 0; j < anillos; j++) {
+				ofBeginShape();
+				ofVertex(ofGetWidth() / 2, ofGetHeight() / 2);
+				ofVertex(-ofGetWidth() / 2, ofGetHeight() / 2);
+				for (int i = 0; i < numPart; i++) {
+					ofVertex(particulas[i].x, particulas[i].y+25*j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
+					);
+				}
+				ofEndShape();
+			}
+			for (int j = 0; j < anillos; j++) {
+				ofSetColor(0, opa01b - j * 15);
+				ofNoFill();
+				ofBeginShape();
+				for (int i = 0; i < numPart; i++) {
+					ofVertex(particulas[i].x, particulas[i].y + 25 * j);
+				}
+				ofEndShape();
+			}
+			ofPopStyle();
+		}
+		ofPopMatrix();
 		break;
 	}
 	ofPopStyle();
@@ -450,7 +593,11 @@ void ofApp::escena01() {
 }
 /////////////// ESCENA 00
 void ofApp::escena02() {
-
+	for (int j = 0; j < 20; j++) {
+		for (int i = 0; i < 20; i++) {
+			ofEllipse(i*(ofGetWidth() / 19), j*(ofGetHeight() / 19),10 ,10);
+		}
+	}
 }
 /////////////// ESCENA 00
 void ofApp::escena03() {

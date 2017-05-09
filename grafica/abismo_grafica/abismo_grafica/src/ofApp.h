@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		/////////////////////////////
-		bool fullScreenDisplay = false;
+		bool fullScreenDisplay = true;
 		bool debug = true;
 		void debugF();
 		bool showGui = false;
@@ -55,6 +55,7 @@ class ofApp : public ofBaseApp{
 		void dibujaOnda(int, int, int, float, int);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
 		float opa01 = 0.0;
+
 		string ondas[5];
 		int anchoOndaVentana;
 		float valOnda[5];
@@ -63,16 +64,36 @@ class ofApp : public ofBaseApp{
 		float posOndaX = 0;
 		float velOndaX = 0.5;
 		ofFbo ondasFbo[5];
+		int multSensores = 100;
+		int multRotaciones = 45;
 
 		int esc01 = 0;
 		bool cambia01 = false;
+		float opa01b = 0.0;
 
 		int numPart = 6;
-		float radio01Fin = 350;
+		ofVec3f particulas[6];
+		float radio01Fin = 500;
 		float radio01 = 0.25;
 		float tamPart[6];
-		int anillos = 20;
-		int sepAnillos = 15;
+		int anillos = 10;
+		int sepAnillos = 30;
+		float escala01 = 1.0f;
+		bool partInPos = false;
+		bool iniciaOpa01b = false;
+
+		// escena 02
+		/*
+		Una red de puntos es modificada por
+		una serie de particulas rebotando en pantalla
+		afectan la distancia entre los nodos. 
+		La velocidad de las partículas es dada por 
+		los sensores.
+		El entorno cimienza a migrar a mallas y posteriormente
+		se vuelve un espacio 3d en el que podrán 
+		navegar, dando paso a la escena 3 (miedo) con
+		vértices afilados y ambientes tenebrosos
+		*/
 
 		// escenas END
 
