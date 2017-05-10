@@ -51,10 +51,26 @@ void ofApp::setup(){
 		ondasFbo[i].end();
 	}
 	// ESC 02 /////////////////////////
-	numPart2X = ofGetWidth() / sepPart2;
-	numPart2Y = ofGetHeight() / sepPart2;
-	// ESC 03 /////////////////////////
+	sep2X = ofGetWidth() / (numPart2X-1);
+	sep2Y = ofGetHeight() / (numPart2Y-1);
 
+	for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			nodos[i + j*numPart2X] = ofVec2f(sep2X*i ,sep2Y*j);
+			tamNodos[i + j*numPart2X] = 5.0f;
+		}
+	}
+	for (int i = 0; i < 6; i++) {
+		sensorPosiciones[i] = ofVec2f(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+		velSensores[i] = ofVec2f(0, 0);
+	}
+	
+	// ESC 03 /////////////////////////
+	// ESC 04 /////////////////////////
+	// ESC 05 /////////////////////////
+	// ESC 06 /////////////////////////
+	// ESC 07 /////////////////////////
+	// ESC 08 /////////////////////////
 	
 	/*
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
@@ -201,6 +217,36 @@ void ofApp::update() {
 		}
 		break;
 	case 2:
+
+		for (int i = 0; i < 6; i++) {
+			if (direcciones2X[i])
+				velSensores[i].x = valSensores[i]* velMult;
+			else
+				velSensores[i].x = -valSensores[i]* velMult;
+			///// Cambiar al sensor 2
+			if (direcciones2Y[i])
+				velSensores[i].y = valSensores[i]* velMult;
+			else
+				velSensores[i].y = -valSensores[i]* velMult;
+
+			sensorPosiciones[i].set(sensorPosiciones[i].x+velSensores[i].x, sensorPosiciones[i].y+velSensores[i].y);
+			if (sensorPosiciones[i].x > ofGetWidth() || sensorPosiciones[i].x < 0) {
+				direcciones2X[i] =! direcciones2X[i];
+			}
+			if (sensorPosiciones[i].y > ofGetHeight() || sensorPosiciones[i].y < 0) {
+				direcciones2Y[i] =! direcciones2Y[i];
+			}
+		}
+		ofSetCircleResolution(50);
+		for (int j = 0; j < numPart2Y; j++) {
+			for (int i = 0; i < numPart2X; i++) {
+				if (ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[i % 6].x, sensorPosiciones[i % 6].y) < 100) {
+					tamNodos[i + j*numPart2X] = 150;
+				}
+				if(tamNodos[i + j*numPart2X] > 5)
+					tamNodos[i + j*numPart2X]-=0.5;
+			}
+		}
 
 		break;
 	case 3:
@@ -595,39 +641,45 @@ void ofApp::escena01() {
 	ofPopStyle();
 	ofDisableAlphaBlending();
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 02
 void ofApp::escena02() {
-	for (int j = 0; j <= numPart2Y; j++) {
-		for (int i = 0; i <= numPart2X; i++) {
-			ofEllipse(i*sepPart2, j*sepPart2,10 ,10);
+	if (debug) {
+		ofDrawBitmapString(numPart2X*numPart2Y, 200, 200);
+		for (int j = 0; j < 6; j++) {
+			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
+		}
+	}
+	for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
 		}
 	}
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 03
 void ofApp::escena03() {
 
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 04
 void ofApp::escena04() {
 
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 05
 void ofApp::escena05() {
 
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 06
 void ofApp::escena06() {
 
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 07
 void ofApp::escena07() {
 
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 08
 void ofApp::escena08() {
 
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 09
 void ofApp::escena09() {
 
 }

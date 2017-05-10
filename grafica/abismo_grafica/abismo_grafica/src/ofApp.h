@@ -94,8 +94,14 @@ class ofApp : public ofBaseApp{
 		navegar, dando paso a la escena 3 (miedo) con
 		vértices afilados y ambientes tenebrosos
 		*/
-		int sepPart2 = 135;
-		int numPart2X, numPart2Y;
+		int numPart2X = 15, numPart2Y = 9;
+		int sep2X, sep2Y;
+		ofVec2f nodos[15 * 9];
+		float tamNodos[15 * 9];
+		ofVec2f sensorPosiciones[6];
+		ofVec2f velSensores[6];
+		bool direcciones2X[6], direcciones2Y[6];
+		int velMult = 10;
 
 		// escenas END
 
