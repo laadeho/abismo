@@ -7,7 +7,7 @@ void ofApp::setup(){
 	//cout << "listening for osc messages on port " << PORT << "\n";
 	receiver.setup(PORT);
 	current_msg_string = 0;
-
+	ofSetFrameRate(60);
 	ofBackground(0);
 	ofEnableAlphaBlending(); // lines have the ability to draw with alpha enabled
 
@@ -64,7 +64,11 @@ void ofApp::setup(){
 		sensorPosiciones[i] = ofVec2f(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
 		velSensores[i] = ofVec2f(0, 0);
 	}
-	
+	/*
+	ofVec2f test = ofVec2f(10, 10);
+	camera.setupPerspective(true, .9, .5, 650, test);
+	*/
+
 	// ESC 03 /////////////////////////
 	// ESC 04 /////////////////////////
 	// ESC 05 /////////////////////////
@@ -247,6 +251,7 @@ void ofApp::update() {
 					tamNodos[i + j*numPart2X]-=0.5;
 			}
 		}
+		////// superficie
 
 		break;
 	case 3:
@@ -416,6 +421,7 @@ void ofApp::draw(){
 		break;
 	case 3:
 		escena03();
+		
 		break;
 	case 4:
 		escena04();
@@ -643,17 +649,62 @@ void ofApp::escena01() {
 }
 /////////////// ESCENA 02
 void ofApp::escena02() {
+
+	// ofCamera myCam;   
+	float tweenvalue = (ofGetElapsedTimeMillis() % 2000) / 2000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds  
+
+	ofQuaternion startQuat;
+	ofQuaternion targetQuat;
+	ofVec3f startPos;
+	ofVec3f targetPos;
+
+	// we define the camer's start and end orientation here:  
+	startQuat.makeRotate(0, 0, 1, 0);			// zero rotation.  
+	targetQuat.makeRotate(90, 0, 1, 0);			// rotation 90 degrees around y-axis.  
+
+												// we define the camer's start and end-position here:  
+	startPos.set(0, 0, 0);
+	targetPos.set(0, 0, 600);
+
+
+	ofQuaternion tweenedCameraQuaternion;	// this will be the camera's new rotation.  
+
+											// calculate the interpolated orientation  
+	tweenedCameraQuaternion.slerp(tweenvalue, startQuat, targetQuat);
+
+	ofVec3f lerpPos;					//this will hold our tweened position.  
+
+										// calculate the interpolated values.  
+	lerpPos.x = ofLerp(tweenvalue, startPos.x, targetPos.x);
+	lerpPos.y = ofLerp(tweenvalue, startPos.y, targetPos.y);
+	lerpPos.z = ofLerp(tweenvalue, startPos.z, targetPos.z);
+
+	// alternative way to calculate interpolated values:  
+	// lerpPos = startPos + ((targetPos-startPos) * tweenvalue);  
+
+	// now update the camera with the calculated orientation and position.  
+	myCam.setOrientation(tweenedCameraQuaternion);
+	myCam.setGlobalPosition(lerpPos);
+
+
 	if (debug) {
 		ofDrawBitmapString(numPart2X*numPart2Y, 200, 200);
 		for (int j = 0; j < 6; j++) {
 			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
 		}
 	}
+
+	myCam.begin();
+	ofDrawLine(0, 0, ofGetWidth(), ofGetHeight());
+
+	ofEllipse(0, 0, 50, 50);
 	for (int j = 0; j < numPart2Y; j++) {
 		for (int i = 0; i < numPart2X; i++) {
 			ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
 		}
 	}
+	myCam.end();
+
 }
 /////////////// ESCENA 03
 void ofApp::escena03() {

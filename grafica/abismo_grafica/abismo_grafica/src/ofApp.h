@@ -102,6 +102,9 @@ class ofApp : public ofBaseApp{
 		ofVec2f velSensores[6];
 		bool direcciones2X[6], direcciones2Y[6];
 		int velMult = 10;
+		// ahora a modificarlo en una superficie
+		ofVec3f posCam;
+		ofCamera myCam;
 
 		// escenas END
 
