@@ -96,7 +96,7 @@ class ofApp : public ofBaseApp{
 		*/
 		int numPart2X = 15, numPart2Y = 9;
 		int sep2X, sep2Y;
-		ofVec2f nodos[15 * 9];
+		ofVec3f nodos[15 * 9];
 		float tamNodos[15 * 9];
 		ofVec2f sensorPosiciones[6];
 		ofVec2f velSensores[6];
@@ -104,7 +104,16 @@ class ofApp : public ofBaseApp{
 		int velMult = 10;
 		// ahora a modificarlo en una superficie
 		ofVec3f posCam;
-		ofCamera myCam;
+		ofEasyCam myCam;
+		float rotaParts = 0;
+		bool gira2 = false;
+		float rota360 = 0;
+
+
+
+
+
+
 
 		// escenas END
 

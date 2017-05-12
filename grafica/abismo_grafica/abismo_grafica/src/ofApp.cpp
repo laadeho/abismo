@@ -56,7 +56,7 @@ void ofApp::setup(){
 
 	for (int j = 0; j < numPart2Y; j++) {
 		for (int i = 0; i < numPart2X; i++) {
-			nodos[i + j*numPart2X] = ofVec2f(sep2X*i ,sep2Y*j);
+			nodos[i + j*numPart2X] = ofVec3f(sep2X*i ,sep2Y*j, 0);
 			tamNodos[i + j*numPart2X] = 5.0f;
 		}
 	}
@@ -68,6 +68,8 @@ void ofApp::setup(){
 	ofVec2f test = ofVec2f(10, 10);
 	camera.setupPerspective(true, .9, .5, 650, test);
 	*/
+	//myCam.disableMouseInput();
+	//myCam.disableMouseMiddleButton();
 
 	// ESC 03 /////////////////////////
 	// ESC 04 /////////////////////////
@@ -649,9 +651,9 @@ void ofApp::escena01() {
 }
 /////////////// ESCENA 02
 void ofApp::escena02() {
-
+	/*
 	// ofCamera myCam;   
-	float tweenvalue = (ofGetElapsedTimeMillis() % 2000) / 2000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds  
+	float tweenvalue = (ofGetElapsedTimeMillis() % 6000) / 6000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds  
 
 	ofQuaternion startQuat;
 	ofQuaternion targetQuat;
@@ -659,12 +661,12 @@ void ofApp::escena02() {
 	ofVec3f targetPos;
 
 	// we define the camer's start and end orientation here:  
-	startQuat.makeRotate(0, 0, 1, 0);			// zero rotation.  
-	targetQuat.makeRotate(90, 0, 1, 0);			// rotation 90 degrees around y-axis.  
+	startQuat.makeRotate(90, 0, 0, 1);			// zero rotation.  
+	targetQuat.makeRotate(180, 0, 0, 1);			// rotation 90 degrees around y-axis.  
 
 												// we define the camer's start and end-position here:  
 	startPos.set(0, 0, 0);
-	targetPos.set(0, 0, 600);
+	targetPos.set(0, 0, 0);
 
 
 	ofQuaternion tweenedCameraQuaternion;	// this will be the camera's new rotation.  
@@ -680,29 +682,59 @@ void ofApp::escena02() {
 	lerpPos.z = ofLerp(tweenvalue, startPos.z, targetPos.z);
 
 	// alternative way to calculate interpolated values:  
-	// lerpPos = startPos + ((targetPos-startPos) * tweenvalue);  
+	 //lerpPos = startPos + ((targetPos-startPos) * tweenvalue);  
 
 	// now update the camera with the calculated orientation and position.  
-	myCam.setOrientation(tweenedCameraQuaternion);
-	myCam.setGlobalPosition(lerpPos);
-
+	
+	
+	 // myCam.setOrientation(tweenedCameraQuaternion);
+	 // myCam.setGlobalPosition(lerpPos);
+	 */
 
 	if (debug) {
-		ofDrawBitmapString(numPart2X*numPart2Y, 200, 200);
+		ofDrawBitmapString(ofToString(rotaParts), 200, 200);
 		for (int j = 0; j < 6; j++) {
 			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
 		}
 	}
 
-	myCam.begin();
-	ofDrawLine(0, 0, ofGetWidth(), ofGetHeight());
+	if (rotaParts < 1)
+		rotaParts += 0.0025;
+	if (rotaParts > 0.95)
+		gira2 = true;
 
+	if (gira2) {
+		rota360 += 0.25;
+	}
+		
+	
+
+	myCam.begin();
+	ofPushMatrix();
+	ofRotateX(-rotaParts * 70);
+
+	if(gira2)
+		ofRotateZ(rota360);
+
+	ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
+	
+
+
+	
 	ofEllipse(0, 0, 50, 50);
 	for (int j = 0; j < numPart2Y; j++) {
 		for (int i = 0; i < numPart2X; i++) {
-			ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
+			nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.001 + i + j*numPart2X) * 50;
+			ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z,  tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
 		}
 	}
+
+	
+
+
+
+
+	ofPopMatrix();
 	myCam.end();
 
 }
