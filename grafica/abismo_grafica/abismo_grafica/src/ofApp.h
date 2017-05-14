@@ -38,7 +38,7 @@ class ofApp : public ofBaseApp{
 		/////// ESCENAS //////////////////////////
 		bool titulo = true;
 		float velOpa = 1.0f; // Velocidad de opacidad
-		int escena; // escena actual
+		int escena = 2; // escena actual
 		int numEscenas = 11;
 		void escena00(), escena01(), escena02(), escena03(),
 			escena04(), escena05(), escena06(), escena07(), 
