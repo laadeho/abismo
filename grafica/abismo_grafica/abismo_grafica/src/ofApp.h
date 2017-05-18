@@ -110,6 +110,9 @@ class ofApp : public ofBaseApp{
 		ofxToggle ejes02;
 		ofxToggle malla02;
 		ofxToggle invertir02;
+		ofxFloatSlider dist02;
+		ofxToggle circular02;
+		ofxFloatSlider radio02;
 
 		ofVec3f posCam;
 		ofEasyCam myCam;

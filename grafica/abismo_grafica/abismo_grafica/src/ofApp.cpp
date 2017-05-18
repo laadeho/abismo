@@ -256,13 +256,15 @@ void ofApp::update() {
 				velSensores[i].x = valSensores[i]* velMult;
 			else
 				velSensores[i].x = -valSensores[i]* velMult;
-			///// Cambiar al sensor 2
+			///// Cambiar al sensor 2 movimiento en X lo da un sensor y movimiento en Y lo dará el segundo
 			if (direcciones2Y[i])
 				velSensores[i].y = valSensores[i]* velMult;
 			else
 				velSensores[i].y = -valSensores[i]* velMult;
 
 			sensorPosiciones[i].set(sensorPosiciones[i].x+velSensores[i].x, sensorPosiciones[i].y+velSensores[i].y);
+
+			// Invertir las direcciones al tener colisión
 			if (sensorPosiciones[i].x > ofGetWidth() || sensorPosiciones[i].x < 0) {
 				direcciones2X[i] =! direcciones2X[i];
 			}
@@ -270,20 +272,21 @@ void ofApp::update() {
 				direcciones2Y[i] =! direcciones2Y[i];
 			}
 		}
-		ofSetCircleResolution(50);
+		ofSetCircleResolution(30);
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				// estados al estar cerca de un nodo
 				for (int k = 0; k < 6; k++) {
 					int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
-					if (distancia < 300) {
-						tamNodos[i + j*numPart2X] = 10+distancia/20;
-						if(!invertir02)
+					if (distancia < dist02) {
+						tamNodos[i + j*numPart2X] = ofMap(distancia, 0, dist02, 50, 5);
+						if (!invertir02) {
 							nodos[i + j*numPart2X].z = -distancia;
-						else
+						} else {
 							nodos[i + j*numPart2X].z = distancia;
+						}
 					}
-					if (distancia > 1 && distancia < 255) {
+					if (distancia > 1 && distancia < dist02) {
 						colNodo02[i + j*numPart2X] = distancia;
 					}
 				}
@@ -291,14 +294,16 @@ void ofApp::update() {
 				// regreso progresivo a su estado inicial
 				if (tamNodos[i + j*numPart2X] > 5)
 					tamNodos[i + j*numPart2X]-=0.5;
+
 				if(!invertir02){
-					if (nodos[i + j*numPart2X].z > 0)
-						nodos[i + j*numPart2X].z--;
-				}
-				else {
 					if (nodos[i + j*numPart2X].z < 0)
 						nodos[i + j*numPart2X].z++;
 				}
+				else {
+					if (nodos[i + j*numPart2X].z > 0)
+						nodos[i + j*numPart2X].z--;
+				}
+
 				if (colNodo02[i + j*numPart2X] < 125 + incCol02*(i + j*numPart2X))
 					colNodo02[i + j*numPart2X]++;
 				else 
@@ -733,6 +738,7 @@ void ofApp::escena02() {
 		}
 		superficie02.drawFaces();
 	}
+
 	if(ejes02){
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
@@ -1062,6 +1068,10 @@ void ofApp::setupGUI() {
 	gui.add(ejes02.setup("ejes02", false));
 	gui.add(malla02.setup("malla02", false));
 	gui.add(invertir02.setup("invertir02", false));
+	gui.add(dist02.setup("dist02", 300, 50, 500));
+	gui.add(circular02.setup("circular02", false));
+	gui.add(radio02.setup("radio02", 300, 100, 5000));
+
 }
 ///////////////////// GUI ///////////////
 
