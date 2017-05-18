@@ -95,20 +95,14 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\code\oscpack_1_1_0;D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;Ws2_32.lib;winmm.lib;D:\code\oscpack_1_1_0\Debug\oscpack.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>

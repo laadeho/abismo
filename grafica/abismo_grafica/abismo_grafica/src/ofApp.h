@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		/////////////////////////////
-		bool fullScreenDisplay = true;
+		bool fullScreenDisplay = false;
 		bool debug = true;
 		void debugF();
 		bool showGui = false;
@@ -94,24 +94,32 @@ class ofApp : public ofBaseApp{
 		navegar, dando paso a la escena 3 (miedo) con
 		vértices afilados y ambientes tenebrosos
 		*/
-		int numPart2X = 15, numPart2Y = 9;
+		int numPart2X = 30, numPart2Y = 18;
 		int sep2X, sep2Y;
-		ofVec3f nodos[15 * 9];
-		float tamNodos[15 * 9];
+		ofVec3f nodos[30 * 18];
+		float tamNodos[30 * 18];
+		int colNodo02[30 * 18];
+
 		ofVec2f sensorPosiciones[6];
 		ofVec2f velSensores[6];
 		bool direcciones2X[6], direcciones2Y[6];
 		int velMult = 10;
 		// ahora a modificarlo en una superficie
+		ofxToggle camara02;
+		ofxToggle puntos02;
+		ofxToggle ejes02;
+		ofxToggle malla02;
+		ofxToggle invertir02;
+
 		ofVec3f posCam;
 		ofEasyCam myCam;
 		float rotaParts = 0;
-		bool gira2 = false;
+		bool gira2 = false;	
 		float rota360 = 0;
 
-
-
-
+		ofMesh superficie02;
+		float numPart02;
+		double incCol02;
 
 
 

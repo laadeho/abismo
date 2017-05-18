@@ -54,16 +54,44 @@ void ofApp::setup(){
 	sep2X = ofGetWidth() / (numPart2X-1);
 	sep2Y = ofGetHeight() / (numPart2Y-1);
 
+	for (int i = 0; i < 6; i++) {
+		sensorPosiciones[i] = ofVec2f(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+		velSensores[i] = ofVec2f(0, 0);
+	}
+
 	for (int j = 0; j < numPart2Y; j++) {
 		for (int i = 0; i < numPart2X; i++) {
 			nodos[i + j*numPart2X] = ofVec3f(sep2X*i ,sep2Y*j, 0);
 			tamNodos[i + j*numPart2X] = 5.0f;
 		}
 	}
-	for (int i = 0; i < 6; i++) {
-		sensorPosiciones[i] = ofVec2f(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
-		velSensores[i] = ofVec2f(0, 0);
+
+	numPart02 = numPart2X*numPart2Y; // cambiar variable a setup
+	incCol02 = 125 / numPart02;
+
+	superficie02.setMode(OF_PRIMITIVE_TRIANGLES);
+	for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			superficie02.addVertex(ofPoint(nodos[i + j*numPart2X]));
+			superficie02.addColor(ofColor(125 + incCol02*(i + j*numPart2X)));
+			//superficie02.addColor(ofColor((1 / (numPart2X*numPart2Y))*i + j*numPart2X));
+		}
 	}
+	for (int j = 0; j < numPart2Y-1; j++) {
+		for (int i = 0; i < numPart2X-1; i++) {
+			superficie02.addIndex(i + j*numPart2X);
+			superficie02.addIndex((i + 1) + j*numPart2X);
+			superficie02.addIndex(i + (j + 1)*numPart2X);
+
+			superficie02.addIndex((i + 1) + j*numPart2X);
+			superficie02.addIndex((i + 1) + (j + 1)*numPart2X);
+			superficie02.addIndex(i + (j + 1)*numPart2X);
+
+		}
+	}
+
+	
+
 	/*
 	ofVec2f test = ofVec2f(10, 10);
 	camera.setupPerspective(true, .9, .5, 650, test);
@@ -246,15 +274,42 @@ void ofApp::update() {
 		ofSetCircleResolution(50);
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
-				if (ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[i % 6].x, sensorPosiciones[i % 6].y) < 100) {
-					tamNodos[i + j*numPart2X] = 150;
+				// estados al estar cerca de un nodo
+				for (int k = 0; k < 6; k++) {
+					int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
+					if (distancia < 300) {
+						tamNodos[i + j*numPart2X] = 20;
+						if(!invertir02)
+							nodos[i + j*numPart2X].z = -distancia;
+						else
+							nodos[i + j*numPart2X].z = distancia;
+					}
+					if (distancia > 1 && distancia < 255) {
+						colNodo02[i + j*numPart2X] = distancia;
+					}
 				}
-				if(tamNodos[i + j*numPart2X] > 5)
+				
+				// regreso progresivo a su estado inicial
+				if (tamNodos[i + j*numPart2X] > 5)
 					tamNodos[i + j*numPart2X]-=0.5;
+				if (nodos[i + j*numPart2X].z > 0)
+					nodos[i + j*numPart2X].z--;
+				if (colNodo02[i + j*numPart2X] < 125 + incCol02*(i + j*numPart2X))
+					colNodo02[i + j*numPart2X]++;
+				else 
+					colNodo02[i + j*numPart2X]--;
+
 			}
 		}
 		////// superficie
+		if (rotaParts < 1)
+			rotaParts += 0.0025;
+		if (rotaParts > 0.95)
+			gira2 = true;
 
+		if (gira2) {
+			rota360 += 0.25;
+		}
 		break;
 	case 3:
 		break;
@@ -651,58 +706,53 @@ void ofApp::escena01() {
 }
 /////////////// ESCENA 02
 void ofApp::escena02() {
+	if (camara02) {
+		myCam.begin();
+		ofPushMatrix();
+		ofRotateX(-rotaParts * 70);
+
+		if (gira2)
+			ofRotateZ(rota360);
+
+		ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
+	}
+	if (malla02){
+		for (int j = 0; j < numPart2Y; j++) {
+			for (int i = 0; i < numPart2X; i++) {
+				superficie02.setVertex(i + j*numPart2X, nodos[i + j*numPart2X]);
+				superficie02.setColor(i + j*numPart2X, ofColor(colNodo02[i+j*numPart2X]));
+			}
+		}
+		superficie02.drawFaces();
+	}
+	if(ejes02){
+		for (int j = 0; j < numPart2Y; j++) {
+			for (int i = 0; i < numPart2X; i++) {
+				superficie02.setVertex(i + j*numPart2X, nodos[i + j*numPart2X]);
+				superficie02.setColor(i + j*numPart2X, ofColor(100));
+			}
+		}
+		superficie02.drawWireframe();
+	}
+	if (puntos02) {
+		for (int j = 0; j < numPart2Y; j++) {
+			for (int i = 0; i < numPart2X; i++) {
+				//nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.0005 + i + j*numPart2X) * 250;
+				ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
+			}
+		}
+	}
+	if (camara02) {
+		ofPopMatrix();
+		myCam.end();
+	}
+
 	if (debug) {
 		ofDrawBitmapString(ofToString(rotaParts), 200, 200);
 		for (int j = 0; j < 6; j++) {
 			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
 		}
 	}
-
-	if (rotaParts < 1)
-		rotaParts += 0.0025;
-	if (rotaParts > 0.95)
-		gira2 = true;
-
-	if (gira2) {
-		rota360 += 0.25;
-	}
-		
-	
-
-	myCam.begin();
-	ofPushMatrix();
-	ofRotateX(-rotaParts * 70);
-
-	if(gira2)
-		ofRotateZ(rota360);
-
-	ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
-	
-	ofEllipse(0, 0, 50, 50);
-	for (int j = 0; j < numPart2Y; j++) {
-		for (int i = 0; i < numPart2X; i++) {
-			nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.001 + i + j*numPart2X) * 50;
-			ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z,  tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
-		}
-	}
-
-	ofSetColor(255,50);
-	ofFill();
-	for (int j = 0; j < numPart2Y-1; j++) {
-		ofBeginShape();
-		for (int i = 0; i < numPart2X; i++) {
-			nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.001 + i + j*numPart2X) * 50;
-			ofVertex(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z);
-			ofVertex(nodos[i + j*(numPart2X + 1)].x, nodos[i + j*(numPart2X + 1)].y, nodos[i + j*(numPart2X+1)].z);
-		}
-		ofEndShape();
-	}
-
-
-
-	ofPopMatrix();
-	myCam.end();
-
 }
 
 /* NOTAS CAMARA 3d
@@ -999,7 +1049,11 @@ void ofApp::setupGUI() {
 	// Pulse
 	gui.add(pulseSensor.setup("Pulse", false));
 
-
+	gui.add(camara02.setup("camara02", false));
+	gui.add(puntos02.setup("puntos02", false));
+	gui.add(ejes02.setup("ejes02", false));
+	gui.add(malla02.setup("malla02", false));
+	gui.add(invertir02.setup("invertir02", false));
 }
 ///////////////////// GUI ///////////////
 
