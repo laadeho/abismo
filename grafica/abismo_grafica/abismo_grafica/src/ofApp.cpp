@@ -251,7 +251,6 @@ void ofApp::update() {
 		}
 		break;
 	case 2:
-
 		for (int i = 0; i < 6; i++) {
 			if (direcciones2X[i])
 				velSensores[i].x = valSensores[i]* velMult;
@@ -278,7 +277,7 @@ void ofApp::update() {
 				for (int k = 0; k < 6; k++) {
 					int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
 					if (distancia < 300) {
-						tamNodos[i + j*numPart2X] = 20;
+						tamNodos[i + j*numPart2X] = 10+distancia/20;
 						if(!invertir02)
 							nodos[i + j*numPart2X].z = -distancia;
 						else
@@ -292,8 +291,14 @@ void ofApp::update() {
 				// regreso progresivo a su estado inicial
 				if (tamNodos[i + j*numPart2X] > 5)
 					tamNodos[i + j*numPart2X]-=0.5;
-				if (nodos[i + j*numPart2X].z > 0)
-					nodos[i + j*numPart2X].z--;
+				if(!invertir02){
+					if (nodos[i + j*numPart2X].z > 0)
+						nodos[i + j*numPart2X].z--;
+				}
+				else {
+					if (nodos[i + j*numPart2X].z < 0)
+						nodos[i + j*numPart2X].z++;
+				}
 				if (colNodo02[i + j*numPart2X] < 125 + incCol02*(i + j*numPart2X))
 					colNodo02[i + j*numPart2X]++;
 				else 
@@ -302,13 +307,14 @@ void ofApp::update() {
 			}
 		}
 		////// superficie
-		if (rotaParts < 1)
-			rotaParts += 0.0025;
-		if (rotaParts > 0.95)
-			gira2 = true;
-
-		if (gira2) {
-			rota360 += 0.25;
+		if (camara02) {
+			if (rotaParts < 1)
+				rotaParts += 0.0025;
+			if (rotaParts > 0.95)
+				gira2 = true;
+			if (gira2) {
+				rota360 += 0.25;
+			}
 		}
 		break;
 	case 3:
@@ -716,6 +722,8 @@ void ofApp::escena02() {
 
 		ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
 	}
+
+
 	if (malla02){
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
