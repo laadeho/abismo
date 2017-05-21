@@ -95,14 +95,15 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\oscpack_1_1_0;D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;
+D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;Ws2_32.lib;winmm.lib;D:\code\oscpack_1_1_0\Debug\oscpack.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -115,13 +116,8 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;
+D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -141,13 +137,8 @@ D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncl
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;
+D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -170,13 +161,8 @@ D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncl
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;
-D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\code\of_v0.9.8_vs_release\addons\ofxGui\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32;D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;
+D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -193,61 +179,63 @@ D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncl
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\NetworkingUtils.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\UdpSocket.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.cpp" />
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\NetworkingUtils.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\UdpSocket.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.cpp" />
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src\ofxSimpleSerial.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOsc.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscArg.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.h" />
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOsc.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscArg.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.h" />
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src\ofxSimpleSerial.h" />
     <ClInclude Include="src\ofApp.h" />
   </ItemGroup>
   <ItemGroup>

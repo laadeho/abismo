@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "ofxOsc.h"
+#include <winsock2.h>
 
 #define PORT 7000
 #define NUM_MSG_STRINGS 20

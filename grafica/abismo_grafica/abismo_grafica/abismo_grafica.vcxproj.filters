@@ -7,71 +7,74 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.cpp">
       <Filter>addons\ofxOsc\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.cpp">
       <Filter>addons\ofxOsc\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.cpp">
       <Filter>addons\ofxOsc\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.cpp">
       <Filter>addons\ofxOsc\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.cpp">
       <Filter>addons\ofxOsc\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\NetworkingUtils.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\NetworkingUtils.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip\posix</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\UdpSocket.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\UdpSocket.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip\posix</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip\win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip\win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp">
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src\ofxSimpleSerial.cpp">
+      <Filter>addons\ofxSimpleSerial\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,132 +82,141 @@
       <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons">
-      <UniqueIdentifier>{1e46580c-6ea8-4cd7-b5d5-bf1b1878872d}</UniqueIdentifier>
+      <UniqueIdentifier>{038845f2-fb74-4941-9ee0-f65ca6a6e6fb}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxGui">
-      <UniqueIdentifier>{5d43c4a8-0400-4756-afd6-e0041c908c92}</UniqueIdentifier>
+      <UniqueIdentifier>{ae6a0f43-07bc-477c-83ff-d15a9ada6e1a}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxGui\src">
-      <UniqueIdentifier>{d47f0e6d-eab1-4292-abb9-99b50e9fde2e}</UniqueIdentifier>
+      <UniqueIdentifier>{c8d8290e-a7eb-4bcb-bd6b-821deaa52bf0}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc">
-      <UniqueIdentifier>{bf506e78-1659-4f6e-99ef-88725449951f}</UniqueIdentifier>
+      <UniqueIdentifier>{0f8c821f-ca49-485d-b5f7-4a05de7476c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\src">
-      <UniqueIdentifier>{7d9ad0a5-549d-4c6b-87f6-8941e2259f53}</UniqueIdentifier>
+      <UniqueIdentifier>{e850c31f-6d09-40db-baa0-97b67d2b9053}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs">
-      <UniqueIdentifier>{fdd0a96f-be6d-4687-8aea-799b9bdb0115}</UniqueIdentifier>
+      <UniqueIdentifier>{914d0962-841e-495e-a06e-c0cd623baabe}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack">
-      <UniqueIdentifier>{bbc4a758-b444-46ea-86e8-d95aeacac5fc}</UniqueIdentifier>
+      <UniqueIdentifier>{21990ecf-87cb-439e-995e-646eeb559094}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src">
-      <UniqueIdentifier>{194f72cb-5ba0-433e-b344-2861fd36dc24}</UniqueIdentifier>
+      <UniqueIdentifier>{94d173a9-0943-4e11-98b6-537e44b1af15}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip">
-      <UniqueIdentifier>{386215dc-270c-41be-b6bb-c9ff3404dc69}</UniqueIdentifier>
+      <UniqueIdentifier>{cc87d342-ea66-4ed9-b8a4-eaee33ef0ae8}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\posix">
-      <UniqueIdentifier>{8ce6280b-cfa7-4563-a1f7-1037e3e5e4ae}</UniqueIdentifier>
+      <UniqueIdentifier>{b57dfeeb-b4e4-44ff-8d95-472b0b30d950}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\win32">
-      <UniqueIdentifier>{974d0b20-1cf9-470a-97cb-e3ac4c7497d8}</UniqueIdentifier>
+      <UniqueIdentifier>{a03c1f98-a695-467f-b7e0-b4a4eebf68bc}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
-      <UniqueIdentifier>{7053898b-6d9d-4433-8947-d39434c90bb6}</UniqueIdentifier>
+      <UniqueIdentifier>{4c54a341-c8df-4430-89b1-e75a460a3a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSimpleSerial">
+      <UniqueIdentifier>{f178d660-6b58-4087-b040-a9527def7d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSimpleSerial\src">
+      <UniqueIdentifier>{595de070-7361-41b4-ac1a-825a8342c000}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOsc.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOsc.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscArg.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscArg.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscException.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscException.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src\ofxSimpleSerial.h">
+      <Filter>addons\ofxSimpleSerial\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
