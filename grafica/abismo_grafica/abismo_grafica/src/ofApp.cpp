@@ -444,7 +444,11 @@ void ofApp::updateSerial(){
 
 	if (pulso) {
 		//red = !red; // Revisar ejemplo que hice testApp con conexion serial
+		ofBackground(255, 0, 0);
 		pulso = !pulso;
+	}
+	else {
+		ofBackground(0);
 	}
 }
 //--------------------------------------------------------------
