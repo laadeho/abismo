@@ -11,6 +11,9 @@ void ofApp::setup(){
 	ofBackground(0);
 	ofEnableAlphaBlending(); // lines have the ability to draw with alpha enabled
 
+	///// SERIAL /////
+	setupSerial();
+
 	//ofEnableSmoothing();
 	//ofSetBackgroundAuto(false);
 	//ofTrueTypeFont titulos;
@@ -111,6 +114,22 @@ void ofApp::setup(){
 	std::cout << "Alto: " << ofGetScreenHeight() << endl;
 	*/
 }
+void ofApp::setupSerial() {
+	ofSetVerticalSync(true);
+	serial.listDevices();
+
+	ofSetLogLevel(OF_LOG_VERBOSE);
+	if (!serial.setup("COM6", 9600)) {
+		ofLogError() << "could not open serial port - listing serial devices";
+		serial.listDevices();
+		//OF_EXIT_APP(0);
+	}
+
+	//serial.startContinuousRead();
+	//ofAddListener(serial.NEW_MESSAGE,this,&testApp::onNewMessage);
+
+	message = "";
+}
 
 //--------------------------------------------------------------
 void ofApp::update() {
@@ -120,6 +139,8 @@ void ofApp::update() {
 		//ofSaveScreen("frames/"+ ofToString(ofGetFrameNum()) + ".tif");
 		//ofSaveImage("frames/" + ofToString(ofGetFrameNum()) + ".tif");
 	}
+
+	updateSerial();
 
 	switch (escena)
 	{
@@ -377,6 +398,55 @@ void ofApp::update() {
 	}
 }
 
+void ofApp::updateSerial(){
+	if (serial.available()) {
+		int myByte = 0;
+		myByte = serial.readByte();
+		if (myByte == OF_SERIAL_NO_DATA)
+			printf("No hubo lectura Serial");
+		else if (myByte == OF_SERIAL_ERROR)
+			printf("Error en lectura Serial");
+		else {
+			printf("myByte is %d", myByte);
+			cout << endl;
+		}
+
+		if (myByte != 0) {
+			if (myByte == 1) {
+				pulsoSensor1 = true;
+			}
+			if (pulsoSensor1) {
+				if (myByte == 49) {
+					pulso1Dato1 = true;
+				}
+				if (myByte == 53) {
+					pulso1Dato2 = true;
+				}
+				if (myByte == 3) {
+					pulso1Dato3 = true;
+				}
+			}
+			if (pulso1Dato1 && pulso1Dato2 && pulso1Dato3) {
+				pulso = true;
+				serial.flush();
+			}
+			else
+				pulso = false;
+
+			if (myByte == 2) {
+				pulsoSensor1 = false;
+				pulso1Dato1 = false;
+				pulso1Dato2 = false;
+				pulso1Dato3 = false;
+			}
+		}
+	}
+
+	if (pulso) {
+		//red = !red; // Revisar ejemplo que hice testApp con conexion serial
+		pulso = !pulso;
+	}
+}
 //--------------------------------------------------------------
 void ofApp::updateOSC() {
 	// hide old messages
@@ -985,8 +1055,13 @@ void ofApp::keyPressed(int key) {
 		showGui = !showGui;
 	if (key == 'e' || key == 'E')
 		emularSensorMuse = !emularSensorMuse;
-	if (key == 'c' || key == 'C')
+	if (key == 'c' || key == 'C') {
+		serial.flush();
+		serial.close();
+	}
+	if (key == 'b' || key == 'B') {
 		ofBackground(0);
+	}
 	if (key == 't' || key == 'T')
 		titulo = !titulo;
 	if (key == 'i' || key == 'I')
@@ -1033,6 +1108,12 @@ void ofApp::keyPressed(int key) {
 		escena = escena % numEscenas;
 	}
 	escenas = escena;
+}
+///////////////////// EXIT ///////////////
+
+void ofApp::exit() {
+	serial.flush();
+	serial.close();
 }
 
 ///////////////////// GUI ///////////////

@@ -3,11 +3,11 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "ofxOsc.h"
-#include <winsock2.h>
+#include <winsock2.h> // importando este archivo se elimina el error de netdb.h sys/socket.h y netinet/in.h
+#include "ofxSimpleSerial.h"
 
 #define PORT 7000
 #define NUM_MSG_STRINGS 20
-
 
 class ofApp : public ofBaseApp{
 
@@ -27,6 +27,21 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+		///////// SERIAL ////////////////////
+		ofxSimpleSerial	serial;
+
+		string		message;
+
+		bool pulso = false;
+		bool pulsoSensor1 = false;
+		bool pulso1Dato1 = false;
+		bool pulso1Dato2 = false;
+		bool pulso1Dato3 = false;
+
+		void exit();
+		void updateSerial();
+		void setupSerial();
+
 		/////////////////////////////
 
 		bool fullScreenDisplay = false;
