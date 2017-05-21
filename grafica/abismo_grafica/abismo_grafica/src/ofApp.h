@@ -27,6 +27,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		/////////////////////////////
+
 		bool fullScreenDisplay = false;
 		bool debug = true;
 		void debugF();
@@ -35,7 +36,13 @@ class ofApp : public ofBaseApp{
 		ofTrueTypeFont titulos, texto1;
 		bool emularSensorMuse = false;
 		float valSensores[6] = {0,0,0,0,0,0};
+		string sensor[6] = {
+			"Alpha", "Beta ", "Gamma", "Delta", "Theta",
+			"Pulso" 
+		};
+		
 		/////// ESCENAS //////////////////////////
+		void muestraValSensores();
 		bool titulo = true;
 		float velOpa = 1.0f; // Velocidad de opacidad
 		int escena = 2; // escena actual
@@ -46,7 +53,7 @@ class ofApp : public ofBaseApp{
 		// escena 00
 		bool iniciaTodo = true;
 		int contador, limiteContador = 50;
-		bool entraLogo = false;
+		bool entraLogo = false; 
 		bool saleLogo = false;
 		ofImage logoAbismo;
 		float opaLogo;
@@ -100,6 +107,7 @@ class ofApp : public ofBaseApp{
 		float tamNodos[30 * 18];
 		int colNodo02[30 * 18];
 
+		int numSensores = 6;
 		ofVec2f sensorPosiciones[6];
 		ofVec2f velSensores[6];
 		bool direcciones2X[6], direcciones2Y[6];

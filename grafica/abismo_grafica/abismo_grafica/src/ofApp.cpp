@@ -467,6 +467,16 @@ void ofApp::updateOSC() {
 	}
 }
 
+void ofApp::muestraValSensores() {
+	if (debug) {
+		ofPushStyle();
+		ofSetColor(0, 0, 255);
+		for (int i = 0; i < numSensores; i++) {
+			ofDrawBitmapString(sensor[i]+": "+ofToString(valSensores[i]), 100, ofGetHeight()- numSensores*20 -50 +i*20);
+		}
+		ofPopStyle();
+	}
+}
 //--------------------------------------------------------------
 void ofApp::draw(){
 	///// DRAW ///////////////////////////////////////////////////////
@@ -517,6 +527,7 @@ void ofApp::draw(){
 	if(showGui)
 		gui.draw();
 	debugF();
+	muestraValSensores();
 }
 
 void ofApp::debugF() {
