@@ -13,7 +13,7 @@ void setup() {
 
   printArray(Serial.list());
 
-  String portName = Serial.list()[2];
+  String portName = Serial.list()[3];
   BT01 = new Serial(this, portName, 9600);
 }
 
