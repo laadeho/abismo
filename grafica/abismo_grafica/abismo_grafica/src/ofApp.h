@@ -97,10 +97,10 @@ class ofApp : public ofBaseApp{
 		int numPart = 6;
 		ofVec3f particulas[6];
 		float radio01Fin = 500;
-		float radio01 = 0.25;
 		float tamPart[6];
 		int anillos = 10;
 		int sepAnillos = 30;
+		float radio01 = 0.25;
 		float escala01 = 1.0f;
 		bool partInPos = false;
 		bool iniciaOpa01b = false;

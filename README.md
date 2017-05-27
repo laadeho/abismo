@@ -1,7 +1,7 @@
 # abismo // próximo 
 Proyecto multimedia en torno a la proximidad y el reconocimiento humano.
 
-## PENDIENTES CUATRIMESTRE
+## ToDo List
 Eduardo H. Obieta:
 * Continuar el desarrollo de programación de herramientas de vídeo (Processing).
 * Continuar con el desarrollo visual de la pieza.
@@ -18,12 +18,6 @@ Diego Montesinos
 * Programación y mantenimiento de sitio web
 * Programación para comunicación con aplicación de audio y video
 * Hacer pruebas de los sensores construidos
-
-### Metas por cuatrimestre:
-
-* 1 Aplicación en SuperCollider para transformar los datos en sonido
-* 1 Aplicación en Processing para transformar los datos en vídeo
-* Conexión entre aplicaciones y el sitio web
 
 ## /////////////
 
