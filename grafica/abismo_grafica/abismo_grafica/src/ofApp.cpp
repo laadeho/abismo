@@ -40,19 +40,7 @@ void ofApp::setup(){
 
 	// ESC 00 /////////////////////////
 	logoAbismo.load("images/abismoLogo_1240x600.png");
-	// ESC 01 /////////////////////////
-	ondas[0] = "alpha";
-	ondas[1] = "beta";
-	ondas[2] = "gamma";
-	ondas[3] = "delta";
-	ondas[4] = "theta";
-	anchoOndaVentana = ofGetWidth() / 2 - posIniX-sep;
-	for (int i = 0; i < 5; i++) {
-		ondasFbo[i].allocate(anchoOndaVentana, 100, GL_RGBA);
-		ondasFbo[i].begin();
-		ofBackground(0);
-		ondasFbo[i].end();
-	}
+	setupEsc01();
 	// ESC 02 /////////////////////////
 	sep2X = ofGetWidth() / (numPart2X-1);
 	sep2Y = ofGetHeight() / (numPart2Y-1);
@@ -114,6 +102,7 @@ void ofApp::setup(){
 	std::cout << "Alto: " << ofGetScreenHeight() << endl;
 	*/
 }
+
 void ofApp::setupSerial() {
 	ofSetVerticalSync(true);
 	serial.listDevices();
@@ -123,6 +112,12 @@ void ofApp::setupSerial() {
 		ofLogError() << "could not open serial port - listing serial devices";
 		serial.listDevices();
 		//OF_EXIT_APP(0);
+		cout << "==================================" << endl;
+		cout << "NO HAY SERIAL" << endl;
+		cout << "==================================" << endl;
+	}
+	else {
+		serialConectado = true;
 	}
 
 	//serial.startContinuousRead();
@@ -139,8 +134,9 @@ void ofApp::update() {
 		//ofSaveScreen("frames/"+ ofToString(ofGetFrameNum()) + ".tif");
 		//ofSaveImage("frames/" + ofToString(ofGetFrameNum()) + ".tif");
 	}
-
-	updateSerial();
+	if (serialConectado) {
+		updateSerial();
+	}
 
 	switch (escena)
 	{
@@ -173,115 +169,19 @@ void ofApp::update() {
 		}
 		break;
 	case 1: // Reconocimiento
-		if (!cambia01 && opa01 < 255) {
-			opa01 += velOpa;
-		}		
-		// Solo switch de esc01
-		switch (esc01) {
-		case 0:
-			posOndaX += velOndaX;
-			if (posOndaX > ondasFbo[0].getWidth()) {
-				posOndaX = 0;
-				for (int i = 0; i < 5; i++) {
-					ondasFbo[i].begin();
-					ofBackground(0);
-					ondasFbo[i].end();
-				}
-			}
-			break;
-		case 1:
-			for (int i = 0; i < numPart; i++) {
-				particulas[i].set(
-					sin((TWO_PI / numPart)*i)*(radio01 + valSensores[i] * multSensores)*escala01,
-					cos((TWO_PI / numPart)*i)*(radio01 + valSensores[i] * multSensores)*escala01,
-					0);
-			}
-			if (radio01 < radio01Fin)
-				radio01 += 0.5;
-			break;
-		case 2:
-			if (!partInPos) {
-				for (int i = 0; i < numPart; i++) {
-					float pTempX = particulas[i].x;
-					particulas[i].set(
-						pTempX, 0, 0
-					);
-
-					if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
-						particulas[i].x += 5;
-					else
-						particulas[i].x -= 5;
-				}
-				if (particulas[0].x < -ofGetWidth() / 2 + 2) {
-					iniciaOpa01b = true;
-					partInPos = true;
-				}
-			}
-			else {
-				if (contador < 50)
-					contador++;
-				if (contador == 50) {
-					if (escala01 < 1)
-						escala01 += 0.025;
-					if (!cambia01) {
-						if (opa01b < 255)
-							opa01b++;
-					}
-				}
-			}
-			for (int i = 0; i < numPart; i++) {
-				particulas[i].set(particulas[i].x, valSensores[i] * 150 * escala01, 0);
-			}
-			break;
-		}	
-		// Switch al cambiar de escena o contenido
-		if (cambia01) {
-			switch (esc01) {
-			case 0:
-				if (opa01 > 0)
-					opa01 -= velOpa;
-				if (opa01 == 0) {
-					esc01++;
-					cambia01 = false;
-				}
-				break;
-			case 1:
-				if (opa01 == 255) {
-					if (escala01 > 0)
-						escala01 -= 0.005;
-					if (escala01 < 0.01) {
-						esc01++;
-						cambia01 = false;
-					}
-				}
-				break;
-			case 2:
-				if (opa01 > 0)
-					opa01 -= velOpa;
-				if (opa01b > 0)
-					opa01b -= velOpa;
-				if (opa01 == 0 && opa01b == 0) {
-					iniciaOpa01b = false;
-					partInPos = false;
-					escena++;
-					escenas = escena;
-					cambia01 = false;
-				}
-				break;
-			}
-		}
+		updateEsc01();
 		break;
 	case 2:
 		for (int i = 0; i < 6; i++) {
 			if (direcciones2X[i])
-				velSensores[i].x = valSensores[i]* velMult;
+				velSensores[i].x = valSensor1[i]* velMult;
 			else
-				velSensores[i].x = -valSensores[i]* velMult;
+				velSensores[i].x = -valSensor1[i]* velMult;
 			///// Cambiar al sensor 2 movimiento en X lo da un sensor y movimiento en Y lo dará el segundo
 			if (direcciones2Y[i])
-				velSensores[i].y = valSensores[i]* velMult;
+				velSensores[i].y = valSensor1[i]* velMult;
 			else
-				velSensores[i].y = -valSensores[i]* velMult;
+				velSensores[i].y = -valSensor1[i]* velMult;
 
 			sensorPosiciones[i].set(sensorPosiciones[i].x+velSensores[i].x, sensorPosiciones[i].y+velSensores[i].y);
 
@@ -352,7 +252,7 @@ void ofApp::update() {
 
 	updateOSC();
 	/////////////// DATOS EMULADOS
-	if (emularSensorMuse) {
+	if (emularSensores) {
 		artifacts = true;
 		alpha = true;
 		beta = true;
@@ -361,40 +261,70 @@ void ofApp::update() {
 		theta = true;
 
 		pulseSensor = true;
+		gsr = true;
 
 		acc = true;
 		gyro = true;
 		isGood = true;
 	}
-	if (alpha)
-		valSensores[0] = ofNoise(float(ofGetFrameNum()*.015*(0.25*0.5 + 1)));
-	if (beta)
-		valSensores[1] = ofNoise(float(ofGetFrameNum()*.005*(0.25 * 1 + 1)));
-	if (gamma)
-		valSensores[2] = ofNoise(float(ofGetFrameNum()*.0075*(0.25 * 2 + 1)));
-	if (delta)
-		valSensores[3] = ofNoise(float(ofGetFrameNum()*.0055*(0.25 * 3 + 1)));
-	if (theta)
-		valSensores[4] = ofNoise(float(ofGetFrameNum()*.0085*(0.25 * 4 + 1)));
-	if (pulseSensor)
-		valSensores[5] = ofNoise(float(ofGetFrameNum()*.0065*(0.35 * 4 + 1)));
+	if (alpha) {
+		valSensor1[0] = ofNoise(float(ofGetFrameNum()*.015*(0.25*0.5 + 1)));
+		valSensor2[0] = ofNoise(float(ofGetFrameNum()*.0135*(0.125*0.5 + 1)));
+	}
+	if (beta) {
+		valSensor1[1] = ofNoise(float(ofGetFrameNum()*.0035*(0.225 * 1.15 + 1)));
+		valSensor2[1] = ofNoise(float(ofGetFrameNum()*.005*(0.25 * 1 + 1)));
+		}
+	if (gamma) {
+		valSensor1[2] = ofNoise(float(ofGetFrameNum()*.0075*(0.25 * 2 + 1)));
+		valSensor2[2] = ofNoise(float(ofGetFrameNum()*.00475*(0.225 * 1.75 + 1)));
+	}
+	if (delta){
+		valSensor1[3] = ofNoise(float(ofGetFrameNum()*.0055*(0.25 * 3 + 1)));
+		valSensor2[3] = ofNoise(float(ofGetFrameNum()*.0025*(0.125 * 2.25 + 1)));
+	}
+	if (theta){
+		valSensor1[4] = ofNoise(float(ofGetFrameNum()*.0085*(0.25 * 4 + 1)));
+		valSensor2[4] = ofNoise(float(ofGetFrameNum()*.00385*(0.215 * 4.25 + 1)));
+	}
+	if (pulseSensor) {
+		valSensor1[5] = ofNoise(float(ofGetFrameNum()*.0065*(0.35 * 4 + 1)));
+		valSensor2[5] = ofNoise(float(ofGetFrameNum()*.00625*(0.135 * 2.4 + 1)));
+	}
+	if (gsr){
+		valSensor1[6] = ofNoise(float(ofGetFrameNum()*.0035*(0.225 * 4 + 1)));
+		valSensor2[6] = ofNoise(float(ofGetFrameNum()*.00135*(0.1225 * 2.4 + 1)));
+	}
+
 	if (acc) {
-		accX = ofNoise(ofGetFrameNum()*0.00025);
-		accY = ofNoise(ofGetFrameNum()*0.00005);
-		accZ = ofNoise(ofGetFrameNum()*0.00075);
+		accX1 = ofNoise(ofGetFrameNum()*0.0025);
+		accY1 = ofNoise(ofGetFrameNum()*0.0005);
+		accZ1 = ofNoise(ofGetFrameNum()*0.0075);
+		accX2 = ofNoise(ofGetFrameNum()*-0.00325);
+		accY2 = ofNoise(ofGetFrameNum()*-0.00025);
+		accZ2 = ofNoise(ofGetFrameNum()*-0.0045);
 	}
 	if (gyro) {
-		gyroX = ofNoise(ofGetFrameNum()*0.00325);
-		gyroY = ofNoise(ofGetFrameNum()*0.0045);
-		gyroZ = ofNoise(ofGetFrameNum()*0.00225);
+		gyroX1 = ofNoise(ofGetFrameNum()*0.0325);
+		gyroY1 = ofNoise(ofGetFrameNum()*0.045);
+		gyroZ1 = ofNoise(ofGetFrameNum()*0.0225);
+		gyroX2 = ofNoise(ofGetFrameNum()*-0.0225);
+		gyroY2 = ofNoise(ofGetFrameNum()*-0.0345);
+		gyroZ2 = ofNoise(ofGetFrameNum()*-0.0125);
 	}
 	if (isGood) {
-		EEG1 = ofNoise(ofGetFrameNum()*0.0025);
-		EEG2 = ofNoise(ofGetFrameNum()*0.0025);
-		EEG3 = ofNoise(ofGetFrameNum()*0.002325);
-		EEG4 = ofNoise(ofGetFrameNum()*0.005);
-		auxLeft = ofNoise(ofGetFrameNum()*0.0075);
-		auxRight = ofNoise(ofGetFrameNum()*0.0025);
+		EEG11 = ofNoise(ofGetFrameNum()*0.0025);
+		EEG21 = ofNoise(ofGetFrameNum()*0.0025);
+		EEG31 = ofNoise(ofGetFrameNum()*0.002325);
+		EEG41 = ofNoise(ofGetFrameNum()*0.005);
+		auxLeft1 = ofNoise(ofGetFrameNum()*0.0075);
+		auxRight1 = ofNoise(ofGetFrameNum()*0.0025);
+		EEG12 = ofNoise(ofGetFrameNum()*0.00625);
+		EEG22 = ofNoise(ofGetFrameNum()*0.00525);
+		EEG32 = ofNoise(ofGetFrameNum()*0.00425);
+		EEG42 = ofNoise(ofGetFrameNum()*0.0025);
+		auxLeft2 = ofNoise(ofGetFrameNum()*0.002675);
+		auxRight2 = ofNoise(ofGetFrameNum()*0.00125);
 	}
 }
 
@@ -470,24 +400,24 @@ void ofApp::updateOSC() {
 		
 		// check for mouse moved message
 		if (m.getAddress() == "/alpha") {
-			valSensores[0] = m.getArgAsFloat(0);
+			valSensor1[0] = m.getArgAsFloat(0);
 		} else if (m.getAddress() == "/beta") {
-			valSensores[1] = m.getArgAsFloat(0);
+			valSensor1[1] = m.getArgAsFloat(0);
 		} else if (m.getAddress() == "/gamma") {
-			valSensores[2] = m.getArgAsFloat(0);
+			valSensor1[2] = m.getArgAsFloat(0);
 		} else if (m.getAddress() == "/delta") {
-			valSensores[3] = m.getArgAsFloat(0);
+			valSensor1[3] = m.getArgAsFloat(0);
 		} else if (m.getAddress() == "/theta") {
-			valSensores[4] = m.getArgAsFloat(0);
+			valSensor1[4] = m.getArgAsFloat(0);
 		} else if (m.getAddress() == "/accelerometer") {
-			accX = m.getArgAsDouble(0);
-			accY = m.getArgAsDouble(1);
-			accZ = m.getArgAsDouble(2);
+			accX1 = m.getArgAsDouble(0);
+			accY1 = m.getArgAsDouble(1);
+			accZ1 = m.getArgAsDouble(2);
 			//std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
 		} else if (m.getAddress() == "/gyro") {
-			gyroX = m.getArgAsDouble(0);
-			gyroY = m.getArgAsDouble(1);
-			gyroZ = m.getArgAsDouble(2);
+			gyroX1 = m.getArgAsDouble(0);
+			gyroY1 = m.getArgAsDouble(1);
+			gyroZ1 = m.getArgAsDouble(2);
 			//std::cout << "gX: " << gyroX << ", gY: " << gyroY << ", gZ: " << gyroZ << endl;
 		} else if (m.getAddress() == "/artifacts") {
 			int mOn = m.getArgAsDouble(0);
@@ -546,7 +476,10 @@ void ofApp::muestraValSensores() {
 		ofPushStyle();
 		ofSetColor(0, 0, 255);
 		for (int i = 0; i < numSensores; i++) {
-			ofDrawBitmapString(sensor[i]+": "+ofToString(valSensores[i]), 100, ofGetHeight()- numSensores*20 -50 +i*20);
+			ofDrawBitmapString(sensor[i] + ": " + ofToString(valSensor1[i]), 100, ofGetHeight() - numSensores * 20 - 50 + i * 20);
+		}
+		for (int i = 0; i < numSensores; i++) {
+			ofDrawBitmapString(sensor[i] + ": " + ofToString(valSensor2[i]), /*ofGetWidth()-300 + */300, ofGetHeight() - numSensores * 20 - 50 + i * 20);
 		}
 		ofPopStyle();
 	}
@@ -611,7 +544,7 @@ void ofApp::debugF() {
 		ofFill();
 		ofDrawBitmapString("- D E B U G -", 100, 50);
 		for (int i = 0; i < 10; i++) {
-			ofDrawBitmapString(ofToString(i)+": "+sensaciones[i], 100, 125 + 20 * i);
+			ofDrawBitmapString(ofToString(i)+": "+sensaciones[i], 10, 125 + 20 * i);
 		}
 		ofDrawBitmapString("FrameRate: " + ofToString(ofGetFrameRate()), 100, 350);
 
@@ -643,48 +576,201 @@ void ofApp::escena00() {
 	ofDisableAlphaBlending();
 }
 /////////////// ESCENA 01
+void ofApp::setupEsc01() {
+	anchoOndaVentana = ofGetWidth() / 2 - posIniX - sep;
+	for (int i = 0; i < numSens*2; i++) {
+		ondasFbo[i].allocate(anchoOndaVentana, 100, GL_RGBA);
+		ondasFbo[i].begin();
+		ofBackground(0);
+		ondasFbo[i].end();
+	}
+}
+void ofApp::updateEsc01() {
+	if (!cambia01 && opa01 < 255) {
+		opa01 += velOpa;
+	}
+	// Solo switch de esc01
+	switch (esc01) {
+	case 0:
+		posOndaX += velOndaX;
+		if (posOndaX > ondasFbo[0].getWidth()) {
+			posOndaX = 0;
+			for (int i = 0; i < numSens*2; i++) {
+				ondasFbo[i].begin();
+				ofBackground(0);
+				ondasFbo[i].end();
+			}
+		}
+		break;
+	case 1:
+		for (int i = 0; i < numPart; i++) {
+			particulas[i].set(
+				sin((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
+				cos((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
+				0);
+		}
+		if (radio01 < radio01Fin)
+			radio01 += 0.5;
+		break;
+	case 2:
+		if (!partInPos) {
+			for (int i = 0; i < numPart; i++) {
+				float pTempX = particulas[i].x;
+				particulas[i].set(
+					pTempX, 0, 0
+				);
+
+				if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
+					particulas[i].x += 5;
+				else
+					particulas[i].x -= 5;
+			}
+			if (particulas[0].x < -ofGetWidth() / 2 + 2) {
+				iniciaOpa01b = true;
+				partInPos = true;
+			}
+		}
+		else {
+			if (contador < 50)
+				contador++;
+			if (contador == 50) {
+				if (escala01 < 1)
+					escala01 += 0.025;
+				if (!cambia01) {
+					if (opa01b < 255)
+						opa01b++;
+				}
+			}
+		}
+		for (int i = 0; i < numPart; i++) {
+			particulas[i].set(particulas[i].x, valSensor1[i] * 150 * escala01, 0);
+		}
+		break;
+	}
+	// Switch al cambiar de escena o contenido
+	if (cambia01) {
+		switch (esc01) {
+		case 0:
+			if (opa01 > 0)
+				opa01 -= velOpa;
+			if (opa01 == 0) {
+				esc01++;
+				cambia01 = false;
+			}
+			break;
+		case 1:
+			if (opa01 == 255) {
+				if (escala01 > 0)
+					escala01 -= 0.005;
+				if (escala01 < 0.01) {
+					esc01++;
+					cambia01 = false;
+				}
+			}
+			break;
+		case 2:
+			if (opa01 > 0)
+				opa01 -= velOpa;
+			if (opa01b > 0)
+				opa01b -= velOpa;
+			if (opa01 == 0 && opa01b == 0) {
+				iniciaOpa01b = false;
+				partInPos = false;
+				escena++;
+				escenas = escena;
+				cambia01 = false;
+			}
+			break;
+		}
+	}
+}
+
+void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
+	ofPushStyle();
+	ofSetColor(255, opa01);
+	ondasFbo[indice].begin();
+	ofSetColor(255, opa01 - val * 50);
+	ofFill();
+	ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1 + 8 * val, 1 + 8 * val);
+	ondasFbo[indice].end();
+
+	ofSetColor(255, 255, 255, opa01);
+	ondasFbo[indice].draw(pX, pY);
+	//////////////////////
+	ofFill();
+	ofSetColor(255, opa01);
+	if(indice<numSens)
+		texto1.drawString(sensor[indice], pX, pY);
+	else
+		texto1.drawString(sensor[indice - numSens], pX, pY);
+	ofSetLineWidth(1);
+	ofNoFill();
+	ofSetColor(255, opa01);
+	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
+		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
+	}
+
+	ofNoFill();
+	ofSetLineWidth(1);
+	ofSetColor(255, opa01);
+	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
+	ofPopStyle();
+
+}
 void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
 	ofEnableAlphaBlending();
 	ofPushStyle();
 
 	if (debug) {
-		ofDrawBitmapString("Esc01: "+ofToString(esc01), 300,200);
+		ofDrawBitmapString("Esc01: "+ofToString(esc01), 250,50);
 	}
+	int cuenta = 0; ////////////////////////////////////////////////////////////////////// BORRAR BORRAR BORRAR BORRAR BORRAR BORRAR
 	switch (esc01) {
 	case 0:
+		/////////////////////////// CONTENIDO PARA USUARIO 1
 		ofSetColor(255, opa01);
 		ofFill();
-		for (int i = 0; i < 5; i++) {
-			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 130 * i, valSensores[i], anchoOndaVentana);
+		for (int i = 0; i < numSens; i++) {
+			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i]);
 		}
 		ofPopStyle();
-		museConectado(100, 150);
+		
+		museConectado(ofGetWidth()/2-400, 60);
 		// Gyro y Acc
-		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0, 204, 204), "Acelerometro");
-		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204, 0, 0), "Giroscopio");
-
+		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX1, accY1, accZ1, ofColor(0, 204, 204), "Acelerometro");
+		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX1, gyroY1, gyroZ1, ofColor(204, 0, 0), "Giroscopio");
+		/////////////////////////// CONTENIDO PARA USUARIO 1
+		
+		/////////////////////////////////
+		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
 		ofPushMatrix();
 		ofTranslate(ofGetWidth(), 0, 0);
 		ofScale(-1, 1, 1);
 
 		ofPushStyle();
-		for (int i = 0; i < 5; i++) {
-			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 130 * i, valSensores[i], anchoOndaVentana);
+		for (int i = 0; i < numSens; i++) {
+			dibujaOnda(i+numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i]);
 		}
 		ofPopStyle();
-		museConectado(100, 150);
+		
+		museConectado(ofGetWidth() / 2 - 400, 60);
 		// Gyro y Acc
-		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX, accY, accZ, ofColor(0, 204, 204), "Acelerometro");
-		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX, gyroY, gyroZ, ofColor(204, 0, 0), "Giroscopio");
+		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
+		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
+		
 		ofPopMatrix();
+		
+		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
+		
+
 		break;
-	case 1:
+	case 1: // INCORPORAR USUARIO 2
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
-		ofRotateX(accX * multRotaciones);
-		ofRotateY(-multRotaciones+accZ * multRotaciones);
-		ofRotateZ(accY * multRotaciones);
+		ofRotateX(accX1 * multRotaciones);
+		ofRotateY(-multRotaciones+accZ1 * multRotaciones);
+		ofRotateZ(accY1 * multRotaciones);
 		//////////
 		ofSetColor(255, opa01 / anillos);
 		ofFill();
@@ -800,6 +886,7 @@ void ofApp::escena01() {
 	ofPopStyle();
 	ofDisableAlphaBlending();
 }
+
 /////////////// ESCENA 02
 void ofApp::escena02() {
 	if (camara02) {
@@ -926,37 +1013,7 @@ void ofApp::escena10() {
 
 }
 
-void ofApp::dibujaOnda(int indice, int pX, int pY, float val, int ancho) {
-	ofPushStyle();
-	ofSetColor(255, opa01);
-	ondasFbo[indice].begin();
-	ofSetColor(255, opa01-val*50);
-	ofFill();
-	ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1+8 * val, 1+8 * val);
 
-	ondasFbo[indice].end();
-
-	
-	ofSetColor(255, 255, 255, opa01);
-	ondasFbo[indice].draw(pX, pY);
-	//////////////////////
-	ofFill();
-	ofSetColor(255, opa01);
-	texto1.drawString(ondas[indice], pX, pY-10);
-	ofSetLineWidth(1); 
-	ofNoFill();
-	ofSetColor(255, opa01);
-	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
-		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY+20, pX + (ondasFbo[0].getWidth() / 5)*i, pY+80);
-	}
-
-	ofNoFill();
-	ofSetLineWidth(1);
-	ofSetColor(255, opa01);
-	ofLine(pX, pY+50, pX+ondasFbo[0].getWidth(), pY+50);
-	ofPopStyle();
-
-}
 //////// Funcion para Gyro y Acc
 void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, ofColor col, string texto) {
 	ofPushStyle();
@@ -1030,12 +1087,12 @@ void ofApp::museConectado(int pX, int pY) {
 	if (isGood) {
 		ofSetColor(64, 255, 0, opa01);
 		ofFill();
-		ofRect(30, 0, EEG1*50, 10);
-		ofRect(30, 20, EEG2*50, 10);
-		ofRect(30, 40, EEG3*50, 10);
-		ofRect(30, 60, EEG4*50, 10);
-		ofRect(30, 80, auxLeft * 50, 10);
-		ofRect(30, 100, auxRight * 50, 10);
+		ofRect(30, 0, EEG11*50, 10);
+		ofRect(30, 20, EEG21*50, 10);
+		ofRect(30, 40, EEG31*50, 10);
+		ofRect(30, 60, EEG41*50, 10);
+		ofRect(30, 80, auxLeft1 * 50, 10);
+		ofRect(30, 100, auxRight1 * 50, 10);
 		ofSetColor(255, opa01);
 		ofNoFill();
 		ofRect(30, 0, 50, 10);
@@ -1058,7 +1115,7 @@ void ofApp::keyPressed(int key) {
 	if (key == 'g' || key == 'G')
 		showGui = !showGui;
 	if (key == 'e' || key == 'E')
-		emularSensorMuse = !emularSensorMuse;
+		emularSensores = !emularSensores;
 	if (key == 'c' || key == 'C') {
 		serial.flush();
 		serial.close();
@@ -1114,12 +1171,10 @@ void ofApp::keyPressed(int key) {
 	escenas = escena;
 }
 ///////////////////// EXIT ///////////////
-
 void ofApp::exit() {
 	serial.flush();
 	serial.close();
 }
-
 ///////////////////// GUI ///////////////
 void ofApp::setupGUI() {
 	gui.setup();
@@ -1140,24 +1195,37 @@ void ofApp::setupGUI() {
 	gui.add(jawClench.setup("jawClench", false));
 	// Acc
 	gui.add(acc.setup("acc", false));
-	gui.add(accX.setup("accX", 0.1f, 0.0f, 1.0f));
-	gui.add(accY.setup("accY", 0.1f, 0.0f, 1.0f));
-	gui.add(accZ.setup("accZ", 0.1f, 0.0f, 1.0f));
+	gui.add(accX1.setup("accX1", 0.1f, 0.0f, 1.0f));
+	gui.add(accY1.setup("accY1", 0.1f, 0.0f, 1.0f));
+	gui.add(accZ1.setup("accZ1", 0.1f, 0.0f, 1.0f));
+	gui.add(accX2.setup("accX2", 0.1f, 0.0f, 1.0f));
+	gui.add(accY2.setup("accY2", 0.1f, 0.0f, 1.0f));
+	gui.add(accZ2.setup("accZ2", 0.1f, 0.0f, 1.0f));
 	// Gyro
 	gui.add(gyro.setup("gyro", false));
-	gui.add(gyroX.setup("gyroX", 0.1f, 0.0f, 1.0f));
-	gui.add(gyroY.setup("gyroY", 0.1f, 0.0f, 1.0f));
-	gui.add(gyroZ.setup("gyroZ", 0.1f, 0.0f, 1.0f));
+	gui.add(gyroX1.setup("gyroX1", 0.1f, 0.0f, 1.0f));
+	gui.add(gyroY1.setup("gyroY1", 0.1f, 0.0f, 1.0f));
+	gui.add(gyroZ1.setup("gyroZ1", 0.1f, 0.0f, 1.0f));
+	gui.add(gyroX2.setup("gyroX2", 0.1f, 0.0f, 1.0f));
+	gui.add(gyroY2.setup("gyroY2", 0.1f, 0.0f, 1.0f));
+	gui.add(gyroZ2.setup("gyroZ2", 0.1f, 0.0f, 1.0f));
 	// Connection
 	gui.add(isGood.setup("isGood", false));
-	gui.add(EEG1.setup("eeg1", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG2.setup("eeg2", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG3.setup("eeg3", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG4.setup("eeg4", 0.1f, 0.0f, 1.0f));
-	gui.add(auxLeft.setup("auxLeft", 0.1f, 0.0f, 1.0f));
-	gui.add(auxRight.setup("auxRight", 0.1f, 0.0f, 1.0f));
-	// Pulse
+	gui.add(EEG11.setup("eeg11", 0.1f, 0.0f, 1.0f));
+	gui.add(EEG21.setup("eeg21", 0.1f, 0.0f, 1.0f));
+	gui.add(EEG31.setup("eeg31", 0.1f, 0.0f, 1.0f));
+	gui.add(EEG41.setup("eeg41", 0.1f, 0.0f, 1.0f));
+	gui.add(auxLeft1.setup("auxLeft1", 0.1f, 0.0f, 1.0f));
+	gui.add(auxRight1.setup("auxRight1", 0.1f, 0.0f, 1.0f));
+	gui.add(EEG12.setup("eeg12", 0.1f, 0.0f, 1.0f));
+	gui.add(EEG22.setup("eeg22", 0.1f, 0.0f, 1.0f));
+	gui.add(EEG32.setup("eeg32", 0.1f, 0.0f, 1.0f));
+	gui.add(EEG42.setup("eeg42", 0.1f, 0.0f, 1.0f));
+	gui.add(auxLeft2.setup("auxLeft2", 0.1f, 0.0f, 1.0f));
+	gui.add(auxRight2.setup("auxRight2", 0.1f, 0.0f, 1.0f));
+	// Pulse & GSR
 	gui.add(pulseSensor.setup("Pulse", false));
+	gui.add(gsr.setup("GSR", false));
 
 	gui.add(camara02.setup("camara02", false));
 	gui.add(puntos02.setup("puntos02", false));
@@ -1169,9 +1237,6 @@ void ofApp::setupGUI() {
 	gui.add(radio02.setup("radio02", 300, 100, 5000));
 
 }
-///////////////////// GUI ///////////////
-
-//--------------------------------------------------------------
 void ofApp::keyReleased(int key) {
 
 }

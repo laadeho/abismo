@@ -42,27 +42,36 @@ class ofApp : public ofBaseApp{
 		void updateSerial();
 		void setupSerial();
 
+		bool serialConectado = false;
+
 		/////////////////////////////
 
-		bool fullScreenDisplay = false;
+		bool fullScreenDisplay = true;
 		bool debug = true;
 		void debugF();
 		bool showGui = false;
 		string sensaciones[11];
 		ofTrueTypeFont titulos, texto1;
-		bool emularSensorMuse = false;
-		float valSensores[6] = {0,0,0,0,0,0};
-		string sensor[6] = {
+		bool emularSensores = false;
+		int numSens = 7;
+		float valSensor1[7] = { 0,0,0,0,0,0,0 };
+		float valSensor2[7] = { 0,0,0,0,0,0,0 };
+		string sensor[7] = {
 			"Alpha", "Beta ", "Gamma", "Delta", "Theta",
-			"Pulso" 
+			"Pulso" , "GSR"
 		};
-		
+		ofFbo ondasFbo[14]; // Fbo para render en grafico independiente
+
+
 		/////// ESCENAS //////////////////////////
 		void muestraValSensores();
 		bool titulo = true;
 		float velOpa = 1.0f; // Velocidad de opacidad
-		int escena = 2; // escena actual
+		int escena = 0; // escena actual
 		int numEscenas = 11;
+		void setupEsc01();
+		void updateEsc01();
+
 		void escena00(), escena01(), escena02(), escena03(),
 			escena04(), escena05(), escena06(), escena07(), 
 			escena08(), escena09(), escena10();
@@ -75,18 +84,15 @@ class ofApp : public ofBaseApp{
 		float opaLogo;
 		// escena 01
 		void museConectado(int, int);
-		void dibujaOnda(int, int, int, float, int);
+		void dibujaOnda(int, int, int, float);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
 		float opa01 = 0.0;
 
-		string ondas[5];
 		int anchoOndaVentana;
-		float valOnda[5];
 		int posIniX = 100;
 		int sep = 50;
 		float posOndaX = 0;
 		float velOndaX = 0.5;
-		ofFbo ondasFbo[5];
 		int multSensores = 100;
 		int multRotaciones = 45;
 
@@ -181,24 +187,25 @@ class ofApp : public ofBaseApp{
 		ofxToggle jawClench;
 		// Accelerometer
 		ofxToggle acc;
-		ofxFloatSlider accX;
-		ofxFloatSlider accY;
-		ofxFloatSlider accZ;
+		ofxFloatSlider accX1, accX2;
+		ofxFloatSlider accY1, accY2;
+		ofxFloatSlider accZ1, accZ2;
 		// Gyro
 		ofxToggle gyro;
-		ofxFloatSlider gyroX;
-		ofxFloatSlider gyroY;
-		ofxFloatSlider gyroZ;
+		ofxFloatSlider gyroX1, gyroX2;
+		ofxFloatSlider gyroY1, gyroY2;
+		ofxFloatSlider gyroZ1, gyroZ2;
 		//Connections
 		ofxToggle isGood;
-		ofxFloatSlider EEG1;
-		ofxFloatSlider EEG2;
-		ofxFloatSlider EEG3;
-		ofxFloatSlider EEG4;
-		ofxFloatSlider auxLeft;
-		ofxFloatSlider auxRight;
+		ofxFloatSlider EEG11, EEG12;
+		ofxFloatSlider EEG21, EEG22;
+		ofxFloatSlider EEG31, EEG32;
+		ofxFloatSlider EEG41, EEG42;
+		ofxFloatSlider auxLeft1, auxLeft2;
+		ofxFloatSlider auxRight1, auxRight2;
 
 		ofxToggle pulseSensor;
+		ofxToggle gsr;
 
 		// GUI
 		ofxPanel gui;
