@@ -1,4 +1,4 @@
-# Compiled source # ###################
+# Compiled source # ###################	
 *.com
 *.class
 *.dll
@@ -40,6 +40,7 @@
 */obj/*
 */bin/*
 Debug/
+grafica/abismo_grafica/.vs/
 grafica/abismo_grafica/abismo_grafica/obj/
 grafica/abismo_grafica/abismo_grafica/bin/abismo*
 grafica/abismo_grafica/abismo_grafica/bin/*.exe
