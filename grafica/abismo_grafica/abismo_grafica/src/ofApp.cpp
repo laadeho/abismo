@@ -108,7 +108,7 @@ void ofApp::setupSerial() {
 	serial.listDevices();
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	if (!serial.setup("COM6", 9600)) {
+	if (!serial.setup("COM8", 9600)) {
 		ofLogError() << "could not open serial port - listing serial devices";
 		serial.listDevices();
 		//OF_EXIT_APP(0);
@@ -260,7 +260,8 @@ void ofApp::update() {
 		delta = true;
 		theta = true;
 
-		pulseSensor = true;
+		pSensor1 = true;
+		pSensor2 = true;
 		gsr = true;
 
 		acc = true;
@@ -287,7 +288,7 @@ void ofApp::update() {
 		valSensor1[4] = ofNoise(float(ofGetFrameNum()*.0085*(0.25 * 4 + 1)));
 		valSensor2[4] = ofNoise(float(ofGetFrameNum()*.00385*(0.215 * 4.25 + 1)));
 	}
-	if (pulseSensor) {
+	if (pulseSensor) { //////////////////////falta 2
 		valSensor1[5] = ofNoise(float(ofGetFrameNum()*.0065*(0.35 * 4 + 1)));
 		valSensor2[5] = ofNoise(float(ofGetFrameNum()*.00625*(0.135 * 2.4 + 1)));
 	}
@@ -332,19 +333,65 @@ void ofApp::updateSerial(){
 	if (serial.available()) {
 		int myByte = 0;
 		myByte = serial.readByte();
-		if (myByte == OF_SERIAL_NO_DATA)
-			printf("No hubo lectura Serial");
-		else if (myByte == OF_SERIAL_ERROR)
-			printf("Error en lectura Serial");
-		else {
-			printf("myByte is %d", myByte);
-			cout << endl;
+		if (debug) {
+			if (myByte == OF_SERIAL_NO_DATA)
+				printf("No hubo lectura Serial");
+			else if (myByte == OF_SERIAL_ERROR)
+				printf("Error en lectura Serial");
+			else {
+				printf("myByte is %d", myByte);
+				cout << endl;
+			}
 		}
 
 		if (myByte != 0) {
-			if (myByte == 1) {
-				pulsoSensor1 = true;
+			if (myByte == 'A') { // 65 Sensor1
+				pSensor1 = true;
+				/*
+				printf("sensor 1");
+				cout << endl;
+				*/
 			}
+			if (myByte == 'B') { // 66 Sensor2
+				pSensor2 = true;
+				/*
+				printf("sensor 2");
+				cout << endl;
+				*/
+			}
+			////////////// de p5
+			if (pSensor1) { // 20 GSR
+						   // COMPROBAR SI ES 20 DEL GSR
+				if (myByte == 50) // 2
+					esDos = true;
+				/*if (esDos && val == 48) { // 0
+				esCero = true;
+				} */
+				if (esDos && myByte != 50 && myByte != 44) {
+					if (myByte>thressGSR)
+						valGSR = myByte;
+					if (debug) {
+						printf("Val GSR: " + valGSR);
+						cout << endl;
+					}
+				}
+			}
+
+
+			if (myByte == 44 && pSensor1) {
+				pSensor1 = false;
+				esDos = false;
+				esCero = false;
+			}
+			if (myByte == 44 && pSensor2) {
+				pSensor2 = false;
+				esUno = false;
+				// esCinco = false;
+			}
+			/////////////// de p5
+
+
+			/*
 			if (pulsoSensor1) {
 				if (myByte == 49) {
 					pulso1Dato1 = true;
@@ -356,6 +403,7 @@ void ofApp::updateSerial(){
 					pulso1Dato3 = true;
 				}
 			}
+			*/
 			if (pulso1Dato1 && pulso1Dato2 && pulso1Dato3) {
 				pulso = true;
 				serial.flush();
@@ -374,6 +422,8 @@ void ofApp::updateSerial(){
 
 	if (pulso) {
 		//red = !red; // Revisar ejemplo que hice testApp con conexion serial
+		printf("PULSO");
+		cout << endl;
 		ofBackground(255, 0, 0);
 		pulso = !pulso;
 	}
@@ -396,46 +446,94 @@ void ofApp::updateOSC() {
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
 		
-		std::cout << "Mensaje: " << m.getAddress() << endl;
+		// std::cout << "Mensaje: " << m.getAddress() << endl;
 		
 		// check for mouse moved message
 		if (m.getAddress() == "/alpha") {
-			valSensor1[0] = m.getArgAsFloat(0);
+			if(m.getArgAsInt(0)==1)
+				valSensor1[0] = m.getArgAsFloat(1);
+			else if (m.getArgAsInt(0) == 2)
+				valSensor2[0] = m.getArgAsFloat(1);
 		} else if (m.getAddress() == "/beta") {
-			valSensor1[1] = m.getArgAsFloat(0);
+			if (m.getArgAsInt(0) == 1)
+				valSensor1[1] = m.getArgAsFloat(1);
+			else if (m.getArgAsInt(0) == 2)
+				valSensor2[1] = m.getArgAsFloat(1);
 		} else if (m.getAddress() == "/gamma") {
-			valSensor1[2] = m.getArgAsFloat(0);
+			if (m.getArgAsInt(0) == 1)
+				valSensor1[2] = m.getArgAsFloat(1);
+			else if (m.getArgAsInt(0) == 2)
+				valSensor2[2] = m.getArgAsFloat(1);
 		} else if (m.getAddress() == "/delta") {
-			valSensor1[3] = m.getArgAsFloat(0);
+			if (m.getArgAsInt(0) == 1)
+				valSensor1[3] = m.getArgAsFloat(1);
+			else if (m.getArgAsInt(0) == 2)
+				valSensor2[3] = m.getArgAsFloat(1);
 		} else if (m.getAddress() == "/theta") {
-			valSensor1[4] = m.getArgAsFloat(0);
-		} else if (m.getAddress() == "/accelerometer") {
-			accX1 = m.getArgAsDouble(0);
-			accY1 = m.getArgAsDouble(1);
-			accZ1 = m.getArgAsDouble(2);
+			if (m.getArgAsInt(0) == 1)
+				valSensor1[4] = m.getArgAsFloat(1);
+			else if (m.getArgAsInt(0) == 2)
+				valSensor2[4] = m.getArgAsFloat(1);
+		}
+		else if (m.getAddress() == "/accelerometer") {
+			if (m.getArgAsInt(0) == 1) {
+				accX1 = int(m.getArgAsDouble(1));
+				accY1 = int(m.getArgAsDouble(2));
+				accZ1 = int(m.getArgAsDouble(3));
+			} else if (m.getArgAsInt(0) == 2) {
+				accX2 = int(m.getArgAsDouble(1));
+				accY2 = int(m.getArgAsDouble(2));
+				accZ2 = int(m.getArgAsDouble(3));
+			}
 			//std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
 		} else if (m.getAddress() == "/gyro") {
-			gyroX1 = m.getArgAsDouble(0);
-			gyroY1 = m.getArgAsDouble(1);
-			gyroZ1 = m.getArgAsDouble(2);
+			if (m.getArgAsInt(0) == 1) {
+				gyroX1 = int(m.getArgAsDouble(1));
+				gyroY1 = int(m.getArgAsDouble(2));
+				gyroZ1 = int(m.getArgAsDouble(3));
+			}
+			else if (m.getArgAsInt(0) == 2) {
+				gyroX2 = int(m.getArgAsDouble(1));
+				gyroY2 = int(m.getArgAsDouble(2));
+				gyroZ2 = int(m.getArgAsDouble(3));
+			}
 			//std::cout << "gX: " << gyroX << ", gY: " << gyroY << ", gZ: " << gyroZ << endl;
 		} else if (m.getAddress() == "/artifacts") {
-			int mOn = m.getArgAsDouble(0);
-			int bl = m.getArgAsDouble(1);
-			int jC = m.getArgAsDouble(2);
-			
-			if (mOn != 0)
-				museOn = true;
-			else
-				museOn = false;
-			if (bl != 0)
-				blink = true;
-			else
-				blink = false;
-			if (jC != 0)
-				jawClench = true;
-			else
-				jawClench = false;
+			if (m.getArgAsInt(0) == 1) {
+				int mOn = int(m.getArgAsDouble(1));
+				int bl = int(m.getArgAsDouble(2));
+				int jC = int(m.getArgAsDouble(3));
+
+				if (mOn != 0)
+					museOn1 = true;
+				else
+					museOn1 = false;
+				if (bl != 0)
+					blink1 = true;
+				else
+					blink1 = false;
+				if (jC != 0)
+					jawClench1 = true;
+				else
+					jawClench1 = false;
+			}
+			else if (m.getArgAsInt(0) == 2) {
+				int mOn = int(m.getArgAsDouble(1));
+				int bl = int(m.getArgAsDouble(2));
+				int jC = int(m.getArgAsDouble(3));
+				if (mOn != 0)
+					museOn2 = true;
+				else
+					museOn2 = false;
+				if (bl != 0)
+					blink2 = true;
+				else
+					blink2 = false;
+				if (jC != 0)
+					jawClench2 = true;
+				else
+					jawClench2 = false;
+			}
 		}
 		else {
 			// unrecognized message: display on the bottom of the screen
@@ -467,8 +565,14 @@ void ofApp::updateOSC() {
 			// clear the next line
 			msg_strings[current_msg_string] = "";
 		}
+/*
+		for (int i = 0; i < numSensores; i++) {
+			if (valSensor1[i] ) {
 
-	}
+			}
+		}
+	*/
+}
 }
 
 void ofApp::muestraValSensores() {
@@ -604,10 +708,14 @@ void ofApp::updateEsc01() {
 		break;
 	case 1:
 		for (int i = 0; i < numPart; i++) {
-			particulas[i].set(
+			particulas1[i].set(
 				sin((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
 				cos((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
-				0);
+				0);			
+			particulas2[i].set(
+					sin((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+					cos((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+					0);
 		}
 		if (radio01 < radio01Fin)
 			radio01 += 0.5;
@@ -615,17 +723,17 @@ void ofApp::updateEsc01() {
 	case 2:
 		if (!partInPos) {
 			for (int i = 0; i < numPart; i++) {
-				float pTempX = particulas[i].x;
-				particulas[i].set(
+				float pTempX = particulas1[i].x;
+				particulas1[i].set(
 					pTempX, 0, 0
 				);
 
-				if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
-					particulas[i].x += 5;
+				if (particulas1[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
+					particulas1[i].x += 5;
 				else
-					particulas[i].x -= 5;
+					particulas1[i].x -= 5;
 			}
-			if (particulas[0].x < -ofGetWidth() / 2 + 2) {
+			if (particulas1[0].x < -ofGetWidth() / 2 + 2) {
 				iniciaOpa01b = true;
 				partInPos = true;
 			}
@@ -643,7 +751,7 @@ void ofApp::updateEsc01() {
 			}
 		}
 		for (int i = 0; i < numPart; i++) {
-			particulas[i].set(particulas[i].x, valSensor1[i] * 150 * escala01, 0);
+			particulas1[i].set(particulas1[i].x, valSensor1[i] * 150 * escala01, 0);
 		}
 		break;
 	}
@@ -736,13 +844,11 @@ void ofApp::escena01() {
 		}
 		ofPopStyle();
 		
-		museConectado(ofGetWidth()/2-400, 60);
+		museConectado(ofGetWidth()/2-400, 60, 1);
 		// Gyro y Acc
 		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX1, accY1, accZ1, ofColor(0, 204, 204), "Acelerometro");
 		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX1, gyroY1, gyroZ1, ofColor(204, 0, 0), "Giroscopio");
 		/////////////////////////// CONTENIDO PARA USUARIO 1
-		
-		/////////////////////////////////
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
 		ofPushMatrix();
 		ofTranslate(ofGetWidth(), 0, 0);
@@ -754,34 +860,35 @@ void ofApp::escena01() {
 		}
 		ofPopStyle();
 		
-		museConectado(ofGetWidth() / 2 - 400, 60);
+		museConectado(ofGetWidth() / 2 - 400, 60, 2);
 		// Gyro y Acc
 		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
 		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
-		
 		ofPopMatrix();
-		
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
-		
 
 		break;
-	case 1: // INCORPORAR USUARIO 2
+	case 1: // HEXÁGONOS
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+		/////////////////////////////////////////////
+		/////////////// USUARIO 1
+		/////////////////////////////////////////////
+		ofPushMatrix();
 		ofRotateX(accX1 * multRotaciones);
 		ofRotateY(-multRotaciones+accZ1 * multRotaciones);
 		ofRotateZ(accY1 * multRotaciones);
-		//////////
+		// Dibujo hexagonos con relleno
 		ofSetColor(255, opa01 / anillos);
 		ofFill();
-		// Dibujo hexagonos con relleno
+		//////////
 		ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 		for (int j = 0; j < anillos; j++) {
 			ofBeginShape();
 			for (int i = 0; i < numPart; i++) {
 				ofVertex(
-					particulas[i].x*((1 + j)*.08),
-					particulas[i].y*((1 + j)*.08),
+					particulas1[i].x*((1 + j)*.08),
+					particulas1[i].y*((1 + j)*.08),
 					sin(i+j*anillos+ofGetElapsedTimeMillis()*.001)*20
 				);
 			}
@@ -794,8 +901,8 @@ void ofApp::escena01() {
 			ofBeginShape();
 			for (int i = 0; i < numPart; i++) {
 				ofVertex(
-					particulas[i].x*((1 + j)*.08),
-					particulas[i].y*((1 + j)*.08)
+					particulas1[i].x*((1 + j)*.08),
+					particulas1[i].y*((1 + j)*.08)
 				);
 			}
 			ofEndShape();
@@ -806,13 +913,78 @@ void ofApp::escena01() {
 		for (int j = 0; j < anillos; j++) {
 			for (int i = 0; i < numPart; i++) {
 				ofEllipse(
-					particulas[i].x*((1 + j)*.08),
-					particulas[i].y*((1 + j)*.08),
+					particulas1[i].x*((1 + j)*.08),
+					particulas1[i].y*((1 + j)*.08),
 					(anillos - j) / 2, (anillos - j) / 2);
 			}
 		}
 		ofPopMatrix();
+		/////////////////////////////////////////////
+		/////////////// USUARIO 2
+		/////////////////////////////////////////////
+		ofPushMatrix();
+		ofRotateX(90+accX2 * multRotaciones);
+		ofRotateY(-multRotaciones + accZ2 * multRotaciones);
+		ofRotateZ(accY2 * multRotaciones);
+		// Dibujo hexagonos con relleno
+		ofSetColor(255, opa01 / anillos);
+		ofFill();
+		//////////
+		ofSetPolyMode(OF_POLY_WINDING_NONZERO);
+		for (int j = 0; j < anillos; j++) {
+			ofBeginShape();
+			for (int i = 0; i < numPart; i++) {
+				ofVertex(
+					particulas2[i].x*((1 + j)*.08),
+					particulas2[i].y*((1 + j)*.08),
+					sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
+				);
+			}
+			ofEndShape();
+		}
+		// Dibujo Hexagonos sin relleno
+		for (int j = 0; j < anillos; j++) {
+			ofSetColor(0, opa01 - j * 15);
+			ofNoFill();
+			ofBeginShape();
+			for (int i = 0; i < numPart; i++) {
+				ofVertex(
+					particulas2[i].x*((1 + j)*.08),
+					particulas2[i].y*((1 + j)*.08)
+				);
+			}
+			ofEndShape();
+		}
+		// Dibujo elipses
+		ofSetColor(255, opa01);
+		ofFill();
+		for (int j = 0; j < anillos; j++) {
+			for (int i = 0; i < numPart; i++) {
+				ofEllipse(
+					particulas2[i].x*((1 + j)*.08),
+					particulas2[i].y*((1 + j)*.08),
+					(anillos - j) / 2, (anillos - j) / 2);
+			}
+		}
+		ofPopMatrix();
+		
+		
+		
+		
+		ofPopMatrix();
+
+
+
+
+
+
+
 		break;
+
+
+
+
+
 	case 2:
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
@@ -820,8 +992,8 @@ void ofApp::escena01() {
 		ofFill();
 		for (int i = 0; i < numPart; i++) {
 			ofEllipse(
-				particulas[i].x,
-				particulas[i].y,
+				particulas1[i].x,
+				particulas1[i].y,
 				5,5);
 		}
 		/*
@@ -864,7 +1036,7 @@ void ofApp::escena01() {
 				ofVertex(ofGetWidth() / 2, ofGetHeight() / 2);
 				ofVertex(-ofGetWidth() / 2, ofGetHeight() / 2);
 				for (int i = 0; i < numPart; i++) {
-					ofVertex(particulas[i].x, particulas[i].y+25*j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
+					ofVertex(particulas1[i].x, particulas1[i].y+25*j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
 					);
 				}
 				ofEndShape();
@@ -874,7 +1046,7 @@ void ofApp::escena01() {
 				ofNoFill();
 				ofBeginShape();
 				for (int i = 0; i < numPart; i++) {
-					ofVertex(particulas[i].x, particulas[i].y + 25 * j);
+					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j);
 				}
 				ofEndShape();
 			}
@@ -1052,55 +1224,103 @@ void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, of
 	ofPopStyle();
 }
 //////// Funcion muse conectado
-void ofApp::museConectado(int pX, int pY) {
+void ofApp::museConectado(int pX, int pY, int numS) {
 	ofPushStyle();
 	ofPushMatrix();
 	ofTranslate(pX, pY);
+	if (numS == 1) {
+		if (museOn1) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(0, 0, 10, 10);
 
-	if (museOn) {
-		ofSetColor(64, 255, 0, opa01);
-		ofFill();
-		ofRect(0, 0, 10, 10);
-	
-		ofSetColor(255, opa01);
-		ofNoFill();
-		ofRect(0, 0, 10, 10);
-	}
-	if (blink) {
-		ofSetColor(64, 255, 0, opa01);
-		ofFill();
-		ofRect(0, 20, 10, 10);
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(0, 0, 10, 10);
+		}
+		if (blink1) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(0, 20, 10, 10);
 
-		ofSetColor(255, opa01);
-		ofNoFill();
-		ofRect(0, 20, 10, 10);
-	}
-	if (jawClench) {
-		ofSetColor(64, 255, 0, opa01);
-		ofFill();
-		ofRect(0, 40, 10, 10);
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(0, 20, 10, 10);
+		}
+		if (jawClench1) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(0, 40, 10, 10);
 
-		ofSetColor(255, opa01);
-		ofNoFill();
-		ofRect(0, 40, 10, 10);
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(0, 40, 10, 10);
+		}
+		if (isGood) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(30, 0, EEG11 * 50, 10);
+			ofRect(30, 20, EEG21 * 50, 10);
+			ofRect(30, 40, EEG31 * 50, 10);
+			ofRect(30, 60, EEG41 * 50, 10);
+			ofRect(30, 80, auxLeft1 * 50, 10);
+			ofRect(30, 100, auxRight1 * 50, 10);
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(30, 0, 50, 10);
+			ofRect(30, 20, 50, 10);
+			ofRect(30, 40, 50, 10);
+			ofRect(30, 60, 50, 10);
+			ofRect(30, 80, 50, 10);
+			ofRect(30, 100, 50, 10);
+		}
 	}
-	if (isGood) {
-		ofSetColor(64, 255, 0, opa01);
-		ofFill();
-		ofRect(30, 0, EEG11*50, 10);
-		ofRect(30, 20, EEG21*50, 10);
-		ofRect(30, 40, EEG31*50, 10);
-		ofRect(30, 60, EEG41*50, 10);
-		ofRect(30, 80, auxLeft1 * 50, 10);
-		ofRect(30, 100, auxRight1 * 50, 10);
-		ofSetColor(255, opa01);
-		ofNoFill();
-		ofRect(30, 0, 50, 10);
-		ofRect(30, 20, 50, 10);
-		ofRect(30, 40, 50, 10);
-		ofRect(30, 60, 50, 10);
-		ofRect(30, 80, 50, 10);
-		ofRect(30, 100, 50, 10);
+	else if (numS == 2) {
+		if (museOn2) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(0, 0, 10, 10);
+
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(0, 0, 10, 10);
+		}
+		if (blink2) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(0, 20, 10, 10);
+
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(0, 20, 10, 10);
+		}
+		if (jawClench2) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(0, 40, 10, 10);
+
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(0, 40, 10, 10);
+		}
+		if (isGood) {
+			ofSetColor(64, 255, 0, opa01);
+			ofFill();
+			ofRect(30, 0, EEG12 * 50, 10);
+			ofRect(30, 20, EEG22 * 50, 10);
+			ofRect(30, 40, EEG32 * 50, 10);
+			ofRect(30, 60, EEG42 * 50, 10);
+			ofRect(30, 80, auxLeft2 * 50, 10);
+			ofRect(30, 100, auxRight2 * 50, 10);
+			ofSetColor(255, opa01);
+			ofNoFill();
+			ofRect(30, 0, 50, 10);
+			ofRect(30, 20, 50, 10);
+			ofRect(30, 40, 50, 10);
+			ofRect(30, 60, 50, 10);
+			ofRect(30, 80, 50, 10);
+			ofRect(30, 100, 50, 10);
+		}
 	}
 	ofPopMatrix();
 	ofPopStyle();
@@ -1190,9 +1410,12 @@ void ofApp::setupGUI() {
 	gui.add(theta.setup("theta", false));
 	// Artifacts
 	gui.add(artifacts.setup("artifacts", false));
-	gui.add(museOn.setup("museOn", false));
-	gui.add(blink.setup("blink", false));
-	gui.add(jawClench.setup("jawClench", false));
+	gui.add(museOn1.setup("museOn1", false));
+	gui.add(blink1.setup("blink1", false));
+	gui.add(jawClench1.setup("jawClench1", false));
+	gui.add(museOn2.setup("museOn2", false));
+	gui.add(blink2.setup("blink2", false));
+	gui.add(jawClench2.setup("jawClench2", false));
 	// Acc
 	gui.add(acc.setup("acc", false));
 	gui.add(accX1.setup("accX1", 0.1f, 0.0f, 1.0f));

@@ -62,6 +62,16 @@ class ofApp : public ofBaseApp{
 		};
 		ofFbo ondasFbo[14]; // Fbo para render en grafico independiente
 
+		// Dos/Cero // 50/48
+		bool esDos = false;
+		bool esCero = false;
+
+		bool esUno = false;
+		bool esCinco = false;
+		int thressGSR = 30;
+		int valGSR = 0;
+		bool pSensor1 = false;
+		bool pSensor2 = false;
 
 		/////// ESCENAS //////////////////////////
 		void muestraValSensores();
@@ -83,7 +93,7 @@ class ofApp : public ofBaseApp{
 		ofImage logoAbismo;
 		float opaLogo;
 		// escena 01
-		void museConectado(int, int);
+		void museConectado(int, int, int);
 		void dibujaOnda(int, int, int, float);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
 		float opa01 = 0.0;
@@ -93,7 +103,7 @@ class ofApp : public ofBaseApp{
 		int sep = 50;
 		float posOndaX = 0;
 		float velOndaX = 0.5;
-		int multSensores = 100;
+		int multSensores = 175; // MULTIPLICADOR DE LOS SENSORES
 		int multRotaciones = 45;
 
 		int esc01 = 0;
@@ -101,7 +111,7 @@ class ofApp : public ofBaseApp{
 		float opa01b = 0.0;
 
 		int numPart = 6;
-		ofVec3f particulas[6];
+		ofVec3f particulas1[6], particulas2[6];
 		float radio01Fin = 500;
 		float tamPart[6];
 		int anillos = 10;
@@ -182,9 +192,9 @@ class ofApp : public ofBaseApp{
 		ofxToggle theta;
 		// Artifacts
 		ofxToggle artifacts;
-		ofxToggle museOn;
-		ofxToggle blink;
-		ofxToggle jawClench;
+		ofxToggle museOn1, museOn2;
+		ofxToggle blink1, blink2;
+		ofxToggle jawClench1, jawClench2;
 		// Accelerometer
 		ofxToggle acc;
 		ofxFloatSlider accX1, accX2;

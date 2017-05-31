@@ -30,7 +30,7 @@ void setup()
   background(0); 
   size(400, 600);
   println(Serial.list());
-  String portName = Serial.list()[1];
+  String portName = Serial.list()[4];
   myPort = new Serial(this, portName, 9600);
   myPort.clear(); 
 
@@ -54,11 +54,12 @@ void draw()
 
     if (val == 'A') { // 65 Sensor1
       sensor1 = true;
+      //println("Sensor 1");
     }    
-    if (val == 'B') { // 66 Sensor1
+    if (val == 'B') { // 66 Sensor2
       sensor2 = true;
-      if (debug)
-        println("Sensor 2");
+      //if (debug)
+        //println("Sensor 2");
     }
     if (sensor1) { // 20 GSR
       // COMPROBAR SI ES 20 DEL GSR
