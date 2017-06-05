@@ -31,12 +31,13 @@ class ofApp : public ofBaseApp{
 		ofxSimpleSerial	serial;
 
 		string		message;
-
+		// Pulso
 		bool pulso = false;
 		bool pulsoSensor1 = false;
 		bool pulso1Dato1 = false;
 		bool pulso1Dato2 = false;
 		bool pulso1Dato3 = false;
+		int valPulso1, valPulso2;
 
 		void exit();
 		void updateSerial();
@@ -95,8 +96,10 @@ class ofApp : public ofBaseApp{
 		// escena 01
 		void museConectado(int, int, int);
 		void dibujaOnda(int, int, int, float);
+		void dibujaOnda(int, int, int, int, int, float, bool, int);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
 		float opa01 = 0.0;
+		int ppX, ppY;
 
 		int anchoOndaVentana;
 		int posIniX = 100;

@@ -80,9 +80,6 @@ void ofApp::setup(){
 
 		}
 	}
-
-	
-
 	/*
 	ofVec2f test = ofVec2f(10, 10);
 	camera.setupPerspective(true, .9, .5, 650, test);
@@ -108,7 +105,7 @@ void ofApp::setupSerial() {
 	serial.listDevices();
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	if (!serial.setup("COM8", 9600)) {
+	if (!serial.setup("COM10", 9600)) {
 		ofLogError() << "could not open serial port - listing serial devices";
 		serial.listDevices();
 		//OF_EXIT_APP(0);
@@ -375,6 +372,22 @@ void ofApp::updateSerial(){
 						cout << endl;
 					}
 				}
+			}
+			if (pSensor2) {
+				//////////////////////////
+				// COMPROBAR SI ES 15 DEL SENSOR DE PULSO
+				if (myByte == 49) // 1
+					esUno = true;
+				/*if (esUno && val == 53) { // 5
+				esCinco = true;
+				}*/
+				if (esUno && myByte != 49 && myByte != 44) {
+					valPulso1 = myByte;
+					if (debug)
+						printf("Pulso: " + myByte);
+				}
+				else
+					valPulso1 = 0;
 			}
 
 
@@ -807,7 +820,43 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
 	//////////////////////
 	ofFill();
 	ofSetColor(255, opa01);
-	if(indice<numSens)
+	if (indice<numSens)
+		texto1.drawString(sensor[indice], pX, pY);
+	else
+		texto1.drawString(sensor[indice - numSens], pX, pY);
+	ofSetLineWidth(1);
+	ofNoFill();
+	ofSetColor(255, opa01);
+	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
+		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
+	}
+
+	ofNoFill();
+	ofSetLineWidth(1);
+	ofSetColor(255, opa01);
+	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
+	ofPopStyle();
+
+}
+void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float val, bool lineal, int pulso) {
+	ofPushStyle();
+	ofSetColor(255, opa01);
+	ondasFbo[indice].begin();
+	ofSetColor(255, opa01 - val * 50);
+	ofFill();
+	if (!lineal)
+		ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1 + 8 * val, 1 + 8 * val);
+	else
+		ofLine(pX, 100 + pulso, ppXloc, 100 + ppYloc);
+
+	ondasFbo[indice].end();
+
+	ofSetColor(255, 255, 255, opa01);
+	ondasFbo[indice].draw(pX, pY);
+	//////////////////////
+	ofFill();
+	ofSetColor(255, opa01);
+	if (indice<numSens)
 		texto1.drawString(sensor[indice], pX, pY);
 	else
 		texto1.drawString(sensor[indice - numSens], pX, pY);
