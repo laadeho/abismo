@@ -105,7 +105,7 @@ void ofApp::setupSerial() {
 	serial.listDevices();
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	if (!serial.setup("COM10", 9600)) {
+	if (!serial.setup("COM3", 9600)) {
 		ofLogError() << "could not open serial port - listing serial devices";
 		serial.listDevices();
 		//OF_EXIT_APP(0);
@@ -656,6 +656,13 @@ void ofApp::draw(){
 
 void ofApp::debugF() {
 	if (debug) {
+		ofDrawBitmapString("- Serial Data:", ofGetWidth() - 300, ofGetHeight() - 50);
+//		if (fmod(5, ofGetFrameNum()) == 0) {
+			if (serialConectado) {
+				ofDrawBitmapString(serial.readByte(), ofGetWidth() - 180, ofGetHeight() - 50);
+			} else
+				ofDrawBitmapString("revisar conexión", ofGetWidth() - 180, ofGetHeight() - 50);
+	//	}
 		ofPushStyle();
 		ofSetColor(255, 0, 0);
 		ofFill();

@@ -42,7 +42,7 @@ class ofApp : public ofBaseApp{
 		void exit();
 		void updateSerial();
 		void setupSerial();
-
+		bool trySerialAgain = false;
 		bool serialConectado = false;
 
 		/////////////////////////////
