@@ -47,7 +47,7 @@ class ofApp : public ofBaseApp{
 
 		/////////////////////////////
 
-		bool fullScreenDisplay = true;
+		bool fullScreenDisplay = false;
 		bool debug = true;
 		void debugF();
 		bool showGui = false;
