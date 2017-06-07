@@ -105,7 +105,7 @@ void ofApp::setupSerial() {
 	serial.listDevices();
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	if (!serial.setup("COM3", 9600)) {
+	if (!serial.setup("COM8", 9600)) {
 		ofLogError() << "could not open serial port - listing serial devices";
 		serial.listDevices();
 		//OF_EXIT_APP(0);
@@ -336,8 +336,8 @@ void ofApp::updateSerial(){
 			else if (myByte == OF_SERIAL_ERROR)
 				printf("Error en lectura Serial");
 			else {
-				printf("myByte is %d", myByte);
-				cout << endl;
+				//printf("myByte is %d", myByte);
+				//cout << endl;
 			}
 		}
 
@@ -373,6 +373,7 @@ void ofApp::updateSerial(){
 					}
 				}
 			}
+			
 			if (pSensor2) {
 				//////////////////////////
 				// COMPROBAR SI ES 15 DEL SENSOR DE PULSO
@@ -383,11 +384,15 @@ void ofApp::updateSerial(){
 				}*/
 				if (esUno && myByte != 49 && myByte != 44) {
 					valPulso1 = myByte;
+					valSensor1[5] = myByte;
 					if (debug)
 						printf("Pulso: " + myByte);
 				}
-				else
+				else {
 					valPulso1 = 0;
+				}
+				//valSensor1[5] = valPulso1;
+
 			}
 
 
@@ -395,10 +400,14 @@ void ofApp::updateSerial(){
 				pSensor1 = false;
 				esDos = false;
 				esCero = false;
+				printf("44 psensor1 linea 403: " + myByte);
+
 			}
 			if (myByte == 44 && pSensor2) {
 				pSensor2 = false;
 				esUno = false;
+				printf("44 psensor2 linea 409: " + myByte);
+
 				// esCinco = false;
 			}
 			/////////////// de p5
@@ -417,6 +426,7 @@ void ofApp::updateSerial(){
 				}
 			}
 			*/
+			/*
 			if (pulso1Dato1 && pulso1Dato2 && pulso1Dato3) {
 				pulso = true;
 				serial.flush();
@@ -430,6 +440,7 @@ void ofApp::updateSerial(){
 				pulso1Dato2 = false;
 				pulso1Dato3 = false;
 			}
+			*/
 		}
 	}
 
@@ -657,7 +668,7 @@ void ofApp::draw(){
 void ofApp::debugF() {
 	if (debug) {
 		ofDrawBitmapString("- Serial Data:", ofGetWidth() - 300, ofGetHeight() - 50);
-//		if (fmod(5, ofGetFrameNum()) == 0) {
+//		if (fmod(5, ofGetFrameNum()) == 0) { // intento de modulo en ofx
 			if (serialConectado) {
 				ofDrawBitmapString(serial.readByte(), ofGetWidth() - 180, ofGetHeight() - 50);
 			} else
@@ -849,17 +860,23 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float
 	ofPushStyle();
 	ofSetColor(255, opa01);
 	ondasFbo[indice].begin();
-	ofSetColor(255, opa01 - val * 50);
+	//////////////////////////// solo testeo
+	ofFill();
+	ofEllipse(pX, pY, 50, 50);
+	//////////////////////////// solo testeo
+
+	
+	ofSetColor(255, opa01);// -val * 50);
 	ofFill();
 	if (!lineal)
-		ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1 + 8 * val, 1 + 8 * val);
+		ofEllipse(posOndaX, 50 +  ofMap(val, 0, 255, 25, -25), 5 + 8 * val, 5 + 8 * val);
 	else
 		ofLine(pX, 100 + pulso, ppXloc, 100 + ppYloc);
-
+		
 	ondasFbo[indice].end();
-
 	ofSetColor(255, 255, 255, opa01);
 	ondasFbo[indice].draw(pX, pY);
+	
 	//////////////////////
 	ofFill();
 	ofSetColor(255, opa01);
@@ -878,8 +895,8 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float
 	ofSetLineWidth(1);
 	ofSetColor(255, opa01);
 	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
-	ofPopStyle();
 
+	ofPopStyle();
 }
 void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
@@ -895,8 +912,11 @@ void ofApp::escena01() {
 		/////////////////////////// CONTENIDO PARA USUARIO 1
 		ofSetColor(255, opa01);
 		ofFill();
-		for (int i = 0; i < numSens; i++) {
+		for (int i = 0; i < numSens-2; i++) {
 			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i]);
+		}
+		for (int i = numSens-2; i < numSens; i++) {
+			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, 20,50,valSensor1[i],false, true);
 		}
 		ofPopStyle();
 		
@@ -1024,22 +1044,9 @@ void ofApp::escena01() {
 		}
 		ofPopMatrix();
 		
-		
-		
-		
 		ofPopMatrix();
 
-
-
-
-
-
-
 		break;
-
-
-
-
 
 	case 2:
 		ofPushMatrix();
