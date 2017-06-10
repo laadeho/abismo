@@ -44,13 +44,19 @@ void setup() {
 void loop() {
   ///////// Pulse Sensor ///////// 15
   Signal = analogRead(pinSensorPulso);
-  if (debug) {
+  /*if (debug) {
     Serial.println(Signal);
-  }
+    }*/
 
   if (Signal > Threshold) {
     digitalWrite(pinLed, HIGH);
     if (debug) {
+      if (escribe) {
+        Serial.println('B'); // imprime val = 66
+        Serial.println("1"); // imprime 49
+        Serial.println(analogRead(pinSensorPulso));
+        Serial.println(',');
+      }
       Serial.println("_______________________________");
     }
 
@@ -67,11 +73,12 @@ void loop() {
     addToArray();
     int smoothReading = findAverage();
     if (smoothReading > -1) {
-      if (debug) {
+      /*
+       if (debug) {
         Serial.print("SIN: ");
         Serial.print(smoothReading);
         Serial.print(", MAP: ");
-      }
+      }*/
       int diff = smoothReading - oldReading;
       //the op amp inverts, so we're flipping the numbers
       BTserial.write('A'); // imprime val = 65
