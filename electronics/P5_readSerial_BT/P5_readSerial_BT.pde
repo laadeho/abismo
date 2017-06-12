@@ -1,8 +1,3 @@
-/*
-Buscar si existe algún "flush" para cada determinado tiempo
- limpiar la cola de mensajes de los puertos seriales y así
- tener la información en tiempo real.
- */
 import processing.serial.*;
 
 Serial myPort;
@@ -164,10 +159,10 @@ void draw()
    */
 }
 
-void serialEvent(Serial p) {
-  // int valor = p.read();
-  //println(valor);
-}
+//void serialEvent(Serial p) {
+// int valor = p.read();
+//println(valor);
+//}
 void exit() {
   myPort.clear(); 
   myPort.stop();

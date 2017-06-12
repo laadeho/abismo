@@ -8,6 +8,7 @@
 
 #define PORT 7000
 #define NUM_MSG_STRINGS 20
+#define puertoCOM "COM11"
 
 class ofApp : public ofBaseApp{
 
@@ -29,15 +30,28 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		///////// SERIAL ////////////////////
 		ofxSimpleSerial	serial;
-
-		string		message;
+		string message;
+		
 		// Pulso
 		bool pulso = false;
 		bool pulsoSensor1 = false;
 		bool pulso1Dato1 = false;
 		bool pulso1Dato2 = false;
 		bool pulso1Dato3 = false;
+		//
+		int valSerial;
 		int valPulso1, valPulso2;
+		// Dos/Cero // 50/48
+		bool esDos = false;
+		bool esCero = false;
+
+		bool esUno = false;
+		bool esCinco = false;
+		int thressGSR = 30;
+		int valGSR = 0;
+		bool pSensor1 = false;
+		bool pSensor2 = false;
+
 
 		void exit();
 		void updateSerial();
@@ -47,8 +61,9 @@ class ofApp : public ofBaseApp{
 
 		/////////////////////////////
 
-		bool fullScreenDisplay = true;
+		bool fullScreenDisplay = false;
 		bool debug = true;
+		bool debugSerial = true;
 		void debugF();
 		bool showGui = false;
 		string sensaciones[11];
@@ -62,17 +77,6 @@ class ofApp : public ofBaseApp{
 			"Pulso" , "GSR"
 		};
 		ofFbo ondasFbo[14]; // Fbo para render en grafico independiente
-
-		// Dos/Cero // 50/48
-		bool esDos = false;
-		bool esCero = false;
-
-		bool esUno = false;
-		bool esCinco = false;
-		int thressGSR = 30;
-		int valGSR = 0;
-		bool pSensor1 = false;
-		bool pSensor2 = false;
 
 		/////// ESCENAS //////////////////////////
 		void muestraValSensores();
