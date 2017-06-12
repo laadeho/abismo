@@ -30,7 +30,7 @@ void setup()
   background(0); 
   size(400, 600);
   println(Serial.list());
-  String portName = Serial.list()[4];
+  String portName = Serial.list()[3];
   myPort = new Serial(this, portName, 9600);
   myPort.clear(); 
 
@@ -59,7 +59,7 @@ void draw()
     if (val == 'B') { // 66 Sensor2
       sensor2 = true;
       //if (debug)
-        //println("Sensor 2");
+      //println("Sensor 2");
     }
     if (sensor1) { // 20 GSR
       // COMPROBAR SI ES 20 DEL GSR
@@ -122,7 +122,7 @@ void draw()
 
     line(pX, 100+valPulso, ppX, 100+ppY2);
   } else  
-  background(0);
+  background(0, 20);
 
   ppX = pX; 
   ppY = pY;  

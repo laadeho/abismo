@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\ofApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.cpp">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.cpp">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.cpp">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.cpp">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.cpp">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\NetworkingUtils.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip\posix</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\posix\UdpSocket.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip\posix</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\main.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\testApp.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss\kiss_fft.c">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss\kiss_fftr.c">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\src\ofxFft.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\src\ofxFftBasic.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\src\ofxFftw.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscBundle.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscMessage.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscReceiver.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscSender.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs\tinyxml.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs\tinyxmlerror.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs\tinyxmlparser.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxXmlSettings\src\ofxXmlSettings.cpp">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxXmlSettings\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons">
+      <UniqueIdentifier>{48dcca6d-1d88-4b05-b4be-437822b31ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxGui">
+      <UniqueIdentifier>{d6e2f1c7-46b4-4f98-905e-723956bcb013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxGui\src">
+      <UniqueIdentifier>{c4f3c416-6e4f-47c6-ba9d-b8f78f358972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc">
+      <UniqueIdentifier>{0d4cd121-99fb-40b3-8f2e-1bb919dea488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\src">
+      <UniqueIdentifier>{7f25e53c-6ad6-4c2d-90e5-12716b01382c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\libs">
+      <UniqueIdentifier>{b486cf9d-fdf5-4fba-bdc7-c75fa60ba13b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\libs\oscpack">
+      <UniqueIdentifier>{d46a4574-9a0d-4f35-951b-83a210b27fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\libs\oscpack\src">
+      <UniqueIdentifier>{ffdb49d7-bb88-4c34-9d39-383ae7378c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\libs\oscpack\src\ip">
+      <UniqueIdentifier>{4a1097f8-5a97-4700-a99c-8d6816d9eeea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\posix">
+      <UniqueIdentifier>{48f04c03-0299-42b4-80aa-038c90c5fbaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\win32">
+      <UniqueIdentifier>{af03884c-c29c-4540-8b45-826ac44da0b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
+      <UniqueIdentifier>{c1349d0b-edb0-40d5-9470-72a87f6beec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC">
+      <UniqueIdentifier>{7083cc93-1b83-4340-8ecb-24246c7dd7f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src">
+      <UniqueIdentifier>{cf2a3dc0-5a23-4d34-b6f8-c00983928928}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxFft">
+      <UniqueIdentifier>{001ab6dc-cfaa-459b-83aa-51322da6a438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxFft\libs">
+      <UniqueIdentifier>{6539e358-7516-4da5-9e7b-eb89cb08a4d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxFft\libs\fftw">
+      <UniqueIdentifier>{e12c17e4-2f6a-4e7d-8d48-22155c0dfb47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxFft\libs\fftw\include">
+      <UniqueIdentifier>{faaabb30-a4e3-4c5b-ae28-a685bc0bd927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss">
+      <UniqueIdentifier>{d809cade-4dab-489d-be21-af9437eb38b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxFft\src">
+      <UniqueIdentifier>{43f7699e-3332-44bc-87a9-b70c342b99b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxOsc">
+      <UniqueIdentifier>{153d0e90-7699-4307-8ba2-92df07a9c5ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxOsc\libs">
+      <UniqueIdentifier>{8c7b2df4-ba0e-469f-a69e-c1ef39bf95d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack">
+      <UniqueIdentifier>{a6ab8810-1d1a-4173-a063-466a68fbcd11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include">
+      <UniqueIdentifier>{50b80e69-4455-4dc0-877d-9a96fd29f3d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip">
+      <UniqueIdentifier>{b748b472-b318-4b76-b895-5033425eb0a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc">
+      <UniqueIdentifier>{ba4211f1-ff50-4c64-9d99-715a892eed29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxOsc\src">
+      <UniqueIdentifier>{3b106e45-bad1-4619-9498-d32a78e15c38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxXmlSettings">
+      <UniqueIdentifier>{30540d88-3085-433e-be64-8ba40707adaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs">
+      <UniqueIdentifier>{f0808e92-7e35-4dde-bdf5-961224b52f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxFFT_to_OSC\src\ofxXmlSettings\src">
+      <UniqueIdentifier>{98996788-f451-44a0-9168-6073f2f2db80}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ofApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxBaseGui.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxButton.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGui.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxGuiGroup.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxLabel.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxPanel.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSlider.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxSliderGroup.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxGui\src\ofxToggle.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOsc.h">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscArg.h">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscBundle.h">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscMessage.h">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscParameterSync.h">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscReceiver.h">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\src\ofxOscSender.h">
+      <Filter>addons\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscException.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
+      <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\testApp.h">
+      <Filter>addons\ofxFFT_to_OSC\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\libs\fftw\include\fftw3.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\libs\fftw\include</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss\kiss_fft.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss\kiss_fftr.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss\_kiss_fft_guts.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\libs\kiss</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\src\ofxFft.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\src\ofxFftBasic.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxFft\src\ofxFftw.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxFft\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip\IpEndpointName.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip\NetworkingUtils.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip\PacketListener.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip\TimerListener.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip\UdpSocket.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\ip</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\MessageMappingOscPacketListener.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\OscException.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\OscHostEndianness.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\OscOutboundPacketStream.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\OscPacketListener.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\OscPrintReceivedElements.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\OscReceivedElements.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc\OscTypes.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\libs\oscpack\include\osc</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOsc.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscArg.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscBundle.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscMessage.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscReceiver.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxOsc\src\ofxOscSender.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxOsc\src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs\tinyxml.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxXmlSettings\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\code\of_v0.9.8_vs_release\addons\ofxFFT_to_OSC\src\ofxXmlSettings\src\ofxXmlSettings.h">
+      <Filter>addons\ofxFFT_to_OSC\src\ofxXmlSettings\src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+</Project>
