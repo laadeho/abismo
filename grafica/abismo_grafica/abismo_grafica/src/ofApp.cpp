@@ -102,24 +102,37 @@ void ofApp::setup(){
 
 void ofApp::setupSerial() {
 	ofSetVerticalSync(true);
-	serial.listDevices();
+	serial1.listDevices();
 
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	if (!serial.setup(puertoCOM, 9600)) {
+	if (!serial1.setup(puertoCOM1, 9600)) {
 		ofLogError() << "could not open serial port - listing serial devices";
-		serial.listDevices();
+		serial1.listDevices();
 		//OF_EXIT_APP(0);
 		cout << "==================================" << endl;
 		cout << "NO HAY SERIAL" << endl;
 		cout << "==================================" << endl;
 	}
 	else {
-		serialConectado = true;
+		ofLogNotice("Serial 01 ok");
+		serial1Conectado = true;
 	}
 
+	if (!serial2.setup(puertoCOM2, 9600)) {
+		ofLogError() << "could not open serial port - listing serial devices";
+		serial2.listDevices();
+		//OF_EXIT_APP(0);
+		cout << "==================================" << endl;
+		cout << "NO HAY SERIAL" << endl;
+		cout << "==================================" << endl;
+	}
+	else {
+		//serialConectado = true;
+		ofLogNotice("Serial 02 ok");
+		serial2Conectado = true;
+	}	
 	//serial.startContinuousRead();
 	//ofAddListener(serial.NEW_MESSAGE,this,&testApp::onNewMessage);
-
 	message = "";
 }
 
@@ -131,8 +144,11 @@ void ofApp::update() {
 		//ofSaveScreen("frames/"+ ofToString(ofGetFrameNum()) + ".tif");
 		//ofSaveImage("frames/" + ofToString(ofGetFrameNum()) + ".tif");
 	}
-	if (serialConectado) {
+	if (serial1Conectado && serial2Conectado) {
 		updateSerial();
+	}
+	else {
+		ofLogNotice("REVISAR CONEXION SERIAL");
 	}
 
 	switch (escena)
@@ -257,8 +273,10 @@ void ofApp::update() {
 		delta = true;
 		theta = true;
 
-		pSensor1 = true;
-		pSensor2 = true;
+		p1Sensor1 = true;
+		p1Sensor2 = true;
+		p2Sensor1 = true;
+		p2Sensor2 = true;
 		gsr = true;
 
 		acc = true;
@@ -327,13 +345,13 @@ void ofApp::update() {
 }
 
 void ofApp::updateSerial(){
-	if (serial.available()) {
+	if (serial1.available()) {
 		//int valSerial = 0;
-		valSerial = serial.readByte();
-		if (debug) {
-			if (valSerial == OF_SERIAL_NO_DATA)
+		valSerial1 = serial1.readByte();
+		if (debugSerial) {
+			if (valSerial1 == OF_SERIAL_NO_DATA)
 				printf("No hubo lectura Serial");
-			else if (valSerial == OF_SERIAL_ERROR)
+			else if (valSerial1 == OF_SERIAL_ERROR)
 				printf("Error en lectura Serial");
 			else {
 				//printf("valSerial is %d", valSerial);
@@ -341,52 +359,52 @@ void ofApp::updateSerial(){
 			}
 		}
 
-		if (valSerial != 0) {
+		if (valSerial1 != 0) {
 			/*if(debugSerial)
-				ofLog(OF_LOG_NOTICE, "Serial es: " + ofToString(valSerial));
-				*/
-			if (valSerial == 'A') { // 65 Sensor1 = Pulso
-				pSensor1 = true;				
-				/*if(debugSerial)
-					ofLog(OF_LOG_NOTICE, "sensor 1: " + ofToString(pSensor1));*/
+			ofLog(OF_LOG_NOTICE, "Serial es: " + ofToString(valSerial));
+			*/
+			if (valSerial1 == 'A') { // 65 Sensor1 = Pulso
+				p1Sensor1 = true;
+				if(debugSerial)
+				ofLog(OF_LOG_NOTICE, "sensor 1 - 1: " + ofToString(p1Sensor1));
 			}
-			if (valSerial == 'B') { // 66 Sensor2 = GSR
-				pSensor2 = true;
+			if (valSerial1 == 'B') { // 66 Sensor2 = GSR
+				p1Sensor2 = true;
 				if (debugSerial)
-					ofLog(OF_LOG_NOTICE, "sensor 2: " + ofToString(pSensor2));
+					ofLog(OF_LOG_NOTICE, "sensor 1 - 2: " + ofToString(p1Sensor2));
 			}
 			////////////// de p5
-			if (pSensor1) { // 20 GSR
-						   // COMPROBAR SI ES 20 DEL GSR
-				if (valSerial == 50) // 2
+			if (p1Sensor1) { // 20 GSR
+							// COMPROBAR SI ES 20 DEL GSR
+				if (valSerial1 == 50) // 2
 					esDos = true;
 				/*if (esDos && val == 48) { // 0
 				esCero = true;
 				} */
-				if (esDos && valSerial != 50 && valSerial != 44) {
-					if (valSerial>thressGSR)
-						valGSR = valSerial;
+				if (esDos && valSerial1 != 50 && valSerial1 != 44) {
+					if (valSerial1>thressGSR)
+						valGSR = valSerial1;
 					/*
 					if (debug) {
-						printf("Val GSR: " + valGSR);
-						cout << endl;
-						}
-						 */
+					printf("Val GSR: " + valGSR);
+					cout << endl;
+					}
+					*/
 				}
 			}
-			
-			if (pSensor2) {
+
+			if (p1Sensor2) {
 				//////////////////////////
 				// COMPROBAR SI ES 15 DEL SENSOR DE PULSO
-				if (valSerial == 49) // 1
+				if (valSerial1 == 49) // 1
 					esUno = true;
 				/*if (esUno && val == 53) { // 5
 				esCinco = true;
 				}*/
-				if (esUno && valSerial != 49 && valSerial != 44) {
-					valPulso1 = valSerial;
+				if (esUno && valSerial1 != 49 && valSerial1 != 44) {
+					valPulso1 = valSerial1;
 					if (debugSerial)
-						ofLog(OF_LOG_NOTICE, "sensor 2, PULSO: " + ofToString(valPulso1));
+						ofLog(OF_LOG_NOTICE, "sensor 1 - 2, PULSO: " + ofToString(valPulso1));
 				}
 				else {
 					valPulso1 = 0;
@@ -396,52 +414,97 @@ void ofApp::updateSerial(){
 			}
 
 
-			if (valSerial == 44 && pSensor1) {
-				pSensor1 = false;
+			if (valSerial1 == 44 && p1Sensor1) {
+				p1Sensor1 = false;
 				esDos = false;
 				esCero = false;
 				//ofLog(OF_LOG_NOTICE, "44 psensor1 linea 403: " + ofToString(valSerial));
 
 			}
-			if (valSerial == 44 && pSensor2) {
-				pSensor2 = false;
+			if (valSerial1 == 44 && p1Sensor2) {
+				p1Sensor2 = false;
 				esUno = false;
-				//ofLog(OF_LOG_NOTICE, "44 psensor2 linea 409: " + ofToString(valSerial));
-				// esCinco = false;
+				
 			}
-			/////////////// de p5
-
-
-			/*
-			if (pulsoSensor1) {
-				if (valSerial == 49) {
-					pulso1Dato1 = true;
-				}
-				if (valSerial == 53) {
-					pulso1Dato2 = true;
-				}
-				if (valSerial == 3) {
-					pulso1Dato3 = true;
-				}
-			}
-			*/
-			/*
-			if (pulso1Dato1 && pulso1Dato2 && pulso1Dato3) {
-				pulso = true;
-				serial.flush();
-			}
-			else
-				pulso = false;
-
-			if (valSerial == 2) {
-				pulsoSensor1 = false;
-				pulso1Dato1 = false;
-				pulso1Dato2 = false;
-				pulso1Dato3 = false;
-			}
-			*/
 		}
 	}
+
+	if (serial2.available()) {
+		//int valSerial = 0;
+		valSerial2 = serial2.readByte();
+		if (debugSerial) {
+			if (valSerial2 == OF_SERIAL_NO_DATA)
+				printf("No hubo lectura Serial");
+			else if (valSerial2 == OF_SERIAL_ERROR)
+				printf("Error en lectura Serial");
+			else {
+				//printf("valSerial is %d", valSerial);
+				//cout << endl;
+			}
+		}
+
+		if (valSerial2 != 0) {
+			/*if(debugSerial)
+			ofLog(OF_LOG_NOTICE, "Serial es: " + ofToString(valSerial));
+			*/
+			if (valSerial2 == 'A') { // 65 Sensor1 = Pulso
+				p2Sensor1 = true;
+				if(debugSerial)
+				ofLog(OF_LOG_NOTICE, "sensor 2 - 1: " + ofToString(p2Sensor1));
+			}
+			if (valSerial2 == 'B') { // 66 Sensor2 = GSR
+				p2Sensor2 = true;
+				if (debugSerial)
+					ofLog(OF_LOG_NOTICE, "sensor 2 - 2: " + ofToString(p2Sensor2));
+			}
+			////////////// de p5
+			if (p2Sensor1) { // 20 GSR
+							// COMPROBAR SI ES 20 DEL GSR
+				if (valSerial2 == 50) // 2
+					esDos = true;
+				/*if (esDos && val == 48) { // 0
+				esCero = true;
+				} */
+				if (esDos && valSerial2 != 50 && valSerial2 != 44) {
+					if (valSerial2>thressGSR)
+						valGSR = valSerial2;
+					/*
+					if (debug) {
+					printf("Val GSR: " + valGSR);
+					cout << endl;
+					}
+					*/
+				}
+			}
+
+			if (p2Sensor2) {
+				if (valSerial2 == 49) // 1
+					esUno = true;
+				if (esUno && valSerial2 != 49 && valSerial2 != 44) {
+					valPulso2 = valSerial2;
+					if (debugSerial)
+						ofLog(OF_LOG_NOTICE, "sensor 2 - 2, PULSO: " + ofToString(valPulso2));
+				}
+				else {
+					valPulso2 = 0;
+				}
+				valSensor2[5] = valPulso2;
+			}
+
+			if (valSerial2 == 44 && p2Sensor1) {
+				p2Sensor1 = false;
+				esDos = false;
+				esCero = false;
+			}
+			if (valSerial2 == 44 && p2Sensor2) {
+				p2Sensor2 = false;
+				esUno = false;
+			}
+		}
+	}
+
+	
+
 
 	if (pulso) {
 		//red = !red; // Revisar ejemplo que hice testApp con conexion serial
@@ -668,8 +731,9 @@ void ofApp::debugF() {
 	if (debug) {
 		ofDrawBitmapString("- Serial Data:", ofGetWidth() - 300, ofGetHeight() - 50);
 //		if (fmod(5, ofGetFrameNum()) == 0) { // intento de modulo en ofx
-			if (serialConectado) {
-				ofDrawBitmapString(serial.readByte(), ofGetWidth() - 180, ofGetHeight() - 50);
+			if (serial1Conectado && serial2Conectado) {
+				ofDrawBitmapString(serial1.readByte(), ofGetWidth() - 180, ofGetHeight() - 70);
+				ofDrawBitmapString(serial2.readByte(), ofGetWidth() - 180, ofGetHeight() - 50);
 			} else
 				ofDrawBitmapString("revisar conexion", ofGetWidth() - 180, ofGetHeight() - 50);
 	//	}
@@ -1401,8 +1465,10 @@ void ofApp::keyPressed(int key) {
 	if (key == 'e' || key == 'E')
 		emularSensores = !emularSensores;
 	if (key == 'c' || key == 'C') {
-		serial.flush();
-		serial.close();
+		serial1.flush();
+		serial1.close();
+		serial2.flush();
+		serial2.close();
 	}
 	if (key == 'b' || key == 'B') {
 		ofBackground(0);
@@ -1456,8 +1522,10 @@ void ofApp::keyPressed(int key) {
 }
 ///////////////////// EXIT ///////////////
 void ofApp::exit() {
-	serial.flush();
-	serial.close();
+	serial1.flush();
+	serial1.close();
+	serial2.flush();
+	serial2.close();
 }
 ///////////////////// GUI ///////////////
 void ofApp::setupGUI() {

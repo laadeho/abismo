@@ -8,7 +8,8 @@
 
 #define PORT 7000
 #define NUM_MSG_STRINGS 20
-#define puertoCOM "COM11"
+#define puertoCOM1 "COM6"
+#define puertoCOM2 "COM7"
 
 class ofApp : public ofBaseApp{
 
@@ -29,7 +30,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		///////// SERIAL ////////////////////
-		ofxSimpleSerial	serial;
+		ofxSimpleSerial	serial1, serial2;
 		string message;
 		
 		// Pulso
@@ -39,7 +40,7 @@ class ofApp : public ofBaseApp{
 		bool pulso1Dato2 = false;
 		bool pulso1Dato3 = false;
 		//
-		int valSerial;
+		int valSerial1, valSerial2;
 		int valPulso1, valPulso2;
 		// Dos/Cero // 50/48
 		bool esDos = false;
@@ -47,23 +48,24 @@ class ofApp : public ofBaseApp{
 
 		bool esUno = false;
 		bool esCinco = false;
+
 		int thressGSR = 30;
 		int valGSR = 0;
-		bool pSensor1 = false;
-		bool pSensor2 = false;
-
+		bool p1Sensor1, p1Sensor2;
+		bool p2Sensor1, p2Sensor2;
 
 		void exit();
 		void updateSerial();
 		void setupSerial();
 		bool trySerialAgain = false;
-		bool serialConectado = false;
+		bool serial1Conectado, serial2Conectado = false;
+
+		bool debugSerial = true;
 
 		/////////////////////////////
 
 		bool fullScreenDisplay = false;
 		bool debug = true;
-		bool debugSerial = true;
 		void debugF();
 		bool showGui = false;
 		string sensaciones[11];
@@ -170,8 +172,6 @@ class ofApp : public ofBaseApp{
 		ofMesh superficie02;
 		float numPart02;
 		double incCol02;
-
-
 
 		// escenas END
 
