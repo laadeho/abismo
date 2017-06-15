@@ -32,8 +32,16 @@ class ofApp : public ofBaseApp{
 		///////// SERIAL ////////////////////
 		ofxSimpleSerial	serial1, serial2;
 		string message;
-		
+		bool reconectarSerial = false;
 		// Pulso
+
+		bool esDos = false;
+		bool esCero = false;
+
+		bool esUno = false;
+		bool esCinco = false;
+
+
 		bool pulso = false;
 		bool pulsoSensor1 = false;
 		bool pulso1Dato1 = false;
@@ -43,12 +51,6 @@ class ofApp : public ofBaseApp{
 		int valSerial1, valSerial2;
 		int valPulso1, valPulso2;
 		// Dos/Cero // 50/48
-		bool esDos = false;
-		bool esCero = false;
-
-		bool esUno = false;
-		bool esCinco = false;
-
 		int thressGSR = 30;
 		int valGSR = 0;
 		bool p1Sensor1, p1Sensor2;
