@@ -26,8 +26,11 @@ void setup()
   size(400, 600);
   println(Serial.list());
   String portName = Serial.list()[3];
+  String portName2 = Serial.list()[5];
   myPort = new Serial(this, portName, 9600);
+  //myPort2 = new Serial(this, portName, 9600);
   myPort.clear(); 
+  //myPort2.clear(); 
 
   /*
   String portName2 = Serial.list()[4];
