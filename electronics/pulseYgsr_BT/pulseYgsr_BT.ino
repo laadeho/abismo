@@ -44,26 +44,24 @@ void setup() {
 void loop() {
   ///////// Pulse Sensor ///////// 15
   Signal = analogRead(pinSensorPulso);
-  /*if (debug) {
-    Serial.println(Signal);
-    }*/
-
   if (Signal > Threshold) {
     digitalWrite(pinLed, HIGH);
     if (debug) {
       if (escribe) {
-        Serial.println('B'); // imprime val = 66
-        Serial.println("1"); // imprime 49
-        Serial.println(analogRead(pinSensorPulso));
-        Serial.println(',');
+        if (pinSensorPulso > 0) {
+          Serial.println('A'); // imprime val = 65
+          Serial.println('1'); // imprime 49
+          Serial.println(int(map(analogRead(pinSensorPulso), 0,1023,0,255)));
+          Serial.println(',');
+        }
       }
       Serial.println("_______________________________");
     }
 
     if (escribe) {
-      BTserial.write('B'); // imprime val = 66
-      BTserial.write("1"); // imprime 49
-      BTserial.write(analogRead(pinSensorPulso));
+      BTserial.write('A'); // imprime val = 65
+      BTserial.write('1'); // imprime 49
+      BTserial.write(int(map(analogRead(pinSensorPulso), 0,1023,0,255)));
       BTserial.write(',');
     }
   } else {
@@ -74,20 +72,21 @@ void loop() {
     int smoothReading = findAverage();
     if (smoothReading > -1) {
       /*
-       if (debug) {
+        if (debug) {
         Serial.print("SIN: ");
         Serial.print(smoothReading);
         Serial.print(", MAP: ");
-      }*/
+        }*/
       int diff = smoothReading - oldReading;
       //the op amp inverts, so we're flipping the numbers
-      BTserial.write('A'); // imprime val = 65
+      BTserial.write('B'); // imprime val = 65
       BTserial.write("2"); // imprime 50
       int mapSmoothReading = int(map(smoothReading, valMin, valMax, 0, 255));
       BTserial.write(mapSmoothReading); // Se mapea a 255 (byte)
       BTserial.write(','); // imprime 44
       if (debug) {
-        Serial.println(mapSmoothReading);
+        if (mapSmoothReading > 1)
+          Serial.println(mapSmoothReading);
       }
     }
     oldReading = smoothReading;
