@@ -1,7 +1,7 @@
 {
   "settings": {
     "name": "abismo",
-    "currentPage": "bios.html",
+    "currentPage": "registro.html",
     "theme": {
       "name": "mobirise3",
       "title": "Mobirise 3",
@@ -28,7 +28,7 @@
     "noImageResize": "",
     "publishFtpPath": "public_html",
     "publishType": "local",
-    "publishPath": "@PROJECT_PATH@"
+    "publishPath": "file:///G:/LAAd/LAAd%2017/2.%20Arte/0.%20Abismo/backup/webMobirise"
   },
   "pages": {
     "index.html": {
@@ -301,17 +301,17 @@
           "_name": "ext.menu",
           "_anchor": "ext_menu-34",
           "_params": {
-            "logo": true,
-            "showBrand": true,
-            "hideButtons": true,
-            "sticky": true,
-            "collapsed": true,
-            "transparent": false,
             "bgColor": "#282828",
             "fontSize": "0.85",
             "fontName": {},
             "fontColor": "#ffffff",
-            "fontHoverColor": "@primaryColor"
+            "fontHoverColor": "@primaryColor",
+            "transparent": false,
+            "sticky": true,
+            "logo": true,
+            "showBrand": true,
+            "collapsed": true,
+            "hideButtons": true
           },
           "logo": {
             "image": {
@@ -344,19 +344,19 @@
           },
           "_anchor": "form1-a",
           "_params": {
-            "showTitle": true,
-            "showSubTitle": false,
             "labelsColor": "#232323",
             "paddingTop": "4",
             "paddingBottom": "2",
             "bgImageRadio": false,
-            "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
             "parallax": true,
-            "bgColorRadio": true,
+            "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
             "bgColor": "#c1c1c1",
+            "bgColorRadio": true,
             "overlay": false,
+            "overlayOpacity": 0.5,
             "overlayColor": "#222",
-            "overlayOpacity": 0.5
+            "showTitle": true,
+            "showSubTitle": false
           },
           "title": "CONTACTO",
           "subtitle": "En breve nos comunicaremos contigo.",
@@ -399,13 +399,13 @@
             "paddingTop": 2,
             "paddingBottom": "2",
             "bgImageRadio": false,
-            "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
             "parallax": true,
-            "bgColorRadio": true,
+            "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
             "bgColor": "#ffffff",
+            "bgColorRadio": true,
             "overlay": true,
-            "overlayColor": "#444444",
-            "overlayOpacity": 0.8
+            "overlayOpacity": 0.8,
+            "overlayColor": "#444444"
           },
           "text": "Copyright (c) 2017 Eduardo H Obieta."
         },
@@ -425,13 +425,13 @@
             "paddingTop": "1",
             "paddingBottom": "1",
             "bgImageRadio": false,
-            "bgImage": "@THEME_PATH@/components/_images/landscape3.jpg",
             "parallax": true,
-            "bgColorRadio": true,
+            "bgImage": "@THEME_PATH@/components/_images/landscape3.jpg",
             "bgColor": "#2e2e2e",
+            "bgColorRadio": true,
             "overlay": false,
-            "overlayColor": "#222",
-            "overlayOpacity": 0.5
+            "overlayOpacity": 0.5,
+            "overlayColor": "#222"
           },
           "text": "SIGUENOS¡",
           "icons": " <a data-app-btn=\"true\" class=\"btn btn-social\" title=\"Facebook\" target=\"_blank\" href=\"https://www.facebook.com/abismoproximo/\" data-toolbar=\"-mbrBtnAdd,-mbrBtnMove,-mbrFonts,-mbrFontSize,-mbrBtnColor\"><i class=\"socicon socicon-facebook\"></i></a>  <a data-app-btn=\"true\" class=\"btn btn-social\" title=\"YouTube\" target=\"_blank\" href=\"https://vimeo.com/abismoproximo\" data-toolbar=\"-mbrBtnAdd,-mbrBtnMove,-mbrFonts,-mbrFontSize,-mbrBtnColor\"><i class=\"socicon socicon-vimeo\"></i></a>  <a data-app-btn=\"true\" class=\"btn btn-social\" title=\"Pinterest\" target=\"_blank\" href=\"https://soundcloud.com/abismoproximo\" data-toolbar=\"-mbrBtnAdd,-mbrBtnMove,-mbrFonts,-mbrFontSize,-mbrBtnColor\"><i class=\"socicon socicon-soundcloud\"></i></a>   <a data-app-btn=\"true\" class=\"btn btn-social\" title=\"VKontakte\" target=\"_blank\" href=\"https://github.com/laadeho/abismo\" data-toolbar=\"-mbrBtnAdd,-mbrBtnMove,-mbrFonts,-mbrFontSize,-mbrBtnColor\"><i class=\"socicon socicon-github\"></i></a>  "
@@ -896,7 +896,7 @@
             "overlay": false,
             "overlayOpacity": 0.5,
             "overlayColor": "#222",
-            "columns": 4,
+            "columns": "3",
             "showImages": true,
             "showTitles": true,
             "showSubtitles": false,
@@ -915,9 +915,9 @@
               "linkInNewWindow": false
             }
           },
-          "title1": "1.&nbsp;",
+          "title1": "&nbsp;&nbsp;",
           "subtitle1": "Bootstrap 4 has been noted",
-          "caption1": "Visita nuevamente <i><a href=\"index.html\">abismo</a></i> a partir del 15 de Junio, momento en que se habilitará la sección de registro.",
+          "caption1": "",
           "button1": "<a data-app-btn=\"true\" href=\"https://mobirise.com\" class=\"btn btn-primary\" data-toolbar=\"-mbrBtnMove\">MORE</a>",
           "media2": {
             "image": {
@@ -931,9 +931,9 @@
               "linkInNewWindow": false
             }
           },
-          "title2": "2.&nbsp;",
+          "title2": "1.&nbsp;",
           "subtitle2": "One of Bootstrap 4's big points",
-          "caption2": "Regístrate con un nombre de usuario, contraseña y otros datos para poder comunicarnos mas adelante.",
+          "caption2": "<a href=\"https://registro.abismo.cc/public/index.php/register\">REGISTRATE AQUÍ</a><br>Con un nombre de usuario, contraseña y otros datos para poder comunicarnos mas adelante.",
           "button2": "<a data-app-btn=\"true\" href=\"https://mobirise.com\" class=\"btn btn-primary\">MORE</a>",
           "media3": {
             "image": {
@@ -947,9 +947,9 @@
               "linkInNewWindow": false
             }
           },
-          "title3": "3.&nbsp;",
+          "title3": "2.&nbsp;",
           "subtitle3": "Google has a highly exhaustive list of fonts",
-          "caption3": "Revisa el calendario, selecciona fecha y horario que mas te convenga. Genera tu cita.",
+          "caption3": "<a href=\"https://registro.abismo.cc/public/index.php/login\">Accede a tu cuenta</a>, revisa el calendario, selecciona fecha y horario que mas te convenga. <br>Genera tu cita¡¡",
           "button3": "<a data-app-btn=\"true\" href=\"https://mobirise.com\" class=\"btn btn-primary\">MORE</a>",
           "media4": {
             "image": {
@@ -995,8 +995,8 @@
           "_name": "msg-box1",
           "_anchor": "msg-box1-10",
           "_params": {
-            "paddingTop": 3,
-            "paddingBottom": 3,
+            "paddingTop": "4",
+            "paddingBottom": "4",
             "bgImageRadio": false,
             "parallax": true,
             "bgImage": "@THEME_PATH@/components/_images/jumbotron.jpg",
@@ -1011,11 +1011,11 @@
             "overlayColor": "#222",
             "inverse": false,
             "showButtons": false,
-            "showText": true,
-            "showTitle": true
+            "showText": false,
+            "showTitle": false
           },
           "button": "<a data-app-btn=\"true\" class=\"btn btn-black\" href=\"https://mobirise.com\" data-toolbar=\"-mbrBtnMove\">INSCRIBIRME AHORA</a>",
-          "text": "Inscripciones abiertas próximamente¡¡¡ <b style=\"font-style: normal;\">15 de Junio</b>",
+          "text": "",
           "title": ""
         }
       ]

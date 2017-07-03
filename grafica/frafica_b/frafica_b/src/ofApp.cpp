@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include <winsock2.h> 
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -35,6 +36,17 @@ void ofApp::drawEscena03() {
 	cam03.end();
 }
 
+void ofApp::nuevoEnte03() {
+	if (numBox >= 50)return;
+	int newPosX = int(ofRandom(2));
+	newPosX = int(ofMap(newPosX, 0, 1, -1, 1))*tamBox;
+	int newPosY = int(ofRandom(2));
+	newPosY = int(ofMap(newPosY, 0, 1, -1, 1))*tamBox;
+
+	coords.push_back(ofVec3f(newPosX, newPosY, ofRandom(100)));
+	numBox = coords.size();
+	//numBox++;
+}
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
@@ -57,10 +69,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	if (numBox >= 50)return;
-	coords.push_back(ofVec3f(x, y, ofRandom(100)));
-	numBox=coords.size();
-	//numBox++;
+	nuevoEnte03();
 }
 
 //--------------------------------------------------------------

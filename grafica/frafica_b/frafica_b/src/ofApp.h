@@ -28,6 +28,7 @@ class ofApp : public ofBaseApp{
 		*/
 
 		void drawEscena03();
+		void nuevoEnte03();
 		ofEasyCam cam03;
 		int tamBox = 10;
 
