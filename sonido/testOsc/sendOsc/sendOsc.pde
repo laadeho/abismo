@@ -29,7 +29,7 @@ void setup() {
 
 void draw() {
   background(0);  
-  if (millis()%200==0)
+  if (frameCount%12==0)
     sendOscGSR();
 }
 
@@ -42,6 +42,7 @@ void sendOscGSR() {
   /* send the message */
   oscP5.send(myMessage, myRemoteLocation);
   println("Enviando OSC");
+  background(255);
 }
 
 
