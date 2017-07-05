@@ -40,8 +40,7 @@ class ofApp : public ofBaseApp{
 
 		bool esUno = false;
 		bool esCinco = false;
-
-
+		
 		bool pulso = false;
 		bool pulsoSensor1 = false;
 		bool pulso1Dato1 = false;
@@ -72,7 +71,6 @@ class ofApp : public ofBaseApp{
 		bool showGui = false;
 		string sensaciones[11];
 		ofTrueTypeFont titulos, texto1;
-		bool emularSensores = false;
 		int numSens = 7;
 		float valSensor1[7] = { 0,0,0,0,0,0,0 };
 		float valSensor2[7] = { 0,0,0,0,0,0,0 };
@@ -155,6 +153,8 @@ class ofApp : public ofBaseApp{
 		ofVec2f velSensores[6];
 		bool direcciones2X[6], direcciones2Y[6];
 		int velMult = 10;
+		float colEjes02 = 0, colPuntos02 = 0;
+		float ampNodo02 = 0;
 		// ahora a modificarlo en una superficie
 		ofxToggle camara02;
 		ofxToggle puntos02;
@@ -193,6 +193,18 @@ class ofApp : public ofBaseApp{
 		void setupGUI();
 		ofxIntSlider escenas;
 		ofxToggle guardaFrame;
+		// suple a variables de GUI
+
+		bool alpha, beta, gamma, delta, theta;
+		bool artifacts, museOn1, museOn2, blink1, blink2, jawClench1, jawClench2;
+		bool acc, gyro, isGood;
+		float accX1, accX2, accX3, accY1, accY2, accY3, accZ1, accZ2, accZ3;
+		float gyroX1, gyroX2, gyroX3, gyroY1, gyroY2, gyroY3, gyroZ1, gyroZ2, gyroZ3;
+		float EEG11, EEG12, EEG13, EEG21, EEG22, EEG23, EEG31, EEG32, EEG33, EEG41, EEG42, EEG43;
+		float auxLeft1, auxLeft2, auxRight1, auxRight2;
+		ofxToggle emularSensores = false;
+
+		/*
 		// Brain
 		ofxToggle alpha;
 		ofxToggle beta;
@@ -222,6 +234,7 @@ class ofApp : public ofBaseApp{
 		ofxFloatSlider EEG41, EEG42;
 		ofxFloatSlider auxLeft1, auxLeft2;
 		ofxFloatSlider auxRight1, auxRight2;
+		*/
 
 		ofxToggle pulseSensor;
 		ofxToggle gsr;

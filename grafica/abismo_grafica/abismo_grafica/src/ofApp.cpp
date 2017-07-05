@@ -1,5 +1,8 @@
 #include "ofApp.h"
 #include <ofTrueTypeFont.h>
+/*
+ENVIAR OSC de GSR  0 - 255 "\gsr" PROMEDIANDO AMBOS SENSORES
+*/
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -148,7 +151,8 @@ void ofApp::update() {
 		updateSerial();
 	}
 	else {
-		ofLogNotice("REVISAR CONEXION SERIAL");
+		if(ofGetFrameNum()%100 == 0)
+			ofLogNotice("REVISAR CONEXION SERIAL");
 	}
 
 	switch (escena)
@@ -212,12 +216,13 @@ void ofApp::update() {
 				// estados al estar cerca de un nodo
 				for (int k = 0; k < 6; k++) {
 					int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
+				
 					if (distancia < dist02) {
 						tamNodos[i + j*numPart2X] = ofMap(distancia, 0, dist02, 50, 5);
 						if (!invertir02) {
-							nodos[i + j*numPart2X].z = -distancia;
-						} else {
 							nodos[i + j*numPart2X].z = distancia;
+						} else {
+							nodos[i + j*numPart2X].z = -distancia;
 						}
 					}
 					if (distancia > 1 && distancia < dist02) {
@@ -253,6 +258,23 @@ void ofApp::update() {
 				gira2 = true;
 			if (gira2) {
 				rota360 += 0.25;
+				if (rota360 > 360)
+					rota360 = 0;
+			}
+		}
+		else {
+			if (rotaParts > 0)
+				rotaParts -= 0.0025;
+			if (gira2) {
+				if (rota360 < 180) {
+					if (rota360 > 0)
+						rota360 -= 0.25;
+					if (int(rota360) == 0)
+						gira2 = false;
+				}
+				else if (rota360 > 180)
+					if (rota360 < 360)
+						rota360 += 0.25;
 			}
 		}
 		break;
@@ -282,6 +304,24 @@ void ofApp::update() {
 		acc = true;
 		gyro = true;
 		isGood = true;
+	}
+	else {
+		artifacts = false;
+		alpha = false;
+		beta = false;
+		gamma = false;
+		delta = false;
+		theta = false;
+
+		p1Sensor1 = false;
+		p1Sensor2 = false;
+		p2Sensor1 = false;
+		p2Sensor2 = false;
+		gsr = false;
+
+		acc = false;
+		gyro = false;
+		isGood = false;
 	}
 	if (alpha) {
 		valSensor1[0] = ofNoise(float(ofGetFrameNum()*.015*(0.25*0.5 + 1)));
@@ -529,31 +569,35 @@ void ofApp::updateOSC() {
 		// get the next message
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
-		
+
 		// std::cout << "Mensaje: " << m.getAddress() << endl;
-		
+
 		// check for mouse moved message
 		if (m.getAddress() == "/alpha") {
-			if(m.getArgAsInt(0)==1)
+			if (m.getArgAsInt(0) == 1)
 				valSensor1[0] = m.getArgAsFloat(1);
 			else if (m.getArgAsInt(0) == 2)
 				valSensor2[0] = m.getArgAsFloat(1);
-		} else if (m.getAddress() == "/beta") {
+		}
+		else if (m.getAddress() == "/beta") {
 			if (m.getArgAsInt(0) == 1)
 				valSensor1[1] = m.getArgAsFloat(1);
 			else if (m.getArgAsInt(0) == 2)
 				valSensor2[1] = m.getArgAsFloat(1);
-		} else if (m.getAddress() == "/gamma") {
+		}
+		else if (m.getAddress() == "/gamma") {
 			if (m.getArgAsInt(0) == 1)
 				valSensor1[2] = m.getArgAsFloat(1);
 			else if (m.getArgAsInt(0) == 2)
 				valSensor2[2] = m.getArgAsFloat(1);
-		} else if (m.getAddress() == "/delta") {
+		}
+		else if (m.getAddress() == "/delta") {
 			if (m.getArgAsInt(0) == 1)
 				valSensor1[3] = m.getArgAsFloat(1);
 			else if (m.getArgAsInt(0) == 2)
 				valSensor2[3] = m.getArgAsFloat(1);
-		} else if (m.getAddress() == "/theta") {
+		}
+		else if (m.getAddress() == "/theta") {
 			if (m.getArgAsInt(0) == 1)
 				valSensor1[4] = m.getArgAsFloat(1);
 			else if (m.getArgAsInt(0) == 2)
@@ -564,13 +608,15 @@ void ofApp::updateOSC() {
 				accX1 = int(m.getArgAsDouble(1));
 				accY1 = int(m.getArgAsDouble(2));
 				accZ1 = int(m.getArgAsDouble(3));
-			} else if (m.getArgAsInt(0) == 2) {
+			}
+			else if (m.getArgAsInt(0) == 2) {
 				accX2 = int(m.getArgAsDouble(1));
 				accY2 = int(m.getArgAsDouble(2));
 				accZ2 = int(m.getArgAsDouble(3));
 			}
 			//std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
-		} else if (m.getAddress() == "/gyro") {
+		}
+		else if (m.getAddress() == "/gyro") {
 			if (m.getArgAsInt(0) == 1) {
 				gyroX1 = int(m.getArgAsDouble(1));
 				gyroY1 = int(m.getArgAsDouble(2));
@@ -582,7 +628,8 @@ void ofApp::updateOSC() {
 				gyroZ2 = int(m.getArgAsDouble(3));
 			}
 			//std::cout << "gX: " << gyroX << ", gY: " << gyroY << ", gZ: " << gyroZ << endl;
-		} else if (m.getAddress() == "/artifacts") {
+		}
+		else if (m.getAddress() == "/artifacts") {
 			if (m.getArgAsInt(0) == 1) {
 				int mOn = int(m.getArgAsDouble(1));
 				int bl = int(m.getArgAsDouble(2));
@@ -649,15 +696,9 @@ void ofApp::updateOSC() {
 			// clear the next line
 			msg_strings[current_msg_string] = "";
 		}
-/*
-		for (int i = 0; i < numSensores; i++) {
-			if (valSensor1[i] ) {
+	}
+}
 
-			}
-		}
-	*/
-}
-}
 
 void ofApp::muestraValSensores() {
 	if (debug) {
@@ -930,7 +971,7 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float
 	ofSetColor(255, opa01);// -val * 50);
 	ofFill();
 	if (!lineal)
-		ofEllipse(posOndaX, 50 +  ofMap(val, 0, 255, 25, -25), 5 + 8 * val, 5 + 8 * val);
+		ofEllipse(posOndaX, 50 +  ofMap(val, 0, 255, 25, -25), 2 + 2 * val, 2 + 2 * val);
 	else
 		ofLine(pX, 100 + pulso, ppXloc, 100 + ppYloc);
 		
@@ -1185,38 +1226,57 @@ void ofApp::escena01() {
 
 /////////////// ESCENA 02
 void ofApp::escena02() {
-	if (camara02) {
 		myCam.begin();
 		ofPushMatrix();
-		ofRotateX(-rotaParts * 70);
+		
+		//if (camara02) {
+			ofRotateX(180 - rotaParts * 50);
+		//}
+//		else
+		//	ofRotateX(180);
 
 		if (gira2)
 			ofRotateZ(rota360);
 
-		ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
-	}
+		ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2, -300);
 
 
 	if (malla02){
+		if (ampNodo02 < 1)
+			ampNodo02 += 0.0125;
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				superficie02.setVertex(i + j*numPart2X, nodos[i + j*numPart2X]);
-				superficie02.setColor(i + j*numPart2X, ofColor(colNodo02[i+j*numPart2X]));
+				superficie02.setColor(i + j*numPart2X, ofColor(colNodo02[i+j*numPart2X]*ampNodo02));
 			}
 		}
 		superficie02.drawFaces();
 	}
+	else
+		ampNodo02 = 0;
+	
 
 	if(ejes02){
+		if (colEjes02 < 100)
+			colEjes02 +=0.25;
+			
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
+				superficie02.setColor(i + j*numPart2X, ofColor(colEjes02));
 				superficie02.setVertex(i + j*numPart2X, nodos[i + j*numPart2X]);
-				superficie02.setColor(i + j*numPart2X, ofColor(100));
 			}
 		}
 		superficie02.drawWireframe();
 	}
+	else
+		colEjes02 = 0;
+
 	if (puntos02) {
+		if (colPuntos02 < 255)
+			colPuntos02 += 0.25;
+		ofSetColor(colPuntos02);
+		ofFill();
+		
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				//nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.0005 + i + j*numPart2X) * 250;
@@ -1224,17 +1284,24 @@ void ofApp::escena02() {
 			}
 		}
 	}
-	if (camara02) {
+	else 
+		colPuntos02 = 0;
+
+//	if (camara02) {
 		ofPopMatrix();
 		myCam.end();
-	}
+//	}
 
+	ofPushStyle();
+	ofSetColor(255);
+	ofFill();
 	if (debug) {
 		ofDrawBitmapString(ofToString(rotaParts), 200, 200);
 		for (int j = 0; j < 6; j++) {
 			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
 		}
 	}
+	ofPopStyle();
 }
 
 /* NOTAS CAMARA 3d
@@ -1537,6 +1604,9 @@ void ofApp::setupGUI() {
 	gui.setName("abismo // proximo UI");
 	gui.add(escenas.setup("Escena", 0, 0, 11));
 	gui.add(guardaFrame.setup("Salvar Frames ", false));
+	gui.add(emularSensores.setup("Emular", false));
+
+	/*
 	// Brain
 	gui.add(alpha.setup("alpha", false));
 	gui.add(beta.setup("beta", false));
@@ -1584,6 +1654,7 @@ void ofApp::setupGUI() {
 	// Pulse & GSR
 	gui.add(pulseSensor.setup("Pulse", false));
 	gui.add(gsr.setup("GSR", false));
+	*/
 
 	gui.add(camara02.setup("camara02", false));
 	gui.add(puntos02.setup("puntos02", false));
