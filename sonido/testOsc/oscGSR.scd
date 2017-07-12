@@ -1,3 +1,4 @@
+
 p=ProxySpace.push(s.boot)
 ~out.play;
 ~out = ~alpha;
