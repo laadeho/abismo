@@ -151,7 +151,7 @@ void ofApp::update() {
 		updateSerial();
 	}
 	else {
-		if(ofGetFrameNum()%100 == 0)
+		if(ofGetFrameNum()%500 == 0)
 			ofLogNotice("REVISAR CONEXION SERIAL");
 	}
 
@@ -1521,6 +1521,10 @@ void ofApp::museConectado(int pX, int pY, int numS) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
+	if(key=='!')
+		ofSetWindowPosition(ofGetWindowWidth(), 0);
+	if(key=='"')
+		ofSetWindowPosition(0, 0);
 	if (key == 'd')
 		debug = !debug;
 	if (key == 'D')
@@ -1529,6 +1533,8 @@ void ofApp::keyPressed(int key) {
 		showGui = !showGui;
 	if (key == 'e' || key == 'E')
 		emularSensores = !emularSensores;
+	if (key == 'h' || key == 'H')
+		help = !help;
 	if (key == 'c' || key == 'C') {
 		serial1.close();
 		serial2.close();

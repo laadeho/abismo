@@ -61,14 +61,17 @@ class ofApp : public ofBaseApp{
 		bool trySerialAgain = false;
 		bool serial1Conectado, serial2Conectado = false;
 
+
+		///////  DESARROLLADOR
 		bool debugSerial = true;
+		bool help = false;
+		bool debug = true;
+		void debugF();
+		bool showGui = false;
 
 		/////////////////////////////
 
 		bool fullScreenDisplay = false;
-		bool debug = true;
-		void debugF();
-		bool showGui = false;
 		string sensaciones[11];
 		ofTrueTypeFont titulos, texto1;
 		int numSens = 7;
