@@ -8,8 +8,8 @@
 
 #define PORT 7000
 #define NUM_MSG_STRINGS 20
-#define puertoCOM1 "COM11"
-#define puertoCOM2 "COM13"
+#define puertoCOM1 "COM4"
+#define puertoCOM2 "COM6"
 
 class ofApp : public ofBaseApp{
 
