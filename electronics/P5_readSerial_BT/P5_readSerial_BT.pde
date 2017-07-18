@@ -4,8 +4,8 @@ Serial myPort;
 Serial myPort2;
 
 int val, val2;
-boolean sensor1 = false;
-boolean sensor2 = false;
+boolean sensorPulso = false;
+boolean sensorGSR = false;
 // Dos/Cero // 50/48
 boolean esDos = false;
 boolean esCero = false;
@@ -25,13 +25,12 @@ void setup()
   background(0); 
   size(400, 600);
   println(Serial.list());
-  String portName = Serial.list()[3];
-  String portName2 = Serial.list()[5];
+  String portName = Serial.list()[2];
+  //String portName2 = Serial.list()[7];
   myPort = new Serial(this, portName, 9600);
   //myPort2 = new Serial(this, portName, 9600);
   myPort.clear(); 
   //myPort2.clear(); 
-
   /*
   String portName2 = Serial.list()[4];
    myPort2 = new Serial(this, portName2, 9600);
@@ -45,58 +44,62 @@ void draw()
 {
   if (debug)
     println(myPort.available());
+
   if ( myPort.available() > 0) {
     val = myPort.read();
     if (debug)
       println(val);
 
-    if (val == 'A') { // 65 Sensor1
-      sensor1 = true;
-      //println("Sensor 1");
-    }    
-    if (val == 'B') { // 66 Sensor2
-      sensor2 = true;
-      //if (debug)
-      //println("Sensor 2");
+    if (val == 'A') { // 65 sensorPulso
+      sensorPulso = true;
+      //println("Sensor 1 con val: "+val);
     }
-    if (sensor1) { // 20 GSR
-      // COMPROBAR SI ES 20 DEL GSR
-      if (val == 50) // 2
-        esDos = true;
-      /*if (esDos && val == 48) { // 0
-       esCero = true;
-       } */
-      if (esDos && val!=50 && val != 44) {
-        if (val>thressGSR)
-          valGSR = val;
-        if (debug)
-          println("Val GSR: "+valGSR );
-      }
-    }
-    if (sensor2) {
-      //////////////////////////
-      // COMPROBAR SI ES 15 DEL SENSOR DE PULSO
-      if (val == 49) // 1
+    if (sensorPulso) { // COMPROBAR SI ES 15 DEL SENSOR DE PULSO
+      if (val == 'H') { // 72
         esUno = true;
+        //println("sPulso y val: "+val);
+      }
+
       /*if (esUno && val == 53) { // 5
        esCinco = true;
        }*/
-      if (esUno && val!=49 && val != 44) {
+      if (esUno && val!='H' && val != ',') {
         valPulso = val;
-        if (debug)
-          println("Pulso: "+val );
+        /*if (debug)
+         println("Pulso: "+val );
+         */
       } else 
       valPulso = 0;
     }
 
-    if (val == 44 && sensor1) {
-      sensor1 = false;
-      esDos = false;
-      esCero = false;
+    if (val == 'B') { // 66 sensorGSR
+      sensorGSR = true;
+      //println("Sensor 2");
     }
-    if (val == 44 && sensor2) {
-      sensor2 = false;
+    if (sensorGSR) { // 20 GSR
+      // COMPROBAR SI ES 20 DEL GSR
+      if (val == 'I') { // 2
+        esDos = true;
+        //println("sGSR y val: "+val);
+      }
+      /*if (esDos && val == 48) { // 0
+       esCero = true;
+       } */
+      if (esDos && val!='I' && val != ',') {
+        if (val>thressGSR)
+          valGSR = val;
+       // if (debug)
+          //println("Val GSR: "+valGSR );
+      }
+    }
+    if (val == ',' && sensorPulso) {
+      sensorPulso = false;
       esUno = false;
+      //esCero = false;
+    }
+    if (val == ',' && sensorGSR) {
+      sensorGSR = false;
+      esDos = false;
       // esCinco = false;
     }
   }
@@ -113,12 +116,11 @@ void draw()
 
   strokeWeight(1);
   if (pX%width != 0) {
-    stroke(255);
-
-    line(pX, 200+pY, ppX, 200+ppY);
     stroke(255, 0, 0);
-
     line(pX, 100+valPulso, ppX, 100+ppY2);
+
+    stroke(255);
+    line(pX, 200+pY, ppX, 200+ppY);
   } else  
   background(0, 20);
 
@@ -169,4 +171,9 @@ void draw()
 void exit() {
   myPort.clear(); 
   myPort.stop();
+}
+
+void keyPressed() {
+  if (key == 'd')
+    debug =! debug;
 }

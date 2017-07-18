@@ -3,13 +3,16 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "ofxOsc.h"
-#include <winsock2.h> // importando este archivo se elimina el error de netdb.h sys/socket.h y netinet/in.h
+#include <winsock2.h>
+// importando este archivo se elimina el error de netdb.h sys/socket.h y netinet/in.h
 #include "ofxSimpleSerial.h"
+#include <vector>
+#include "ofUtils.h"
 
 #define PORT 7000
 #define NUM_MSG_STRINGS 20
 #define puertoCOM1 "COM4"
-#define puertoCOM2 "COM6"
+#define puertoCOM2 "COM9"
 
 class ofApp : public ofBaseApp{
 
@@ -30,6 +33,8 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		///////// SERIAL ////////////////////
+		void onNewMessage(string & message);
+
 		ofxSimpleSerial	serial1, serial2;
 		string message;
 		bool reconectarSerial = false;
@@ -47,7 +52,7 @@ class ofApp : public ofBaseApp{
 		bool pulso1Dato2 = false;
 		bool pulso1Dato3 = false;
 		//
-		int valSerial1, valSerial2;
+		string valSerial1, valSerial2;
 		int valPulso1, valPulso2;
 		// Dos/Cero // 50/48
 		int thressGSR = 30;
@@ -79,9 +84,10 @@ class ofApp : public ofBaseApp{
 		float valSensor2[7] = { 0,0,0,0,0,0,0 };
 		string sensor[7] = {
 			"Alpha", "Beta ", "Gamma", "Delta", "Theta",
-			"Pulso" , "GSR"
+			"Pulso" , "G S R"
 		};
-		ofFbo ondasFbo[14]; // Fbo para render en grafico independiente
+		ofFbo ondasFbo[14];
+		// Fbo para render en grafico independiente
 
 		/////// ESCENAS //////////////////////////
 		void muestraValSensores();
@@ -105,7 +111,7 @@ class ofApp : public ofBaseApp{
 		// escena 01
 		void museConectado(int, int, int);
 		void dibujaOnda(int, int, int, float);
-		void dibujaOnda(int, int, int, int, int, float, bool, int);
+		void dibujaOnda(int, int, int, int, int, float, bool);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
 		float opa01 = 0.0;
 		int ppX, ppY;
@@ -122,10 +128,11 @@ class ofApp : public ofBaseApp{
 		bool cambia01 = false;
 		float opa01b = 0.0;
 
-		int numPart = 6;
-		ofVec3f particulas1[6], particulas2[6];
+		int numPart = 7;
+		ofVec3f particulas1[7], particulas2[7];
 		float radio01Fin = 500;
-		float tamPart[6];
+		float tamPart[7];
+
 		int anillos = 10;
 		int sepAnillos = 30;
 		float radio01 = 0.25;
@@ -151,10 +158,10 @@ class ofApp : public ofBaseApp{
 		float tamNodos[30 * 18];
 		int colNodo02[30 * 18];
 
-		int numSensores = 6;
-		ofVec2f sensorPosiciones[6];
-		ofVec2f velSensores[6];
-		bool direcciones2X[6], direcciones2Y[6];
+		ofVec2f sensorPosiciones[7];
+		ofVec2f velSensores[7];
+		bool direcciones2X[7], direcciones2Y[7];
+
 		int velMult = 10;
 		float colEjes02 = 0, colPuntos02 = 0;
 		float ampNodo02 = 0;
@@ -207,40 +214,8 @@ class ofApp : public ofBaseApp{
 		float auxLeft1, auxLeft2, auxRight1, auxRight2;
 		ofxToggle emularSensores = false;
 
-		/*
-		// Brain
-		ofxToggle alpha;
-		ofxToggle beta;
-		ofxToggle gamma;
-		ofxToggle delta;
-		ofxToggle theta;
-		// Artifacts
-		ofxToggle artifacts;
-		ofxToggle museOn1, museOn2;
-		ofxToggle blink1, blink2;
-		ofxToggle jawClench1, jawClench2;
-		// Accelerometer
-		ofxToggle acc;
-		ofxFloatSlider accX1, accX2;
-		ofxFloatSlider accY1, accY2;
-		ofxFloatSlider accZ1, accZ2;
-		// Gyro
-		ofxToggle gyro;
-		ofxFloatSlider gyroX1, gyroX2;
-		ofxFloatSlider gyroY1, gyroY2;
-		ofxFloatSlider gyroZ1, gyroZ2;
-		//Connections
-		ofxToggle isGood;
-		ofxFloatSlider EEG11, EEG12;
-		ofxFloatSlider EEG21, EEG22;
-		ofxFloatSlider EEG31, EEG32;
-		ofxFloatSlider EEG41, EEG42;
-		ofxFloatSlider auxLeft1, auxLeft2;
-		ofxFloatSlider auxRight1, auxRight2;
-		*/
-
-		ofxToggle pulseSensor;
-		ofxToggle gsr;
+		bool pulseSensor = false;
+		bool gsr = false;
 
 		// GUI
 		ofxPanel gui;

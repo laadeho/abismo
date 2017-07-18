@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\ofApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src\ofxSimpleSerial.cpp">
+      <Filter>addons\ofxSimpleSerial\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons">
+      <UniqueIdentifier>{10d27aa1-ce5d-4bba-83fc-b6ce8abce5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSimpleSerial">
+      <UniqueIdentifier>{cb91a059-8c2e-45e7-bd45-7a2962cc610f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSimpleSerial\src">
+      <UniqueIdentifier>{ae7bb917-c799-4268-b23d-67b4bbcf1ea2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ofApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\of_v0.9.8_vs_release\addons\ofxSimpleSerial\src\ofxSimpleSerial.h">
+      <Filter>addons\ofxSimpleSerial\src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+</Project>

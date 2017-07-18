@@ -6,16 +6,9 @@ ENVIAR OSC de GSR  0 - 255 "\gsr" PROMEDIANDO AMBOS SENSORES
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	// listen on the given port
-	//cout << "listening for osc messages on port " << PORT << "\n";
-	receiver.setup(PORT);
-	current_msg_string = 0;
 	ofSetFrameRate(60);
 	ofBackground(0);
 	ofEnableAlphaBlending(); // lines have the ability to draw with alpha enabled
-
-	///// SERIAL /////
-	setupSerial();
 
 	//ofEnableSmoothing();
 	//ofSetBackgroundAuto(false);
@@ -23,6 +16,8 @@ void ofApp::setup(){
 	//titulos.setLineHeight(10);
 	
 	setupGUI();
+	ofSetVerticalSync(true);
+
 	if (fullScreenDisplay)
 		ofSetFullscreen(true);
 
@@ -101,13 +96,21 @@ void ofApp::setup(){
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
 	std::cout << "Alto: " << ofGetScreenHeight() << endl;
 	*/
+
+	///// SERIAL /////
+	setupSerial();
 }
 
 void ofApp::setupSerial() {
-	ofSetVerticalSync(true);
+	receiver.setup(PORT);
+	current_msg_string = 0;
+
 	serial1.listDevices();
 
+	ofAddListener(serial1.NEW_MESSAGE, this, &ofApp::onNewMessage);
+
 	ofSetLogLevel(OF_LOG_VERBOSE);
+	
 	if (!serial1.setup(puertoCOM1, 9600)) {
 		ofLogError() << "could not open serial port - listing serial devices";
 		serial1.listDevices();
@@ -117,25 +120,29 @@ void ofApp::setupSerial() {
 		cout << "==================================" << endl;
 	}
 	else {
-		ofLogNotice("Serial 01 ok");
+		ofLogNotice("Serial 01 ok: "+ofToString(puertoCOM1));
 		serial1Conectado = true;
+		ofLogNotice(ofToString(serial1Conectado));
 	}
 
-	if (!serial2.setup(puertoCOM2, 9600)) {
+	/*if (!serial2.setup(puertoCOM2, 9600)) {
 		ofLogError() << "could not open serial port - listing serial devices";
 		serial2.listDevices();
 		//OF_EXIT_APP(0);
 		cout << "==================================" << endl;
-		cout << "NO HAY SERIAL 2" << endl;
+		cout << "NO HAY SERIAL 2: " << endl;
 		cout << "==================================" << endl;
 	}
 	else {
 		//serialConectado = true;
-		ofLogNotice("Serial 02 ok");
+		ofLogNotice("Serial 02 ok" + ofToString(puertoCOM2));
 		serial2Conectado = true;
+		ofLogNotice(ofToString(serial2Conectado));
+
 	}	
 	//serial.startContinuousRead();
 	//ofAddListener(serial.NEW_MESSAGE,this,&testApp::onNewMessage);
+	*/
 	message = "";
 }
 
@@ -147,14 +154,15 @@ void ofApp::update() {
 		//ofSaveScreen("frames/"+ ofToString(ofGetFrameNum()) + ".tif");
 		//ofSaveImage("frames/" + ofToString(ofGetFrameNum()) + ".tif");
 	}
+	/*
 	if (serial1Conectado && serial2Conectado) {
-		updateSerial();
+		updateSerial();		
 	}
 	else {
 		if(ofGetFrameNum()%500 == 0)
 			ofLogNotice("REVISAR CONEXION SERIAL");
 	}
-
+	*/
 	switch (escena)
 	{
 	case 0: // LOGO
@@ -189,7 +197,7 @@ void ofApp::update() {
 		updateEsc01();
 		break;
 	case 2:
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < numSens; i++) {
 			if (direcciones2X[i])
 				velSensores[i].x = valSensor1[i]* velMult;
 			else
@@ -384,164 +392,41 @@ void ofApp::update() {
 	}
 }
 
+void ofApp::onNewMessage(string & message)
+{
+	cout << "onNewMessage, message: " << message << "\n";
+
+	vector<string> input = ofSplitString(message, ",");
+	/*
+	if (input.size() >= 3)
+	{
+		red = input.at(0) == "r";
+		green = input.at(1) == "g";
+		blue = input.at(2) == "b";
+	}
+	*/
+}
+
 void ofApp::updateSerial(){
 	if (reconectarSerial) {
 		setupSerial();
 		reconectarSerial = false;
 	}
-	if (serial1.available()) {
-		//int valSerial = 0;
+
+	if (serial1.available()>0) {
+		//ofLogNotice("Serial Disponible ----");
 		valSerial1 = serial1.readByte();
-		if (debugSerial) {
-			if (valSerial1 == OF_SERIAL_NO_DATA)
-				printf("No hubo lectura Serial");
-			else if (valSerial1 == OF_SERIAL_ERROR)
-				printf("Error en lectura Serial");
-			else {
-				//printf("valSerial is %d", valSerial);
-				//cout << endl;
+		ofLogNotice("Valor Serial 1: " + ofToString(valSerial1));
+		
+		if (valSerial1 == "A") {
+			//ofLogNotice("Es una A: " + ofToString(valSerial1));
+			p1Sensor1 = true;
+		}
+		if (p1Sensor1) {
+			if (valSerial1 == "H") {
+				ofLogNotice("Es una A y tambien es una H: " + ofToString(valSerial1));
 			}
 		}
-
-		if (valSerial1 != 0) {
-			if(debugSerial)
-				ofLog(OF_LOG_NOTICE, "Serial es: " + ofToString(valSerial1));
-			
-			if (valSerial1 == 'A') { // 65 Sensor1 = Pulso
-				p1Sensor1 = true;
-				/*if(debugSerial)
-				ofLog(OF_LOG_NOTICE, "sensor 1 - 1: " + ofToString(p1Sensor1));
-			*/
-			}
-			if (valSerial1 == 'B') { // 66 Sensor2 = GSR
-				p1Sensor2 = true;
-				/*if (debugSerial)
-					ofLog(OF_LOG_NOTICE, "sensor 1 - 2: " + ofToString(p1Sensor2));
-			*/
-			}
-			////////////// de p5
-			if (p1Sensor1) { // 20 GSR
-							// COMPROBAR SI ES 20 DEL GSR
-				if (valSerial1 == 49) // 1
-					esUno = true;
-				if (esUno && valSerial1 != 50 && valSerial1 != 44) {
-					if (valSerial1>thressGSR)
-						valGSR = valSerial1;
-				}
-			}
-
-			if (p1Sensor2) {
-				//////////////////////////
-				// COMPROBAR SI ES 15 DEL SENSOR DE PULSO
-				if (valSerial1 == 50) // 2
-					esUno = true;
-				/*if (esUno && val == 53) { // 5
-				esCinco = true;
-				}*/
-				if (esUno && valSerial1 != 49 && valSerial1 != 44) {
-					valPulso1 = valSerial1;
-					serial1.flush();
-					if (debugSerial)
-						ofLog(OF_LOG_NOTICE, "sensor 1 - 2, PULSO: " + ofToString(valSerial1));
-				}
-				else {
-					valPulso1 = 0;
-				}
-				valSensor1[5] = valPulso1;
-
-			}
-
-
-			if (valSerial1 == 44 && p1Sensor1) {
-				p1Sensor1 = false;
-				esDos = false;
-				esCero = false;
-				//ofLog(OF_LOG_NOTICE, "44 psensor1 linea 403: " + ofToString(valSerial));
-
-			}
-			if (valSerial1 == 44 && p1Sensor2) {
-				p1Sensor2 = false;
-				esUno = false;
-				
-			}
-		}
-	}
-
-
-	if (serial2.available()) {
-		/*
-		bool esDos = false;
-		bool esCero = false;
-
-		bool esUno = false;
-		bool esCinco = false;
-		*/
-		//int valSerial = 0;
-		valSerial2 = serial2.readByte();
-		if (debugSerial) {
-			if (valSerial2 == OF_SERIAL_NO_DATA)
-				printf("No hubo lectura Serial");
-			else if (valSerial2 == OF_SERIAL_ERROR)
-				printf("Error en lectura Serial");
-			else {
-				//printf("valSerial is %d", valSerial);
-				//cout << endl;
-			}
-		}
-		/*
-		if (valSerial2 != 0) {
-			if(debugSerial)
-			ofLog(OF_LOG_NOTICE, "Serial es: " + ofToString(valSerial));
-			
-			if (valSerial2 == 'A') { // 65 Sensor1 = Pulso
-				p2Sensor1 = true;
-				if(debugSerial)
-				ofLog(OF_LOG_NOTICE, "sensor 2 - 1: " + ofToString(p2Sensor1));
-			
-			}
-			if (valSerial2 == 'B') { // 66 Sensor2 = GSR
-				p2Sensor2 = true;
-				if (debugSerial)
-					ofLog(OF_LOG_NOTICE, "sensor 2 - 2: " + ofToString(p2Sensor2));
-			
-			}
-			////////////// de p5
-			if (p2Sensor1) { // 20 GSR
-							// COMPROBAR SI ES 20 DEL GSR
-				if (valSerial2 == 50) // 2
-					esDos = true;
-				if (esDos && valSerial2 != 50 && valSerial2 != 44) {
-					if (valSerial2>thressGSR)
-						valGSR = valSerial2;
-
-				}
-			}
-
-			if (p2Sensor2) {
-				if (valSerial2 == 49) // 1
-					esUno = true;
-				if (esUno && valSerial2 != 49 && valSerial2 != 44) {
-					valPulso2 = valSerial2;
-					if (debugSerial)
-						ofLog(OF_LOG_NOTICE, "sensor 2 - 2, PULSO: " + ofToString(valPulso2));
-				}
-				else {
-					valPulso2 = 0;
-				}
-				valSensor2[5] = valPulso2;
-			}
-
-			if (valSerial2 == 44 && p2Sensor1) {
-				p2Sensor1 = false;
-				esDos = false;
-				esCero = false;
-			}
-			if (valSerial2 == 44 && p2Sensor2) {
-				p2Sensor2 = false;
-				esUno = false;
-			}
-		}*/
-
 	}
 
 	if (pulso) {
@@ -555,6 +440,7 @@ void ofApp::updateSerial(){
 		ofBackground(0);
 	}
 }
+
 //--------------------------------------------------------------
 void ofApp::updateOSC() {
 	// hide old messages
@@ -666,6 +552,14 @@ void ofApp::updateOSC() {
 					jawClench2 = false;
 			}
 		}
+		else if (m.getAddress() == "/pulse") {
+			ofLogNotice("PULSO");
+			pulso = true;
+		}
+		else if (m.getAddress() == "/gsr") {
+			ofLogNotice("GSR");
+
+		}
 		else {
 			// unrecognized message: display on the bottom of the screen
 			string msg_string;
@@ -703,12 +597,15 @@ void ofApp::updateOSC() {
 void ofApp::muestraValSensores() {
 	if (debug) {
 		ofPushStyle();
-		ofSetColor(0, 0, 255);
-		for (int i = 0; i < numSensores; i++) {
-			ofDrawBitmapString(sensor[i] + ": " + ofToString(valSensor1[i]), 100, ofGetHeight() - numSensores * 20 - 50 + i * 20);
+		ofSetColor(255);
+		ofDrawBitmapString("SENSOR 01", 100, ofGetHeight() - 315);
+		ofDrawBitmapString("SENSOR 02", 300, ofGetHeight() - 315);
+
+		for (int i = 0; i < numSens; i++) {
+			ofDrawBitmapString(sensor[i] + ": " + ofToString(valSensor1[i]), 100, ofGetHeight() - numSens * 20 - 150 + i * 20);
 		}
-		for (int i = 0; i < numSensores; i++) {
-			ofDrawBitmapString(sensor[i] + ": " + ofToString(valSensor2[i]), /*ofGetWidth()-300 + */300, ofGetHeight() - numSensores * 20 - 50 + i * 20);
+		for (int i = 0; i < numSens; i++) {
+			ofDrawBitmapString(sensor[i] + ": " + ofToString(valSensor2[i]), 300, ofGetHeight() - numSens * 20 - 150 + i * 20);
 		}
 		ofPopStyle();
 	}
@@ -958,7 +855,7 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
 	ofPopStyle();
 
 }
-void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float val, bool lineal, int pulso) {
+void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float val, bool lineal) {
 	ofPushStyle();
 	ofSetColor(255, opa01);
 	ondasFbo[indice].begin();
@@ -973,7 +870,7 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float
 	if (!lineal)
 		ofEllipse(posOndaX, 50 +  ofMap(val, 0, 255, 25, -25), 2 + 2 * val, 2 + 2 * val);
 	else
-		ofLine(pX, 100 + pulso, ppXloc, 100 + ppYloc);
+		ofLine(pX, 100 + val, ppXloc, 100 + ppYloc);
 		
 	ondasFbo[indice].end();
 	ofSetColor(255, 255, 255, opa01);
@@ -1017,9 +914,12 @@ void ofApp::escena01() {
 		for (int i = 0; i < numSens-2; i++) {
 			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i]);
 		}
+
+		ofLogNotice("Pulso: "+ofToString(valSensor1[5])+", GSR: "+ ofToString(valSensor1[6]));
 		for (int i = numSens-2; i < numSens; i++) {
-			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, 20,50,valSensor1[i],false, true);
+			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, 20, 50, valSensor1[i], false);
 		}
+
 		ofPopStyle();
 		
 		museConectado(ofGetWidth()/2-400, 60, 1);
@@ -1573,8 +1473,6 @@ void ofApp::keyPressed(int key) {
 	if (key == '7') escena = 7;
 	if (key == '8') escena = 8;
 	if (key == '9') escena = 9;
-
-
 
 	if (key == OF_KEY_LEFT) {
 		escena--;
