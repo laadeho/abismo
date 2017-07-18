@@ -96,54 +96,6 @@ void ofApp::setup(){
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
 	std::cout << "Alto: " << ofGetScreenHeight() << endl;
 	*/
-
-	///// SERIAL /////
-	setupSerial();
-}
-
-void ofApp::setupSerial() {
-	receiver.setup(PORT);
-	current_msg_string = 0;
-
-	serial1.listDevices();
-
-	ofAddListener(serial1.NEW_MESSAGE, this, &ofApp::onNewMessage);
-
-	ofSetLogLevel(OF_LOG_VERBOSE);
-	
-	if (!serial1.setup(puertoCOM1, 9600)) {
-		ofLogError() << "could not open serial port - listing serial devices";
-		serial1.listDevices();
-		//OF_EXIT_APP(0);
-		cout << "==================================" << endl;
-		cout << "NO HAY SERIAL 1" << endl;
-		cout << "==================================" << endl;
-	}
-	else {
-		ofLogNotice("Serial 01 ok: "+ofToString(puertoCOM1));
-		serial1Conectado = true;
-		ofLogNotice(ofToString(serial1Conectado));
-	}
-
-	/*if (!serial2.setup(puertoCOM2, 9600)) {
-		ofLogError() << "could not open serial port - listing serial devices";
-		serial2.listDevices();
-		//OF_EXIT_APP(0);
-		cout << "==================================" << endl;
-		cout << "NO HAY SERIAL 2: " << endl;
-		cout << "==================================" << endl;
-	}
-	else {
-		//serialConectado = true;
-		ofLogNotice("Serial 02 ok" + ofToString(puertoCOM2));
-		serial2Conectado = true;
-		ofLogNotice(ofToString(serial2Conectado));
-
-	}	
-	//serial.startContinuousRead();
-	//ofAddListener(serial.NEW_MESSAGE,this,&testApp::onNewMessage);
-	*/
-	message = "";
 }
 
 //--------------------------------------------------------------
@@ -392,55 +344,6 @@ void ofApp::update() {
 	}
 }
 
-void ofApp::onNewMessage(string & message)
-{
-	cout << "onNewMessage, message: " << message << "\n";
-
-	vector<string> input = ofSplitString(message, ",");
-	/*
-	if (input.size() >= 3)
-	{
-		red = input.at(0) == "r";
-		green = input.at(1) == "g";
-		blue = input.at(2) == "b";
-	}
-	*/
-}
-
-void ofApp::updateSerial(){
-	if (reconectarSerial) {
-		setupSerial();
-		reconectarSerial = false;
-	}
-
-	if (serial1.available()>0) {
-		//ofLogNotice("Serial Disponible ----");
-		valSerial1 = serial1.readByte();
-		ofLogNotice("Valor Serial 1: " + ofToString(valSerial1));
-		
-		if (valSerial1 == "A") {
-			//ofLogNotice("Es una A: " + ofToString(valSerial1));
-			p1Sensor1 = true;
-		}
-		if (p1Sensor1) {
-			if (valSerial1 == "H") {
-				ofLogNotice("Es una A y tambien es una H: " + ofToString(valSerial1));
-			}
-		}
-	}
-
-	if (pulso) {
-		//red = !red; // Revisar ejemplo que hice testApp con conexion serial
-		printf("PULSO");
-		cout << endl;
-		ofBackground(255, 0, 0);
-		pulso = !pulso;
-	}
-	else {
-		ofBackground(0);
-	}
-}
-
 //--------------------------------------------------------------
 void ofApp::updateOSC() {
 	// hide old messages
@@ -456,7 +359,7 @@ void ofApp::updateOSC() {
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
 
-		// std::cout << "Mensaje: " << m.getAddress() << endl;
+		 std::cout << "Mensaje: " << m.getAddress() << endl;
 
 		// check for mouse moved message
 		if (m.getAddress() == "/alpha") {
@@ -553,7 +456,16 @@ void ofApp::updateOSC() {
 			}
 		}
 		else if (m.getAddress() == "/pulse") {
-			ofLogNotice("PULSO");
+			ofLogNotice("PULSO ");
+
+			if (m.getArgAsInt(1) == 1) {
+				ofLogNotice("PULSO 1");
+
+			}
+			else if (m.getArgAsInt(1) == 2) {
+				ofLogNotice("PULSO 2");
+
+			}
 			pulso = true;
 		}
 		else if (m.getAddress() == "/gsr") {
@@ -664,15 +576,6 @@ void ofApp::draw(){
 }
 
 void ofApp::debugF() {
-	if (debug) {
-		ofDrawBitmapString("- Serial Data:", ofGetWidth() - 300, ofGetHeight() - 50);
-//		if (fmod(5, ofGetFrameNum()) == 0) { // intento de modulo en ofx
-			if (serial1Conectado && serial2Conectado) {
-				ofDrawBitmapString(serial1.readByte(), ofGetWidth() - 180, ofGetHeight() - 70);
-				ofDrawBitmapString(serial2.readByte(), ofGetWidth() - 180, ofGetHeight() - 50);
-			} else
-				ofDrawBitmapString("revisar conexion", ofGetWidth() - 180, ofGetHeight() - 50);
-	//	}
 		ofPushStyle();
 		ofSetColor(255, 0, 0);
 		ofFill();
@@ -689,7 +592,6 @@ void ofApp::debugF() {
 		ofDrawCircle(0, ofGetHeight(), 10);
 		ofDrawCircle(ofGetWidth(), ofGetHeight(), 10);
 		ofPopStyle();
-	}
 }
 
 /////////////// ESCENA 00
@@ -1425,29 +1327,16 @@ void ofApp::keyPressed(int key) {
 		ofSetWindowPosition(ofGetWindowWidth(), 0);
 	if(key=='"')
 		ofSetWindowPosition(0, 0);
-	if (key == 'd')
+	if (key == 'd' || key == 'D')
 		debug = !debug;
-	if (key == 'D')
-		debugSerial = !debugSerial;
 	if (key == 'g' || key == 'G')
 		showGui = !showGui;
 	if (key == 'e' || key == 'E')
 		emularSensores = !emularSensores;
 	if (key == 'h' || key == 'H')
 		help = !help;
-	if (key == 'c' || key == 'C') {
-		serial1.close();
-		serial2.close();
-	}
-	if (key == 'v' || key == 'V') {
-		serial1.flush();
-		serial2.flush();
-	}
 	if (key == 'b' || key == 'B') {
 		ofBackground(0);
-	}
-	if (key == 'r' || key == 'R') {
-		reconectarSerial = true; // corregir
 	}
 	if (key == 't' || key == 'T')
 		titulo = !titulo;
@@ -1496,10 +1385,6 @@ void ofApp::keyPressed(int key) {
 }
 ///////////////////// EXIT ///////////////
 void ofApp::exit() {
-	serial1.flush();
-	serial1.close();
-	serial2.flush();
-	serial2.close();
 }
 ///////////////////// GUI ///////////////
 void ofApp::setupGUI() {
@@ -1606,11 +1491,6 @@ void ofApp::mouseExited(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg) {
 
 }
 

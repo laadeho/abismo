@@ -5,14 +5,14 @@
 #include "ofxOsc.h"
 #include <winsock2.h>
 // importando este archivo se elimina el error de netdb.h sys/socket.h y netinet/in.h
-#include "ofxSimpleSerial.h"
+//#include "ofxSimpleSerial.h"
 #include <vector>
 #include "ofUtils.h"
 
+// OSC
 #define PORT 7000
 #define NUM_MSG_STRINGS 20
-#define puertoCOM1 "COM4"
-#define puertoCOM2 "COM9"
+// OSC
 
 class ofApp : public ofBaseApp{
 
@@ -31,13 +31,7 @@ class ofApp : public ofBaseApp{
 		void mouseExited(int x, int y);
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-		///////// SERIAL ////////////////////
-		void onNewMessage(string & message);
-
-		ofxSimpleSerial	serial1, serial2;
-		string message;
-		bool reconectarSerial = false;
+		
 		// Pulso
 
 		bool esDos = false;
@@ -61,14 +55,8 @@ class ofApp : public ofBaseApp{
 		bool p2Sensor1, p2Sensor2;
 
 		void exit();
-		void updateSerial();
-		void setupSerial();
-		bool trySerialAgain = false;
-		bool serial1Conectado, serial2Conectado = false;
-
-
+		
 		///////  DESARROLLADOR
-		bool debugSerial = true;
 		bool help = false;
 		bool debug = true;
 		void debugF();
@@ -191,11 +179,9 @@ class ofApp : public ofBaseApp{
 		///// OSC ////////////////////////////
 		ofTrueTypeFont font;
 		ofxOscReceiver receiver;
-
 		int current_msg_string;
 		string msg_strings[NUM_MSG_STRINGS];
 		float timers[NUM_MSG_STRINGS];
-
 		void updateOSC();
 		///// OSC ////////////////////////////
 
@@ -203,8 +189,6 @@ class ofApp : public ofBaseApp{
 		void setupGUI();
 		ofxIntSlider escenas;
 		ofxToggle guardaFrame;
-		// suple a variables de GUI
-
 		bool alpha, beta, gamma, delta, theta;
 		bool artifacts, museOn1, museOn2, blink1, blink2, jawClench1, jawClench2;
 		bool acc, gyro, isGood;

@@ -1,198 +1,251 @@
 /*
 PENDIENTES 
+ - Conectar dos sensores
+ - Enviar a OFX y a SC
+ */
+import java.util.*;
 
-- Conectar dos sensores
-- Enviar a OFX y a SC
-
-*/
+import controlP5.*;
+ControlP5 cp5;
+CheckBox checkbox;
 
 import processing.serial.*;
-
 Serial myPort;
 Serial myPort2;
 
 import oscP5.*;
 import netP5.*;
 OscP5 oscP5;
-NetAddress myRemoteLocation;
+NetAddress puerto7000, puerto57120;
 
-int val, val2;
-boolean sensorPulso = false;
-boolean sensorGSR = false;
-// Dos/Cero // 50/48
-boolean esDos = false;
-boolean esCero = false;
+int val1, val2;
+// Mensajes de los diferentes sensores
+boolean sensorPulso1, sensorPulso2;
+boolean sensorGSR1, sensorGSR2;
+// Comprueba cuando es H o I
+boolean esH1, esH2;
+boolean esI1, esI2;
+// Variables de los sensores GSR Y Pulso
+int valGSR1, valGSR2;
+int valPulso1, valPulso2;
 
-boolean esUno = false;
-boolean esCinco = false;
+int pX, posGSRy1, posGSRy2;
 
-int valGSR = 0;
-int pX, pY, ppX, ppY, ppX2, ppY2;
+int ppX_1, ppY_1, ppX2_1, ppY2_1;
+int ppX_2, ppY_2, ppX2_2, ppY2_2;
+
 int thressGSR = 30;
 boolean debug = false;
 
-int valPulso;
-
 void setup() 
 {
+  frame.setTitle("abismo // proximo _ PULSE & GSR");
   background(0); 
-  size(400, 600);
+  size(400, 900);
+
+  cp5 = new ControlP5(this);
+
+  checkbox = cp5.addCheckBox("checkBox")
+    .setPosition(50, height-50)
+    .setSize(20, 20)
+    .setItemsPerRow(2)
+    .setSpacingColumn(150)
+    .setSpacingRow(20)
+    .addItem("OSC to 57120", 0)
+    .addItem("OSC to 7000", 0)
+    ;
+
   println(Serial.list());
   String portName = Serial.list()[2];
-  //String portName2 = Serial.list()[7];
-  myPort = new Serial(this, portName, 9600);
-  //myPort2 = new Serial(this, portName, 9600);
-  myPort.clear(); 
-  println(portName);
-  //myPort2.clear(); 
-  /*
   String portName2 = Serial.list()[4];
-   myPort2 = new Serial(this, portName2, 9600);
-   */
+
+  myPort = new Serial(this, portName, 9600);
+  myPort2 = new Serial(this, portName2, 9600);
+  myPort.clear(); 
+  myPort2.clear(); 
+  println(portName+", "+portName2);
+
   oscP5 = new OscP5(this, 12000);
-  myRemoteLocation = new NetAddress("127.0.0.1", 7000);
+  puerto7000 = new NetAddress("127.0.0.1", 7000);
+  puerto57120 = new NetAddress("127.0.0.1", 57120);
 
-
-  // println(portName2);
   textAlign(CENTER);
 }
 
 void draw()
 {
-  if (debug)
-    println(myPort.available());
 
-  if ( myPort.available() > 0) {
-    val = myPort.read();
-    if (debug)
-      println(val);
-
-    if (val == 'A') { // 65 sensorPulso
-      sensorPulso = true;
-      //println("Sensor 1 con val: "+val);
-    }
-    if (sensorPulso) { // COMPROBAR SI ES 15 DEL SENSOR DE PULSO
-      if (val == 'H') { // 72
-        esUno = true;
-        //println("sPulso y val: "+val);
-      }
-
-      /*if (esUno && val == 53) { // 5
-       esCinco = true;
-       }*/
-      if (esUno && val!='H' && val != ',') {
-        valPulso = val;
-        /*if (debug)
-         println("Pulso: "+val );
-         */
-        OscMessage myMessage = new OscMessage("/pulse");
-        myMessage.add(val);
-        oscP5.send(myMessage, myRemoteLocation);
-      } else 
-      valPulso = 0;
-    }
-
-    if (val == 'B') { // 66 sensorGSR
-      sensorGSR = true;
-      //println("Sensor 2");
-    }
-    if (sensorGSR) { // 20 GSR
-      // COMPROBAR SI ES 20 DEL GSR
-      if (val == 'I') { // 2
-        esDos = true;
-        //println("sGSR y val: "+val);
-      }
-      /*if (esDos && val == 48) { // 0
-       esCero = true;
-       } */
-      if (esDos && val!='I' && val != ',') {
-        //println(val);
-        if (val<255-thressGSR) {
-          valGSR = val;
-          // if (debug)
-          //println("Val GSR: "+valGSR );
-          OscMessage myMessage = new OscMessage("/gsr");
-          myMessage.add(valGSR);
-          oscP5.send(myMessage, myRemoteLocation);
-        }
-      }
-    }
-    if (val == ',' && sensorPulso) {
-      sensorPulso = false;
-      esUno = false;
-      //esCero = false;
-    }
-    if (val == ',' && sensorGSR) {
-      sensorGSR = false;
-      esDos = false;
-      // esCinco = false;
-    }
-  }
-  //println( myPort.available());
-  if ( myPort.available() > 100) {
-    myPort.clear();
-    if (debug)
-      println("////////////////////////////////// myPort CLEAR");
+  if (debug) {
+    println("Port 1: "+myPort.available());
+    println("Port 2: "+myPort2.available());
   }
 
-  pX++;
-  pX=pX%width;
-  pY = valGSR; 
-
-  strokeWeight(1);
-  if (pX%width != 0) {
-    stroke(255, 0, 0);
-    line(pX, 100+valPulso, ppX, 100+ppY2);
-
-    stroke(255);
-    line(pX, 200+pY, ppX, 200+ppY);
-  } else  
-  background(0, 20);
-
-  ppX = pX; 
-  ppY = pY;  
-  ppY2 = valPulso;
-
-
-
-  /*
   pushStyle();
-   if (val == 3) {   
-   fill(0, 255, 0);
-   } else {    
-   fill(0);
-   }
-   
-   rect(250, 50, 100, 100);
-   popStyle();
-   */
+  fill(0);
+  noStroke();
+  rect(0, 0, width, 100);
+  fill(255);
+  textSize(18);
+  text("abismo // próximo", width/2, 50);
+  popStyle();
 
-
-  /*
-  pushStyle();
-   if (val2 == 0) { 
-   fill(255, 0, 0);
-   } else {
-   fill(0);
-   }
-   rect(50, 50, 100, 100);
-   
-   popStyle();
-   */
-  /*
-  pushStyle();
-   fill(0);
-   text("Sensor V: "+val, width/2, height/2);
-   fill(255);
-   text("Sensor V: "+val, width/2+2, height/2+2);
-   popStyle();
-   */
+  grafica(1, 0, 75);
+  grafica(2, 0, 425);
 }
 
-//void serialEvent(Serial p) {
-// int valor = p.read();
-//println(valor);
-//}
+void grafica(int numSerial, int posX, int posY) {
+  pX++;
+  pX=pX%width;
+
+  if (numSerial == 1) {
+    if ( myPort.available() > 0) {
+      val1 = myPort.read();
+
+      if (val1 == 'A') { // 65 sensorPulso
+        sensorPulso1 = true;
+      }
+      if (sensorPulso1) { // COMPROBAR SI ES 15 DEL SENSOR DE PULSO
+        if (val1 == 'H') { // 72
+          esH1 = true;
+        }
+
+        if (esH1 && val1 != 'H' && val1 != ',') {
+          valPulso1 = val1;
+
+          OscMessage myMessage = new OscMessage("/pulse");
+          myMessage.add(numSerial);
+          myMessage.add(val1);
+          oscP5.send(myMessage, puerto7000);
+          oscP5.send(myMessage, puerto57120);
+        } else 
+        valPulso1 = 0;
+      }
+
+      if (val1 == 'B') { // 66 sensorGSR
+        sensorGSR1 = true;
+      }
+      if (sensorGSR1) { // 20 GSR
+        // COMPROBAR SI ES 20 DEL GSR
+        if (val1 == 'I') { // 2
+          esI1 = true;
+        }
+
+        if (esI1 && val1 != 'I' && val1 != ',') {
+          if (val1<255-thressGSR) {
+            valGSR1 = val1;
+
+            OscMessage myMessage = new OscMessage("/gsr");
+            myMessage.add(numSerial);
+            myMessage.add(valGSR1);
+            oscP5.send(myMessage, puerto7000);
+            oscP5.send(myMessage, puerto57120);
+          }
+        }
+      }
+      if (val1 == ',' && sensorPulso1) {
+        sensorPulso1 = false;
+        esH1 = false;
+      }
+      if (val1 == ',' && sensorGSR1) {
+        sensorGSR1 = false;
+        esI1 = false;
+      }
+    }
+
+    if ( myPort.available() > 100) {
+      myPort.clear();
+    }
+
+    posGSRy1 = valGSR1; 
+
+    strokeWeight(1);
+    if (pX%width != 0) {
+      stroke(255, 0, 0);
+      line(posX+pX, posY+100+valPulso1, posX+ppX_1, posY+100+ppY2_1);
+
+      stroke(255);
+      line(posX+pX, posY+250+posGSRy1, posX+ppX_1, posY+250+ppY_1);
+    } else  
+    background(0, 20);
+  } else  if (numSerial == 2) {/////////////////////////////////////////////////////////
+    if ( myPort2.available() > 0) {
+      val2 = myPort2.read();
+
+      if (val2 == 'A') { // 65 sensorPulso
+        sensorPulso2 = true;
+      }
+      if (sensorPulso2) { // COMPROBAR SI ES 15 DEL SENSOR DE PULSO
+        if (val2 == 'H') { // 72
+          esH2 = true;
+        }
+        if (esH2 && val2!='H' && val2!= ',') {
+          valPulso2 = val2;
+
+          OscMessage myMessage = new OscMessage("/pulse");
+          myMessage.add(numSerial);
+          myMessage.add(val2);
+          oscP5.send(myMessage, puerto7000);
+          oscP5.send(myMessage, puerto57120);
+        } else {
+          valPulso2 = 0;
+        }
+      }
+
+      if (val2 == 'B') { // 66 sensorGSR
+        sensorGSR2 = true;
+      }
+      if (sensorGSR2) { 
+        if (val2 == 'I') {
+          esI2 = true;
+        }
+
+        if (esI2 && val2 != 'I' && val2 != ',') {
+          //println(val);
+          if (val2<255-thressGSR) {
+            valGSR2 = val2;
+
+            OscMessage myMessage = new OscMessage("/gsr");
+            myMessage.add(numSerial);
+            myMessage.add(valGSR2);
+            oscP5.send(myMessage, puerto7000);
+            oscP5.send(myMessage, puerto57120);
+          }
+        }
+      }
+      if (val2 == ',' && sensorPulso2) {
+        sensorPulso2 = false;
+        esH2 = false;
+      }
+      if (val2 == ',' && sensorGSR2) {
+        sensorGSR2 = false;
+        esI2 = false;
+      }
+    }
+    if ( myPort2.available() > 100) {
+      myPort2.clear();
+    }
+
+    posGSRy2 = valGSR2; 
+
+    strokeWeight(1);
+    if (pX%width != 0) {
+      stroke(255, 0, 0);
+      line(posX+pX, posY+100+valPulso2, posX+ppX_2, posY+100+ppY2_2);
+
+      stroke(255);
+      line(posX+pX, posY+250+posGSRy2, posX+ppX_2, posY+250+ppY_2);
+    } else  
+    background(0, 20);
+  }
+
+  ppX_1 = pX; 
+  ppY_1 = posGSRy1;  
+  ppY2_1 = valPulso1;
+
+  ppX_2 = pX; 
+  ppY_2 = posGSRy2;  
+  ppY2_2 = valPulso2;
+}
 void exit() {
   myPort.clear(); 
   myPort.stop();
