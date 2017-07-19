@@ -18,6 +18,8 @@ import netP5.*;
 OscP5 oscP5;
 NetAddress puerto7000, puerto57120;
 
+PImage icon;
+
 int val1, val2;
 // Mensajes de los diferentes sensores
 boolean sensorPulso1, sensorPulso2;
@@ -36,10 +38,15 @@ int ppX_2, ppY_2, ppX2_2, ppY2_2;
 
 int thressGSR = 30;
 boolean debug = false;
-
+boolean serial;
 void setup() 
 {
-  frame.setTitle("abismo // proximo _ PULSE & GSR");
+  surface.setTitle("abismo // proximo _ PULSE & GSR");
+  surface.setResizable(true);
+
+  icon = loadImage("abismologo.png");
+  surface.setIcon(icon);
+
   background(0); 
   size(400, 900);
 
@@ -56,6 +63,7 @@ void setup()
     ;
 
   println(Serial.list());
+
   String portName = Serial.list()[2];
   String portName2 = Serial.list()[4];
 
@@ -74,7 +82,6 @@ void setup()
 
 void draw()
 {
-
   if (debug) {
     println("Port 1: "+myPort.available());
     println("Port 2: "+myPort2.available());
@@ -88,6 +95,7 @@ void draw()
   textSize(18);
   text("abismo // próximo", width/2, 50);
   popStyle();
+  image(icon, 35, 20, icon.width/2.5, icon.height/2.5);
 
   grafica(1, 0, 75);
   grafica(2, 0, 425);
@@ -249,6 +257,8 @@ void grafica(int numSerial, int posX, int posY) {
 void exit() {
   myPort.clear(); 
   myPort.stop();
+  myPort2.clear(); 
+  myPort2.stop();
 }
 
 void keyPressed() {

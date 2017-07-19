@@ -6,6 +6,10 @@ ENVIAR OSC de GSR  0 - 255 "\gsr" PROMEDIANDO AMBOS SENSORES
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	// OSC SETUP
+	receiver.setup(PORT);
+	current_msg_string = 0;
+
 	ofSetFrameRate(60);
 	ofBackground(0);
 	ofEnableAlphaBlending(); // lines have the ability to draw with alpha enabled
@@ -23,18 +27,6 @@ void ofApp::setup(){
 
 	titulos.loadFont("Helvetica Bold.ttf", 20);
 	texto1.loadFont("Helvetica Normal.ttf", 10);
-
-	sensaciones[0] = "Logo";
-	sensaciones[1] = "Entendimiento / Tranquilidad";
-	sensaciones[2] = "Expectativa ";
-	sensaciones[3] = "Miedo";
-	sensaciones[4] = "Asombro";
-	sensaciones[5] = "Euforia";
-	sensaciones[6] = "Tristeza, Soledad";
-	sensaciones[7] = "Abismo";
-	sensaciones[8] = "Felicidad";
-	sensaciones[9] = "Reconocimiento";
-	sensaciones[10] = "Proximidad";
 
 	// ESC 00 /////////////////////////
 	logoAbismo.load("images/abismoLogo_1240x600.png");
@@ -106,15 +98,7 @@ void ofApp::update() {
 		//ofSaveScreen("frames/"+ ofToString(ofGetFrameNum()) + ".tif");
 		//ofSaveImage("frames/" + ofToString(ofGetFrameNum()) + ".tif");
 	}
-	/*
-	if (serial1Conectado && serial2Conectado) {
-		updateSerial();		
-	}
-	else {
-		if(ofGetFrameNum()%500 == 0)
-			ofLogNotice("REVISAR CONEXION SERIAL");
-	}
-	*/
+
 	switch (escena)
 	{
 	case 0: // LOGO
@@ -255,10 +239,7 @@ void ofApp::update() {
 		delta = true;
 		theta = true;
 
-		p1Sensor1 = true;
-		p1Sensor2 = true;
-		p2Sensor1 = true;
-		p2Sensor2 = true;
+		pulse = true;
 		gsr = true;
 
 		acc = true;
@@ -273,10 +254,7 @@ void ofApp::update() {
 		delta = false;
 		theta = false;
 
-		p1Sensor1 = false;
-		p1Sensor2 = false;
-		p2Sensor1 = false;
-		p2Sensor2 = false;
+		pulse = false;
 		gsr = false;
 
 		acc = false;
@@ -303,7 +281,7 @@ void ofApp::update() {
 		valSensor1[4] = ofNoise(float(ofGetFrameNum()*.0085*(0.25 * 4 + 1)));
 		valSensor2[4] = ofNoise(float(ofGetFrameNum()*.00385*(0.215 * 4.25 + 1)));
 	}
-	if (pulseSensor) { //////////////////////falta 2
+	if (pulse) { //////////////////////falta 2
 		valSensor1[5] = ofNoise(float(ofGetFrameNum()*.0065*(0.35 * 4 + 1)));
 		valSensor2[5] = ofNoise(float(ofGetFrameNum()*.00625*(0.135 * 2.4 + 1)));
 	}
@@ -359,7 +337,7 @@ void ofApp::updateOSC() {
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
 
-		 std::cout << "Mensaje: " << m.getAddress() << endl;
+		 //std::cout << "Mensaje: " << m.getAddress() << endl;
 
 		// check for mouse moved message
 		if (m.getAddress() == "/alpha") {
@@ -456,21 +434,22 @@ void ofApp::updateOSC() {
 			}
 		}
 		else if (m.getAddress() == "/pulse") {
-			ofLogNotice("PULSO ");
-
-			if (m.getArgAsInt(1) == 1) {
-				ofLogNotice("PULSO 1");
-
+			int pulseAt1 = int(m.getArgAsInt(0));
+			if (pulseAt1 == 1) {
+				valSensor1[5] = int(m.getArgAsInt(1));
 			}
-			else if (m.getArgAsInt(1) == 2) {
-				ofLogNotice("PULSO 2");
-
+			else if (pulseAt1 == 2) {
+				valSensor2[5] = int(m.getArgAsInt(1));
 			}
-			pulso = true;
 		}
 		else if (m.getAddress() == "/gsr") {
-			ofLogNotice("GSR");
-
+			int gsrAt1 = int(m.getArgAsInt(0));
+			if (gsrAt1 == 1) {
+				valSensor1[6] = int(m.getArgAsInt(1));
+			}
+			else if (gsrAt1 == 2) {
+				valSensor2[6] = int(m.getArgAsInt(1));
+			}
 		}
 		else {
 			// unrecognized message: display on the bottom of the screen
@@ -757,7 +736,7 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
 	ofPopStyle();
 
 }
-void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float val, bool lineal) {
+void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, int ppYprev, float val) {
 	ofPushStyle();
 	ofSetColor(255, opa01);
 	ondasFbo[indice].begin();
@@ -765,14 +744,11 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, float
 	ofFill();
 	ofEllipse(pX, pY, 50, 50);
 	//////////////////////////// solo testeo
-
 	
 	ofSetColor(255, opa01);// -val * 50);
-	ofFill();
-	if (!lineal)
-		ofEllipse(posOndaX, 50 +  ofMap(val, 0, 255, 25, -25), 2 + 2 * val, 2 + 2 * val);
-	else
-		ofLine(pX, 100 + val, ppXloc, 100 + ppYloc);
+	ofNoFill();
+	
+	ofLine(posOndaX, 50 + ofMap(val, 0, 255, 25, -25), posOndaX-1, 50 + ppYprev);
 		
 	ondasFbo[indice].end();
 	ofSetColor(255, 255, 255, opa01);
@@ -817,10 +793,13 @@ void ofApp::escena01() {
 			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i]);
 		}
 
-		ofLogNotice("Pulso: "+ofToString(valSensor1[5])+", GSR: "+ ofToString(valSensor1[6]));
 		for (int i = numSens-2; i < numSens; i++) {
-			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, 20, 50, valSensor1[i], false);
+			posActY1[i - numSens + 2] = ofGetHeight() - 150 - 110 * i;
+			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, posIniX, posActY1[i-numSens+2], posPrevY1[i - numSens + 2], valSensor1[i]);
 		}
+		posPrevY1[0] = posActY1[0];
+		posPrevY1[1] = posActY1[1];
+
 
 		ofPopStyle();
 		

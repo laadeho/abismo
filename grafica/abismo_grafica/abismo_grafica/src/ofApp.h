@@ -31,28 +31,6 @@ class ofApp : public ofBaseApp{
 		void mouseExited(int x, int y);
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
-		
-		// Pulso
-
-		bool esDos = false;
-		bool esCero = false;
-
-		bool esUno = false;
-		bool esCinco = false;
-		
-		bool pulso = false;
-		bool pulsoSensor1 = false;
-		bool pulso1Dato1 = false;
-		bool pulso1Dato2 = false;
-		bool pulso1Dato3 = false;
-		//
-		string valSerial1, valSerial2;
-		int valPulso1, valPulso2;
-		// Dos/Cero // 50/48
-		int thressGSR = 30;
-		int valGSR = 0;
-		bool p1Sensor1, p1Sensor2;
-		bool p2Sensor1, p2Sensor2;
 
 		void exit();
 		
@@ -61,11 +39,13 @@ class ofApp : public ofBaseApp{
 		bool debug = true;
 		void debugF();
 		bool showGui = false;
-
 		/////////////////////////////
 
 		bool fullScreenDisplay = false;
-		string sensaciones[11];
+		string sensaciones[11] = {
+			"Logo", "Entendimiento / Tranquilidad", "Expectativa ", "Miedo",
+		"Asombro", "Euforia", "Tristeza, Soledad", "Abismo", "Felicidad", "Reconocimiento", "Proximidad"
+		};
 		ofTrueTypeFont titulos, texto1;
 		int numSens = 7;
 		float valSensor1[7] = { 0,0,0,0,0,0,0 };
@@ -99,8 +79,11 @@ class ofApp : public ofBaseApp{
 		// escena 01
 		void museConectado(int, int, int);
 		void dibujaOnda(int, int, int, float);
-		void dibujaOnda(int, int, int, int, int, float, bool);
+		void dibujaOnda(int, int, int, int, int, int, float);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
+		int posActY1[2], posActY2[2];
+		int posPrevY1[2], posPrevY2[2];
+
 		float opa01 = 0.0;
 		int ppX, ppY;
 
@@ -129,17 +112,6 @@ class ofApp : public ofBaseApp{
 		bool iniciaOpa01b = false;
 
 		// escena 02
-		/*
-		Una red de puntos es modificada por
-		una serie de particulas rebotando en pantalla
-		afectan la distancia entre los nodos. 
-		La velocidad de las partículas es dada por 
-		los sensores.
-		El entorno cimienza a migrar a mallas y posteriormente
-		se vuelve un espacio 3d en el que podrán 
-		navegar, dando paso a la escena 3 (miedo) con
-		vértices afilados y ambientes tenebrosos
-		*/
 		int numPart2X = 30, numPart2Y = 18;
 		int sep2X, sep2Y;
 		ofVec3f nodos[30 * 18];
@@ -198,7 +170,7 @@ class ofApp : public ofBaseApp{
 		float auxLeft1, auxLeft2, auxRight1, auxRight2;
 		ofxToggle emularSensores = false;
 
-		bool pulseSensor = false;
+		bool pulse = false;
 		bool gsr = false;
 
 		// GUI
