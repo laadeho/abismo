@@ -77,9 +77,12 @@ class ofApp : public ofBaseApp{
 		ofImage logoAbismo;
 		float opaLogo;
 		// escena 01
+		int pasada = 0;
+		int valOnda1, valOnda2;
+
 		void museConectado(int, int, int);
 		void dibujaOnda(int, int, int, float);
-		void dibujaOnda(int, int, int, int, int, int, float);
+		void dibujaOnda(int, int, int, int, float);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
 		int posActY1[2], posActY2[2];
 		int posPrevY1[2], posPrevY2[2];

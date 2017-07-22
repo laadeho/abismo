@@ -122,7 +122,7 @@ void ofApp::update() {
 				opaLogo -= velOpa;
 			}
 			if (opaLogo == 0) {
-				escenas = 1;
+				escena = 1;
 				//escenas = escena;
 				saleLogo = false;
 				iniciaTodo = true;
@@ -227,7 +227,7 @@ void ofApp::update() {
 	default:
 		break;
 	}
-	escena = escenas;
+	//escena = escenas;
 
 	updateOSC();
 	/////////////// DATOS EMULADOS
@@ -281,7 +281,7 @@ void ofApp::update() {
 		valSensor1[4] = ofNoise(float(ofGetFrameNum()*.0085*(0.25 * 4 + 1)));
 		valSensor2[4] = ofNoise(float(ofGetFrameNum()*.00385*(0.215 * 4.25 + 1)));
 	}
-	if (pulse) { //////////////////////falta 2
+	if (pulse) {
 		valSensor1[5] = ofNoise(float(ofGetFrameNum()*.0065*(0.35 * 4 + 1)));
 		valSensor2[5] = ofNoise(float(ofGetFrameNum()*.00625*(0.135 * 2.4 + 1)));
 	}
@@ -337,10 +337,27 @@ void ofApp::updateOSC() {
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
 
-		 //std::cout << "Mensaje: " << m.getAddress() << endl;
+			std::cout << "Mensaje: " << m.getAddress() << endl;
 
-		// check for mouse moved message
-		if (m.getAddress() == "/alpha") {
+			if (m.getAddress() == "/escena") {
+				if (escena == 0 && m.getArgAsInt(0) == 1) {
+					if (!entraLogo)
+						saleLogo = true;
+				}
+				/*else if (escena == 1) {
+					cambia01 = true;
+				}*/
+				else {
+					//escena++;
+					escena = m.getArgAsInt(0);
+					std::cout << "Mensaje escena Num: " << m.getArgAsInt(0) << endl;
+					escena = escena % numEscenas;
+
+				}
+
+				
+			}
+			else if (m.getAddress() == "/alpha") {
 			if (m.getArgAsInt(0) == 1)
 				valSensor1[0] = m.getArgAsFloat(1);
 			else if (m.getArgAsInt(0) == 2)
@@ -436,6 +453,8 @@ void ofApp::updateOSC() {
 		else if (m.getAddress() == "/pulse") {
 			int pulseAt1 = int(m.getArgAsInt(0));
 			if (pulseAt1 == 1) {
+				if (debug)
+					ofLogNotice("Pulso 1: "+ofToString(m.getArgAsInt(1)));
 				valSensor1[5] = int(m.getArgAsInt(1));
 			}
 			else if (pulseAt1 == 2) {
@@ -445,6 +464,8 @@ void ofApp::updateOSC() {
 		else if (m.getAddress() == "/gsr") {
 			int gsrAt1 = int(m.getArgAsInt(0));
 			if (gsrAt1 == 1) {
+				if(debug)
+					ofLogNotice("GSR 1: " + ofToString(m.getArgAsInt(1)));
 				valSensor1[6] = int(m.getArgAsInt(1));
 			}
 			else if (gsrAt1 == 2) {
@@ -610,11 +631,15 @@ void ofApp::updateEsc01() {
 		posOndaX += velOndaX;
 		if (posOndaX > ondasFbo[0].getWidth()) {
 			posOndaX = 0;
+			pasada++;
 			for (int i = 0; i < numSens*2; i++) {
 				ondasFbo[i].begin();
 				ofBackground(0);
 				ondasFbo[i].end();
 			}
+		}
+		if (pasada >= 2) {
+
 		}
 		break;
 	case 1:
@@ -696,84 +721,12 @@ void ofApp::updateEsc01() {
 				iniciaOpa01b = false;
 				partInPos = false;
 				escena++;
-				escenas = escena;
+				//escenas = escena;
 				cambia01 = false;
 			}
 			break;
 		}
 	}
-}
-
-void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
-	ofPushStyle();
-	ofSetColor(255, opa01);
-	ondasFbo[indice].begin();
-	ofSetColor(255, opa01 - val * 50);
-	ofFill();
-	ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1 + 8 * val, 1 + 8 * val);
-	ondasFbo[indice].end();
-
-	ofSetColor(255, 255, 255, opa01);
-	ondasFbo[indice].draw(pX, pY);
-	//////////////////////
-	ofFill();
-	ofSetColor(255, opa01);
-	if (indice<numSens)
-		texto1.drawString(sensor[indice], pX, pY);
-	else
-		texto1.drawString(sensor[indice - numSens], pX, pY);
-	ofSetLineWidth(1);
-	ofNoFill();
-	ofSetColor(255, opa01);
-	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
-		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
-	}
-
-	ofNoFill();
-	ofSetLineWidth(1);
-	ofSetColor(255, opa01);
-	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
-	ofPopStyle();
-
-}
-void ofApp::dibujaOnda(int indice, int pX, int pY, int ppXloc, int ppYloc, int ppYprev, float val) {
-	ofPushStyle();
-	ofSetColor(255, opa01);
-	ondasFbo[indice].begin();
-	//////////////////////////// solo testeo
-	ofFill();
-	ofEllipse(pX, pY, 50, 50);
-	//////////////////////////// solo testeo
-	
-	ofSetColor(255, opa01);// -val * 50);
-	ofNoFill();
-	
-	ofLine(posOndaX, 50 + ofMap(val, 0, 255, 25, -25), posOndaX-1, 50 + ppYprev);
-		
-	ondasFbo[indice].end();
-	ofSetColor(255, 255, 255, opa01);
-	ondasFbo[indice].draw(pX, pY);
-	
-	//////////////////////
-	ofFill();
-	ofSetColor(255, opa01);
-	if (indice<numSens)
-		texto1.drawString(sensor[indice], pX, pY);
-	else
-		texto1.drawString(sensor[indice - numSens], pX, pY);
-	ofSetLineWidth(1);
-	ofNoFill();
-	ofSetColor(255, opa01);
-	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
-		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
-	}
-
-	ofNoFill();
-	ofSetLineWidth(1);
-	ofSetColor(255, opa01);
-	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
-
-	ofPopStyle();
 }
 void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
@@ -781,7 +734,7 @@ void ofApp::escena01() {
 	ofPushStyle();
 
 	if (debug) {
-		ofDrawBitmapString("Esc01: "+ofToString(esc01), 250,50);
+		ofDrawBitmapString("Esc01: " + ofToString(esc01), 250, 50);
 	}
 	int cuenta = 0; ////////////////////////////////////////////////////////////////////// BORRAR BORRAR BORRAR BORRAR BORRAR BORRAR
 	switch (esc01) {
@@ -789,41 +742,78 @@ void ofApp::escena01() {
 		/////////////////////////// CONTENIDO PARA USUARIO 1
 		ofSetColor(255, opa01);
 		ofFill();
-		for (int i = 0; i < numSens-2; i++) {
+		ofPushStyle();
+
+		for (int i = 0; i < numSens - 2; i++) {
 			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i]);
 		}
 
-		for (int i = numSens-2; i < numSens; i++) {
+		for (int i = numSens - 2; i < numSens; i++) {
 			posActY1[i - numSens + 2] = ofGetHeight() - 150 - 110 * i;
-			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, posIniX, posActY1[i-numSens+2], posPrevY1[i - numSens + 2], valSensor1[i]);
+			valOnda1 = valSensor1[i];
+			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY1[i - numSens + 2], valOnda1);
+			valOnda1 = 0;
 		}
-		posPrevY1[0] = posActY1[0];
-		posPrevY1[1] = posActY1[1];
 
+		posPrevY1[0] = valSensor1[numSens-2];
+		posPrevY1[1] = valSensor1[numSens-1];
 
 		ofPopStyle();
-		
-		museConectado(ofGetWidth()/2-400, 60, 1);
+
+		museConectado(ofGetWidth() / 2 - 400, 60, 1);
 		// Gyro y Acc
 		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX1, accY1, accZ1, ofColor(0, 204, 204), "Acelerometro");
 		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX1, gyroY1, gyroZ1, ofColor(204, 0, 0), "Giroscopio");
 		/////////////////////////// CONTENIDO PARA USUARIO 1
+
+
+
+
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
 		ofPushMatrix();
+		ofTranslate(ofGetWidth(), 0, 0);
+		ofScale(-1, 1, 1); 
+		ofSetColor(255, opa01);
+		ofFill();
+		ofPushStyle();
+
+		for (int i = 0; i < numSens - 2; i++) {
+			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i]);
+		}
+
+		for (int i = numSens - 2; i < numSens; i++) {
+			posActY1[i - numSens + 2] = ofGetHeight() - 150 - 110 * i;
+			valOnda2 = valSensor2[i];
+			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY2[i - numSens + 2], valOnda2);
+			valOnda2 = 0;
+		}
+
+		posPrevY2[0] = valSensor2[numSens - 2];
+		posPrevY2[1] = valSensor2[numSens - 1];
+
+		ofPopStyle();
+
+		museConectado(ofGetWidth() / 2 - 400, 60, 1);
+		// Gyro y Acc
+		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
+		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
+		ofPopMatrix();
+
+		/*ofPushMatrix();
 		ofTranslate(ofGetWidth(), 0, 0);
 		ofScale(-1, 1, 1);
 
 		ofPushStyle();
 		for (int i = 0; i < numSens; i++) {
-			dibujaOnda(i+numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i]);
+			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i]);
 		}
 		ofPopStyle();
-		
+
 		museConectado(ofGetWidth() / 2 - 400, 60, 2);
 		// Gyro y Acc
 		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
 		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
-		ofPopMatrix();
+		ofPopMatrix();*/
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
 
 		break;
@@ -835,7 +825,7 @@ void ofApp::escena01() {
 		/////////////////////////////////////////////
 		ofPushMatrix();
 		ofRotateX(accX1 * multRotaciones);
-		ofRotateY(-multRotaciones+accZ1 * multRotaciones);
+		ofRotateY(-multRotaciones + accZ1 * multRotaciones);
 		ofRotateZ(accY1 * multRotaciones);
 		// Dibujo hexagonos con relleno
 		ofSetColor(255, opa01 / anillos);
@@ -848,14 +838,14 @@ void ofApp::escena01() {
 				ofVertex(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08),
-					sin(i+j*anillos+ofGetElapsedTimeMillis()*.001)*20
+					sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
 				);
 			}
 			ofEndShape();
 		}
 		// Dibujo Hexagonos sin relleno
 		for (int j = 0; j < anillos; j++) {
-			ofSetColor(0, opa01-j*15);
+			ofSetColor(0, opa01 - j * 15);
 			ofNoFill();
 			ofBeginShape();
 			for (int i = 0; i < numPart; i++) {
@@ -882,7 +872,7 @@ void ofApp::escena01() {
 		/////////////// USUARIO 2
 		/////////////////////////////////////////////
 		ofPushMatrix();
-		ofRotateX(90+accX2 * multRotaciones);
+		ofRotateX(90 + accX2 * multRotaciones);
 		ofRotateY(-multRotaciones + accZ2 * multRotaciones);
 		ofRotateZ(accY2 * multRotaciones);
 		// Dibujo hexagonos con relleno
@@ -926,7 +916,7 @@ void ofApp::escena01() {
 			}
 		}
 		ofPopMatrix();
-		
+
 		ofPopMatrix();
 
 		break;
@@ -940,49 +930,49 @@ void ofApp::escena01() {
 			ofEllipse(
 				particulas1[i].x,
 				particulas1[i].y,
-				5,5);
+				5, 5);
 		}
 		/*
 		if (!partInPos) {
-			for (int i = 0; i < numPart; i++) {
-				float pTempX = particulas[i].x;
+		for (int i = 0; i < numPart; i++) {
+		float pTempX = particulas[i].x;
 
-				particulas[i].set(
-					pTempX, 0, 0
-				);
+		particulas[i].set(
+		pTempX, 0, 0
+		);
 
-				if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
-					particulas[i].x += 5;
-				else
-					particulas[i].x -= 5;
-			}
-			if (particulas[0].x < -ofGetWidth() / 2 + 2) {
-				iniciaOpa01b = true;
-				partInPos = true;
-			}
+		if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
+		particulas[i].x += 5;
+		else
+		particulas[i].x -= 5;
+		}
+		if (particulas[0].x < -ofGetWidth() / 2 + 2) {
+		iniciaOpa01b = true;
+		partInPos = true;
+		}
 		}
 		else {
-			if (contador < 50)
-				contador++;
-			if (contador == 50) {
-				if (escala01 < 1)
-					escala01 += 0.025;
-				if (!cambia01) {
-					if (opa01b < 255)
-						opa01b++;
-				}
-			}
+		if (contador < 50)
+		contador++;
+		if (contador == 50) {
+		if (escala01 < 1)
+		escala01 += 0.025;
+		if (!cambia01) {
+		if (opa01b < 255)
+		opa01b++;
+		}
+		}
 		}
 		*/
 		if (iniciaOpa01b) {
 			ofPushStyle();
-			ofSetColor(255, opa01b/anillos);
+			ofSetColor(255, opa01b / anillos);
 			for (int j = 0; j < anillos; j++) {
 				ofBeginShape();
 				ofVertex(ofGetWidth() / 2, ofGetHeight() / 2);
 				ofVertex(-ofGetWidth() / 2, ofGetHeight() / 2);
 				for (int i = 0; i < numPart; i++) {
-					ofVertex(particulas1[i].x, particulas1[i].y+25*j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
+					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
 					);
 				}
 				ofEndShape();
@@ -1003,6 +993,79 @@ void ofApp::escena01() {
 	}
 	ofPopStyle();
 	ofDisableAlphaBlending();
+}
+void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
+	ofPushStyle();
+	ofSetColor(255, opa01);
+	ondasFbo[indice].begin();
+	ofSetColor(255, opa01 - val * 50);
+	ofFill();
+	ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1 + 8 * val, 1 + 8 * val);
+	ondasFbo[indice].end();
+
+	ofSetColor(255, 255, 255, opa01);
+	ondasFbo[indice].draw(pX, pY);
+	//////////////////////
+	ofFill();
+	ofSetColor(255, opa01);
+	if (indice<numSens)
+		texto1.drawString(sensor[indice], pX, pY);
+	else
+		texto1.drawString(sensor[indice - numSens], pX, pY);
+	ofSetLineWidth(1);
+	ofNoFill();
+	ofSetColor(255, opa01);
+	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
+		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
+	}
+
+	ofNoFill();
+	ofSetLineWidth(1);
+	ofSetColor(255, opa01);
+	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
+	ofPopStyle();
+
+}
+void ofApp::dibujaOnda(int indice, int pX, int pY, int ppYprev, float val) {
+	ofPushStyle();
+	ofSetColor(255, opa01);
+	ondasFbo[indice].begin();
+	//////////////////////////// solo testeo
+	ofFill();
+	ofEllipse(pX, pY, 50, 50);
+	//////////////////////////// solo testeo
+	
+	ofSetColor(255, opa01);// -val * 50);
+	ofNoFill();
+	if(indice == 5)
+		ofLine(posOndaX, 50 + ofMap(val, 0, 255, 25, -25), posOndaX - 1, 50 + ofMap(ppYprev, 0, 255, 25, -25));
+	else
+		ofLine(posOndaX, 50 + ofMap(val, 0, 10, 25, -25), posOndaX - 1, 50 + ofMap(ppYprev, 0, 10, 25, -25));
+	
+	ondasFbo[indice].end();
+	ofSetColor(255, 255, 255, opa01);
+	ondasFbo[indice].draw(pX, pY);
+	
+	//////////////////////
+	ofFill();
+	ofSetColor(255, opa01);
+	if (indice<numSens)
+		texto1.drawString(sensor[indice], pX, pY);
+	else
+		texto1.drawString(sensor[indice - numSens], pX, pY);
+	ofSetLineWidth(1);
+	ofNoFill();
+	ofSetColor(255, opa01);
+	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
+		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
+	}
+
+	ofNoFill();
+	ofSetLineWidth(1);
+	ofSetColor(255, opa01);
+	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
+
+	ofPopStyle();
 }
 
 /////////////// ESCENA 02
@@ -1360,7 +1423,7 @@ void ofApp::keyPressed(int key) {
 		}
 		escena = escena % numEscenas;
 	}
-	escenas = escena;
+	//escenas = escena;
 }
 ///////////////////// EXIT ///////////////
 void ofApp::exit() {
@@ -1373,56 +1436,6 @@ void ofApp::setupGUI() {
 	gui.add(escenas.setup("Escena", 0, 0, 11));
 	gui.add(guardaFrame.setup("Salvar Frames ", false));
 	gui.add(emularSensores.setup("Emular", false));
-
-	/*
-	// Brain
-	gui.add(alpha.setup("alpha", false));
-	gui.add(beta.setup("beta", false));
-	gui.add(gamma.setup("gamma", false));
-	gui.add(delta.setup("delta", false));
-	gui.add(theta.setup("theta", false));
-	// Artifacts
-	gui.add(artifacts.setup("artifacts", false));
-	gui.add(museOn1.setup("museOn1", false));
-	gui.add(blink1.setup("blink1", false));
-	gui.add(jawClench1.setup("jawClench1", false));
-	gui.add(museOn2.setup("museOn2", false));
-	gui.add(blink2.setup("blink2", false));
-	gui.add(jawClench2.setup("jawClench2", false));
-	// Acc
-	gui.add(acc.setup("acc", false));
-	gui.add(accX1.setup("accX1", 0.1f, 0.0f, 1.0f));
-	gui.add(accY1.setup("accY1", 0.1f, 0.0f, 1.0f));
-	gui.add(accZ1.setup("accZ1", 0.1f, 0.0f, 1.0f));
-	gui.add(accX2.setup("accX2", 0.1f, 0.0f, 1.0f));
-	gui.add(accY2.setup("accY2", 0.1f, 0.0f, 1.0f));
-	gui.add(accZ2.setup("accZ2", 0.1f, 0.0f, 1.0f));
-	// Gyro
-	gui.add(gyro.setup("gyro", false));
-	gui.add(gyroX1.setup("gyroX1", 0.1f, 0.0f, 1.0f));
-	gui.add(gyroY1.setup("gyroY1", 0.1f, 0.0f, 1.0f));
-	gui.add(gyroZ1.setup("gyroZ1", 0.1f, 0.0f, 1.0f));
-	gui.add(gyroX2.setup("gyroX2", 0.1f, 0.0f, 1.0f));
-	gui.add(gyroY2.setup("gyroY2", 0.1f, 0.0f, 1.0f));
-	gui.add(gyroZ2.setup("gyroZ2", 0.1f, 0.0f, 1.0f));
-	// Connection
-	gui.add(isGood.setup("isGood", false));
-	gui.add(EEG11.setup("eeg11", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG21.setup("eeg21", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG31.setup("eeg31", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG41.setup("eeg41", 0.1f, 0.0f, 1.0f));
-	gui.add(auxLeft1.setup("auxLeft1", 0.1f, 0.0f, 1.0f));
-	gui.add(auxRight1.setup("auxRight1", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG12.setup("eeg12", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG22.setup("eeg22", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG32.setup("eeg32", 0.1f, 0.0f, 1.0f));
-	gui.add(EEG42.setup("eeg42", 0.1f, 0.0f, 1.0f));
-	gui.add(auxLeft2.setup("auxLeft2", 0.1f, 0.0f, 1.0f));
-	gui.add(auxRight2.setup("auxRight2", 0.1f, 0.0f, 1.0f));
-	// Pulse & GSR
-	gui.add(pulseSensor.setup("Pulse", false));
-	gui.add(gsr.setup("GSR", false));
-	*/
 
 	gui.add(camara02.setup("camara02", false));
 	gui.add(puntos02.setup("puntos02", false));
