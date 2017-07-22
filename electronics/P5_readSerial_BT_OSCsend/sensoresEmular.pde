@@ -1,7 +1,7 @@
 void emularSensores() {
   emulaOnda("/alpha", 1, 0.00015);
   emulaOnda("/beta", 1, 0.00031);
-  emulaOnda("/gamma", 1, 0.0008);
+  emulaOnda("/gamma", 1, 0.00012);
   emulaOnda("/delta", 1, 0.0001);
   emulaOnda("/theta", 1, 0.00022);
   emulaOnda("/alpha", 2, 0.00025);
