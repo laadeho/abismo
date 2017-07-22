@@ -51,8 +51,8 @@ grafica/abismo_grafica/abismo_grafica/bin/*.pdb
 grafica/abismo_grafica/abismo_grafica/bin/*.dll
 grafica/abismo_grafica/abismo_grafica.VC.db
 grafica/abismo_grafica/abismo_grafica.VC.VC.opendb
-electronics/P5_readSerial_BT_OSCsend/application.windows32
-electronics/P5_readSerial_BT_OSCsend/application.windows64
+electronics/P5_readSerial_BT_OSCsend/application.windows32/*
+electronics/P5_readSerial_BT_OSCsend/application.windows64/*
 webMobirise/
 ehthumbs.db
 Thumbs.db
