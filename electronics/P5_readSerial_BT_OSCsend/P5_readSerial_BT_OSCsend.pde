@@ -363,6 +363,7 @@ void grafica(int numSerial, int posX, int posY) {
         background(0, 20);
       }
     }
+    emularSensores();
   }
 
   ppX_1 = pX; 

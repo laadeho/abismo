@@ -333,31 +333,26 @@ void ofApp::updateOSC() {
 
 	// check for waiting messages
 	while (receiver.hasWaitingMessages()) {
-		// get the next message
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
+		//std::cout << "Mensaje: " << m.getAddress() << endl;
 
-			std::cout << "Mensaje: " << m.getAddress() << endl;
-
-			if (m.getAddress() == "/escena") {
-				if (escena == 0 && m.getArgAsInt(0) == 1) {
-					if (!entraLogo)
-						saleLogo = true;
-				}
-				/*else if (escena == 1) {
-					cambia01 = true;
-				}*/
-				else {
-					//escena++;
-					escena = m.getArgAsInt(0);
-					std::cout << "Mensaje escena Num: " << m.getArgAsInt(0) << endl;
-					escena = escena % numEscenas;
-
-				}
-
-				
+		if (m.getAddress() == "/escena") {
+			if (escena == 0 && m.getArgAsInt(0) == 1) {
+				if (!entraLogo)
+					saleLogo = true;
 			}
-			else if (m.getAddress() == "/alpha") {
+			/*else if (escena == 1) {
+			cambia01 = true;
+			}*/
+			else {
+				//escena++;
+				escena = m.getArgAsInt(0);
+				std::cout << "Mensaje escena Num: " << m.getArgAsInt(0) << endl;
+				escena = escena % numEscenas;
+			}
+		}
+		else if (m.getAddress() == "/alpha") {
 			if (m.getArgAsInt(0) == 1)
 				valSensor1[0] = m.getArgAsFloat(1);
 			else if (m.getArgAsInt(0) == 2)
@@ -453,8 +448,6 @@ void ofApp::updateOSC() {
 		else if (m.getAddress() == "/pulse") {
 			int pulseAt1 = int(m.getArgAsInt(0));
 			if (pulseAt1 == 1) {
-				if (debug)
-					ofLogNotice("Pulso 1: "+ofToString(m.getArgAsInt(1)));
 				valSensor1[5] = int(m.getArgAsInt(1));
 			}
 			else if (pulseAt1 == 2) {
@@ -464,8 +457,6 @@ void ofApp::updateOSC() {
 		else if (m.getAddress() == "/gsr") {
 			int gsrAt1 = int(m.getArgAsInt(0));
 			if (gsrAt1 == 1) {
-				if(debug)
-					ofLogNotice("GSR 1: " + ofToString(m.getArgAsInt(1)));
 				valSensor1[6] = int(m.getArgAsInt(1));
 			}
 			else if (gsrAt1 == 2) {
@@ -571,8 +562,10 @@ void ofApp::draw(){
 	///// DRAW ///////////////////////////////////////////////////////
 	if(showGui)
 		gui.draw();
-	debugF();
-	muestraValSensores();
+	if (debug) {
+		debugF();
+		muestraValSensores();
+	}
 }
 
 void ofApp::debugF() {
@@ -743,79 +736,58 @@ void ofApp::escena01() {
 		ofSetColor(255, opa01);
 		ofFill();
 		ofPushStyle();
-
 		for (int i = 0; i < numSens - 2; i++) {
 			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i]);
 		}
-
 		for (int i = numSens - 2; i < numSens; i++) {
 			posActY1[i - numSens + 2] = ofGetHeight() - 150 - 110 * i;
 			valOnda1 = valSensor1[i];
 			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY1[i - numSens + 2], valOnda1);
 			valOnda1 = 0;
 		}
-
 		posPrevY1[0] = valSensor1[numSens-2];
 		posPrevY1[1] = valSensor1[numSens-1];
-
 		ofPopStyle();
-
 		museConectado(ofGetWidth() / 2 - 400, 60, 1);
 		// Gyro y Acc
 		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX1, accY1, accZ1, ofColor(0, 204, 204), "Acelerometro");
 		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX1, gyroY1, gyroZ1, ofColor(204, 0, 0), "Giroscopio");
 		/////////////////////////// CONTENIDO PARA USUARIO 1
 
-
-
-
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
 		ofPushMatrix();
-		ofTranslate(ofGetWidth(), 0, 0);
-		ofScale(-1, 1, 1); 
+		ofTranslate(ofGetWidth()/2 - posIniX/2, 0, 0);
+		//ofScale(-1, 1, 1); 
 		ofSetColor(255, opa01);
 		ofFill();
 		ofPushStyle();
-
 		for (int i = 0; i < numSens - 2; i++) {
 			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i]);
 		}
-
 		for (int i = numSens - 2; i < numSens; i++) {
 			posActY1[i - numSens + 2] = ofGetHeight() - 150 - 110 * i;
 			valOnda2 = valSensor2[i];
 			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY2[i - numSens + 2], valOnda2);
-			valOnda2 = 0;
 		}
-
 		posPrevY2[0] = valSensor2[numSens - 2];
 		posPrevY2[1] = valSensor2[numSens - 1];
-
 		ofPopStyle();
-
-		museConectado(ofGetWidth() / 2 - 400, 60, 1);
+		museConectado(350, 60, 1);
 		// Gyro y Acc
-		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
-		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
+		//ofTranslate(-ofGetWidth() / 2, 0, 0);
+		dibujaOrientaciones(250, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
+		dibujaOrientaciones(150, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
 		ofPopMatrix();
-
-		/*ofPushMatrix();
-		ofTranslate(ofGetWidth(), 0, 0);
-		ofScale(-1, 1, 1);
-
-		ofPushStyle();
-		for (int i = 0; i < numSens; i++) {
-			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i]);
-		}
-		ofPopStyle();
-
-		museConectado(ofGetWidth() / 2 - 400, 60, 2);
-		// Gyro y Acc
-		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
-		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
-		ofPopMatrix();*/
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
-
+		if (debug) {
+			ofPushStyle();
+			ofSetColor(255, 0, 0, 120);
+			ofFill();
+			ofLine(ofGetWidth() / 2, 0, ofGetWidth() / 2, 400);
+			ofLine(ofGetWidth() / 2 - 350, 0, ofGetWidth() / 2 - 350, 200);
+			ofLine(ofGetWidth() / 2 + 350, 0, ofGetWidth() / 2 + 350, 200);
+			ofPopStyle();
+		}
 		break;
 	case 1: // HEXÁGONOS
 		ofPushMatrix();
