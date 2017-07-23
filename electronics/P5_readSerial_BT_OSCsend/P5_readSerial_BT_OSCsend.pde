@@ -284,39 +284,32 @@ void grafica(int numSerial, int posX, int posY) {
         myMessage.add(valPulso1);
         oscP5.send(myMessage, puerto7000);
         oscP5.send(myMessage, puerto57120);
-
-        enviaCero1 = true;
       } else {
-        valPulso1 = 0;
-        if (enviaCero1) {
+        if (valPulso1>0)
+          valPulso1 = int(valPulso1*0.7);
+        OscMessage myMessage = new OscMessage("/pulse");
+        myMessage.add(numSerial);
+        myMessage.add(valPulso1);
+        oscP5.send(myMessage, puerto7000);
+        oscP5.send(myMessage, puerto57120);
+      }
 
-          OscMessage myMessage = new OscMessage("/pulse");
-          myMessage.add(numSerial);
-          myMessage.add(valPulso1);
-          oscP5.send(myMessage, puerto7000);
-          oscP5.send(myMessage, puerto57120);
-          enviaCero1 = false;
-        }
+      valGSR1 = int(noise(millis()*0.0025)*6);
+      posGSRy1 = valGSR1; 
+      if (frameCount%5==0) {
+        OscMessage myMessage = new OscMessage("/gsr");
+        myMessage.add(numSerial);
+        myMessage.add(valGSR1);
+        oscP5.send(myMessage, puerto7000);
+        oscP5.send(myMessage, puerto57120);
+      }
+      strokeWeight(1);
+      if (pX%width != 0) {
+        stroke(255, 0, 0);
+        line(posX+pX, posY+100+valPulso1, posX+ppX_1, posY+100+ppY2_1);
 
-        valGSR1 = int(noise(millis()*0.0025)*6);
-        posGSRy1 = valGSR1; 
-        if (frameCount%5==0) {
-          OscMessage myMessage = new OscMessage("/gsr");
-          myMessage.add(numSerial);
-          myMessage.add(valGSR1);
-          oscP5.send(myMessage, puerto7000);
-          oscP5.send(myMessage, puerto57120);
-        }
-        strokeWeight(1);
-        if (pX%width != 0) {
-          stroke(255, 0, 0);
-          line(posX+pX, posY+100+valPulso1, posX+ppX_1, posY+100+ppY2_1);
-
-          stroke(255);
-          line(posX+pX, posY+250+posGSRy1, posX+ppX_1, posY+250+ppY_1);
-        } else {
-          background(0, 20);
-        }
+        stroke(255);
+        line(posX+pX, posY+250+posGSRy1, posX+ppX_1, posY+250+ppY_1);
       }
     } else if (numSerial == 2) {
       /////////////////////////////////////////////////////////////////////  2 
@@ -327,19 +320,15 @@ void grafica(int numSerial, int posX, int posY) {
         myMessage.add(valPulso2);
         oscP5.send(myMessage, puerto7000);
         oscP5.send(myMessage, puerto57120);
-
-        enviaCero2 = true;
       } else {
-        valPulso2 = 0;
-        if (enviaCero2) {
+        if (valPulso2>0)
+          valPulso2 = int(valPulso2*0.7);
 
-          OscMessage myMessage = new OscMessage("/pulse");
-          myMessage.add(numSerial);
-          myMessage.add(valPulso2);
-          oscP5.send(myMessage, puerto7000);
-          oscP5.send(myMessage, puerto57120);
-          enviaCero2 = false;
-        }
+        OscMessage myMessage = new OscMessage("/pulse");
+        myMessage.add(numSerial);
+        myMessage.add(valPulso2);
+        oscP5.send(myMessage, puerto7000);
+        oscP5.send(myMessage, puerto57120);
       }
 
       valGSR2 = int(noise(millis()*0.005)*6);

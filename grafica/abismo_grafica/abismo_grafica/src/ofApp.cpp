@@ -384,14 +384,14 @@ void ofApp::updateOSC() {
 		}
 		else if (m.getAddress() == "/accelerometer") {
 			if (m.getArgAsInt(0) == 1) {
-				accX1 = int(m.getArgAsDouble(1));
-				accY1 = int(m.getArgAsDouble(2));
-				accZ1 = int(m.getArgAsDouble(3));
+				accX1 = float(m.getArgAsDouble(1));
+				accY1 = float(m.getArgAsDouble(2));
+				accZ1 = float(m.getArgAsDouble(3));
 			}
 			else if (m.getArgAsInt(0) == 2) {
-				accX2 = int(m.getArgAsDouble(1));
-				accY2 = int(m.getArgAsDouble(2));
-				accZ2 = int(m.getArgAsDouble(3));
+				accX2 = float(m.getArgAsDouble(1));
+				accY2 = float(m.getArgAsDouble(2));
+				accZ2 = float(m.getArgAsDouble(3));
 			}
 			//std::cout << "ACCELEROMETER: " << m.getAddress() << endl;
 		}
@@ -406,7 +406,7 @@ void ofApp::updateOSC() {
 				gyroY2 = int(m.getArgAsDouble(2));
 				gyroZ2 = int(m.getArgAsDouble(3));
 			}
-			//std::cout << "gX: " << gyroX << ", gY: " << gyroY << ", gZ: " << gyroZ << endl;
+			//std::cout << "gX: " << gyroX1 << ", gY: " << gyroY1 << ", gZ: " << gyroZ1 << endl;
 		}
 		else if (m.getAddress() == "/artifacts") {
 			if (m.getArgAsInt(0) == 1) {
@@ -725,24 +725,22 @@ void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
 	ofEnableAlphaBlending();
 	ofPushStyle();
-
-	if (debug) {
-		ofDrawBitmapString("Esc01: " + ofToString(esc01), 250, 50);
-	}
 	int cuenta = 0; ////////////////////////////////////////////////////////////////////// BORRAR BORRAR BORRAR BORRAR BORRAR BORRAR
 	switch (esc01) {
 	case 0:
 		/////////////////////////// CONTENIDO PARA USUARIO 1
-		ofSetColor(255, opa01);
-		ofFill();
 		ofPushStyle();
 		for (int i = 0; i < numSens - 2; i++) {
-			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i]);
+			ofColor c;
+			c.setHsb((360 / (numSens+1)) * i, 100, 100, opa01);
+			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, valSensor1[i], c);
 		}
 		for (int i = numSens - 2; i < numSens; i++) {
 			posActY1[i - numSens + 2] = ofGetHeight() - 150 - 110 * i;
 			valOnda1 = valSensor1[i];
-			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY1[i - numSens + 2], valOnda1);
+			ofColor c;
+			c.setHsb((360 / (numSens + 1)) * i, 100, 100, opa01);
+			dibujaOnda(i, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY1[i - numSens + 2], valOnda1, c);
 			valOnda1 = 0;
 		}
 		posPrevY1[0] = valSensor1[numSens-2];
@@ -757,17 +755,23 @@ void ofApp::escena01() {
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
 		ofPushMatrix();
 		ofTranslate(ofGetWidth()/2 - posIniX/2, 0, 0);
-		//ofScale(-1, 1, 1); 
-		ofSetColor(255, opa01);
+		/*ofSetColor(255, opa01);
 		ofFill();
+		*/
 		ofPushStyle();
 		for (int i = 0; i < numSens - 2; i++) {
-			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i]);
+			ofColor c;
+			c.setHsb((360 / (numSens + 1)) * i, 100, 100, opa01);
+			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, valSensor2[i], c);
 		}
 		for (int i = numSens - 2; i < numSens; i++) {
 			posActY1[i - numSens + 2] = ofGetHeight() - 150 - 110 * i;
 			valOnda2 = valSensor2[i];
-			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY2[i - numSens + 2], valOnda2);
+			ofColor c;
+			c.setHsb((360 / (numSens + 1)) * i, 100, 100, opa01);
+			//dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY2[i - numSens + 2], valOnda2, c);
+			dibujaOnda(i + numSens, posIniX, ofGetHeight() - 150 - 110 * i, posPrevY2[i - numSens + 2], valOnda2, c);
+
 		}
 		posPrevY2[0] = valSensor2[numSens - 2];
 		posPrevY2[1] = valSensor2[numSens - 1];
@@ -966,77 +970,57 @@ void ofApp::escena01() {
 	ofPopStyle();
 	ofDisableAlphaBlending();
 }
-void ofApp::dibujaOnda(int indice, int pX, int pY, float val) {
+void ofApp::dibujaLineas(int pX, int pY) {
 	ofPushStyle();
-	ofSetColor(255, opa01);
+	ofSetColor(colLine, opa01);
+	ofNoFill();
+	ofSetLineWidth(1);
+	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
+		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
+	}
+	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50); // LINEA HORIZONTAL
+	ofPopStyle();
+}
+void ofApp::dibujaOnda(int indice, int pX, int pY, float val, ofColor col) {
+	ofPushStyle();
 	ondasFbo[indice].begin();
-	ofSetColor(255, opa01 - val * 50);
+	ofSetColor(col, opa01 - val * 50);
 	ofFill();
 	ofEllipse(posOndaX, 50 + ofMap(val, 0, 1, 25, -25), 1 + 8 * val, 1 + 8 * val);
 	ondasFbo[indice].end();
-
-	ofSetColor(255, 255, 255, opa01);
 	ondasFbo[indice].draw(pX, pY);
 	//////////////////////
+	ofSetColor(col, opa01);
 	ofFill();
-	ofSetColor(255, opa01);
 	if (indice<numSens)
 		texto1.drawString(sensor[indice], pX, pY);
 	else
 		texto1.drawString(sensor[indice - numSens], pX, pY);
-	ofSetLineWidth(1);
-	ofNoFill();
-	ofSetColor(255, opa01);
-	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
-		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
-	}
-
-	ofNoFill();
-	ofSetLineWidth(1);
-	ofSetColor(255, opa01);
-	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
+	dibujaLineas(pX, pY);
 	ofPopStyle();
-
 }
-void ofApp::dibujaOnda(int indice, int pX, int pY, int ppYprev, float val) {
+void ofApp::dibujaOnda(int indice, int pX, int pY, int ppYprev, float val, ofColor col) {
 	ofPushStyle();
-	ofSetColor(255, opa01);
 	ondasFbo[indice].begin();
-	//////////////////////////// solo testeo
-	ofFill();
-	ofEllipse(pX, pY, 50, 50);
-	//////////////////////////// solo testeo
-	
-	ofSetColor(255, opa01);// -val * 50);
-	ofNoFill();
-	if(indice == 5)
+	ofSetLineWidth(3);
+	ofSetColor(col, opa01);// -val * 50);
+	ofFill(); 
+	if (indice == 5 || indice == 5 + numSens) {
 		ofLine(posOndaX, 50 + ofMap(val, 0, 255, 25, -25), posOndaX - 1, 50 + ofMap(ppYprev, 0, 255, 25, -25));
-	else
+	}
+	else {
 		ofLine(posOndaX, 50 + ofMap(val, 0, 10, 25, -25), posOndaX - 1, 50 + ofMap(ppYprev, 0, 10, 25, -25));
-	
+	}
 	ondasFbo[indice].end();
-	ofSetColor(255, 255, 255, opa01);
 	ondasFbo[indice].draw(pX, pY);
-	
 	//////////////////////
+	ofSetColor(col, opa01);
 	ofFill();
-	ofSetColor(255, opa01);
 	if (indice<numSens)
 		texto1.drawString(sensor[indice], pX, pY);
 	else
 		texto1.drawString(sensor[indice - numSens], pX, pY);
-	ofSetLineWidth(1);
-	ofNoFill();
-	ofSetColor(255, opa01);
-	for (int i = 0; i < 6; i++) { // LINEAS VERTICALES
-		ofLine(pX + (ondasFbo[0].getWidth() / 5)*i, pY + 30, pX + (ondasFbo[0].getWidth() / 5)*i, pY + 70);
-	}
-
-	ofNoFill();
-	ofSetLineWidth(1);
-	ofSetColor(255, opa01);
-	ofLine(pX, pY + 50, pX + ondasFbo[0].getWidth(), pY + 50);
-
+	dibujaLineas(pX, pY);
 	ofPopStyle();
 }
 
