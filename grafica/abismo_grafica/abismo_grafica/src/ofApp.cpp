@@ -632,19 +632,29 @@ void ofApp::updateEsc01() {
 			}
 		}
 		if (pasada >= 2) {
-
+			cambia01 = true;
 		}
 		break;
 	case 1:
-		for (int i = 0; i < numPart; i++) {
+		for (int i = 0; i < numPart - 2; i++) {
 			particulas1[i].set(
 				sin((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
 				cos((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
-				0);			
+				0);
 			particulas2[i].set(
-					sin((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
-					cos((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
-					0);
+				sin((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+				cos((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+				0);
+		}
+		for (int i = numPart-2; i < numPart; i++) {
+			particulas1[i].set(
+				sin((TWO_PI / numPart)*i)*(radio01 + ofMap(valSensor1[i], 0, 255, 0, 1) *multSensores)*escala01,
+				cos((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor1[i], 0, 255, 0, 1) * multSensores)*escala01,
+				0);
+			particulas2[i].set(
+				sin((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
+				cos((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
+				0);
 		}
 		if (radio01 < radio01Fin)
 			radio01 += 0.5;
@@ -746,7 +756,7 @@ void ofApp::escena01() {
 		posPrevY1[0] = valSensor1[numSens-2];
 		posPrevY1[1] = valSensor1[numSens-1];
 		ofPopStyle();
-		museConectado(ofGetWidth() / 2 - 400, 60, 1);
+		museConectado(ofGetWidth() / 2 - 350, 60, 1);
 		// Gyro y Acc
 		dibujaOrientaciones(ofGetWidth() / 2 - 200, 100, accX1, accY1, accZ1, ofColor(0, 204, 204), "Acelerometro");
 		dibujaOrientaciones(ofGetWidth() / 2 - 100, 100, gyroX1, gyroY1, gyroZ1, ofColor(204, 0, 0), "Giroscopio");
@@ -755,9 +765,6 @@ void ofApp::escena01() {
 		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
 		ofPushMatrix();
 		ofTranslate(ofGetWidth()/2 - posIniX/2, 0, 0);
-		/*ofSetColor(255, opa01);
-		ofFill();
-		*/
 		ofPushStyle();
 		for (int i = 0; i < numSens - 2; i++) {
 			ofColor c;
@@ -776,24 +783,26 @@ void ofApp::escena01() {
 		posPrevY2[0] = valSensor2[numSens - 2];
 		posPrevY2[1] = valSensor2[numSens - 1];
 		ofPopStyle();
-		museConectado(350, 60, 1);
+		museConectado(400, 60, 1);
 		// Gyro y Acc
 		//ofTranslate(-ofGetWidth() / 2, 0, 0);
 		dibujaOrientaciones(250, 100, accX2, accY2, accZ2, ofColor(0, 204, 204), "Acelerometro");
 		dibujaOrientaciones(150, 100, gyroX2, gyroY2, gyroZ2, ofColor(204, 0, 0), "Giroscopio");
 		ofPopMatrix();
-		/////////////////////////// CONTENIDO EN ESPEJO PARA USUARIO 2
-		if (debug) {
-			ofPushStyle();
-			ofSetColor(255, 0, 0, 120);
-			ofFill();
-			ofLine(ofGetWidth() / 2, 0, ofGetWidth() / 2, 400);
-			ofLine(ofGetWidth() / 2 - 350, 0, ofGetWidth() / 2 - 350, 200);
-			ofLine(ofGetWidth() / 2 + 350, 0, ofGetWidth() / 2 + 350, 200);
-			ofPopStyle();
-		}
 		break;
 	case 1: // HEXÁGONOS
+		if (valSensor1[5] > 100) {
+			if (aumentaCuentaPulso = true) {
+				cuentaPulsos++;
+				aumentaCuentaPulso = false;
+			}
+		}
+		else if (valSensor1[5] < 5) {
+			aumentaCuentaPulso = true;
+		}
+		if(cuentaPulsos > 100)
+			cambia01 = true;
+
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 		/////////////////////////////////////////////
@@ -857,6 +866,9 @@ void ofApp::escena01() {
 		//////////
 		ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 		for (int j = 0; j < anillos; j++) {
+			ofColor c;
+			c.setHsb((360 / (numSens + 1)) * j, 100, 100, opa01 / anillos);
+			ofFill();
 			ofBeginShape();
 			for (int i = 0; i < numPart; i++) {
 				ofVertex(
@@ -880,6 +892,7 @@ void ofApp::escena01() {
 			}
 			ofEndShape();
 		}
+		
 		// Dibujo elipses
 		ofSetColor(255, opa01);
 		ofFill();
@@ -894,7 +907,6 @@ void ofApp::escena01() {
 		ofPopMatrix();
 
 		ofPopMatrix();
-
 		break;
 
 	case 2:
@@ -1077,10 +1089,19 @@ void ofApp::escena02() {
 		ofSetColor(colPuntos02);
 		ofFill();
 		
+		if (ofGetFrameNum() % 650 == 0)
+			switchEllipse = !switchEllipse;
+
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				//nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.0005 + i + j*numPart2X) * 250;
-				ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
+				if (switchEllipse) {
+					ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
+				}
+				else {
+					if (i % 2 == 0 && j % 2 == 0)
+						ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
+				}
 			}
 		}
 	}
@@ -1379,7 +1400,6 @@ void ofApp::keyPressed(int key) {
 		}
 		escena = escena % numEscenas;
 	}
-	//escenas = escena;
 }
 ///////////////////// EXIT ///////////////
 void ofApp::exit() {

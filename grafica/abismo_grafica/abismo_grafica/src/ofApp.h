@@ -78,7 +78,10 @@ class ofApp : public ofBaseApp{
 		float opaLogo;
 		// escena 01
 		int colLine = 100; // Color de lineas esc01
-		int pasada = 0;
+		int pasada = 0; // Barridos de posicion en X
+		int cuentaPulsos = 0;
+		bool aumentaCuentaPulso = true;
+
 		int valOnda1, valOnda2;
 
 		void museConectado(int, int, int);
@@ -117,11 +120,12 @@ class ofApp : public ofBaseApp{
 		bool iniciaOpa01b = false;
 
 		// escena 02
-		int numPart2X = 30, numPart2Y = 18;
+		int numPart2X = 60, numPart2Y = 36;
 		int sep2X, sep2Y;
-		ofVec3f nodos[30 * 18];
-		float tamNodos[30 * 18];
-		int colNodo02[30 * 18];
+		ofVec3f nodos[60 * 36];
+		float tamNodos[60 * 36];
+		int colNodo02[60 * 36];
+		bool switchEllipse = false;
 
 		ofVec2f sensorPosiciones[7];
 		ofVec2f velSensores[7];

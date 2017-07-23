@@ -47,7 +47,7 @@ void emulaOndaB(String etiqueta, int sensor, float multi, boolean giroCompleto) 
 }
 
 void emulaOndaC(String etiqueta, int sensor, float multi, boolean giroCompleto) {
-  int blink, jawClench;
+  double enc = 1, blink, jawClench;
   if (frameCount%160 == 0 || frameCount%220 == 0) {
     blink = 1;
   } else
@@ -60,7 +60,7 @@ void emulaOndaC(String etiqueta, int sensor, float multi, boolean giroCompleto) 
 
   OscMessage myMessage = new OscMessage(etiqueta);
   myMessage.add(sensor);
-  myMessage.add(1);
+  myMessage.add(enc);
   myMessage.add(blink);
   myMessage.add(jawClench);
   oscP5.send(myMessage, puerto7000);
