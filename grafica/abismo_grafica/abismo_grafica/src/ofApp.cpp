@@ -31,45 +31,7 @@ void ofApp::setup(){
 	// ESC 00 /////////////////////////
 	logoAbismo.load("images/abismoLogo_1240x600.png");
 	setupEsc01();
-	// ESC 02 /////////////////////////
-	sep2X = ofGetWidth() / (numPart2X-1);
-	sep2Y = ofGetHeight() / (numPart2Y-1);
-
-	for (int i = 0; i < 6; i++) {
-		sensorPosiciones[i] = ofVec2f(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
-		velSensores[i] = ofVec2f(0, 0);
-	}
-
-	for (int j = 0; j < numPart2Y; j++) {
-		for (int i = 0; i < numPart2X; i++) {
-			nodos[i + j*numPart2X] = ofVec3f(sep2X*i ,sep2Y*j, 0);
-			tamNodos[i + j*numPart2X] = 5.0f;
-		}
-	}
-
-	numPart02 = numPart2X*numPart2Y; // cambiar variable a setup
-	incCol02 = 125 / numPart02;
-
-	superficie02.setMode(OF_PRIMITIVE_TRIANGLES);
-	for (int j = 0; j < numPart2Y; j++) {
-		for (int i = 0; i < numPart2X; i++) {
-			superficie02.addVertex(ofPoint(nodos[i + j*numPart2X]));
-			superficie02.addColor(ofColor(125 + incCol02*(i + j*numPart2X)));
-			//superficie02.addColor(ofColor((1 / (numPart2X*numPart2Y))*i + j*numPart2X));
-		}
-	}
-	for (int j = 0; j < numPart2Y-1; j++) {
-		for (int i = 0; i < numPart2X-1; i++) {
-			superficie02.addIndex(i + j*numPart2X);
-			superficie02.addIndex((i + 1) + j*numPart2X);
-			superficie02.addIndex(i + (j + 1)*numPart2X);
-
-			superficie02.addIndex((i + 1) + j*numPart2X);
-			superficie02.addIndex((i + 1) + (j + 1)*numPart2X);
-			superficie02.addIndex(i + (j + 1)*numPart2X);
-
-		}
-	}
+	setupEsc02();
 	/*
 	ofVec2f test = ofVec2f(10, 10);
 	camera.setupPerspective(true, .9, .5, 650, test);
@@ -133,96 +95,18 @@ void ofApp::update() {
 		updateEsc01();
 		break;
 	case 2:
-		for (int i = 0; i < numSens; i++) {
-			if (direcciones2X[i])
-				velSensores[i].x = valSensor1[i]* velMult;
-			else
-				velSensores[i].x = -valSensor1[i]* velMult;
-			///// Cambiar al sensor 2 movimiento en X lo da un sensor y movimiento en Y lo dará el segundo
-			if (direcciones2Y[i])
-				velSensores[i].y = valSensor1[i]* velMult;
-			else
-				velSensores[i].y = -valSensor1[i]* velMult;
-
-			sensorPosiciones[i].set(sensorPosiciones[i].x+velSensores[i].x, sensorPosiciones[i].y+velSensores[i].y);
-
-			// Invertir las direcciones al tener colisión
-			if (sensorPosiciones[i].x > ofGetWidth() || sensorPosiciones[i].x < 0) {
-				direcciones2X[i] =! direcciones2X[i];
-			}
-			if (sensorPosiciones[i].y > ofGetHeight() || sensorPosiciones[i].y < 0) {
-				direcciones2Y[i] =! direcciones2Y[i];
-			}
-		}
-		ofSetCircleResolution(30);
-		for (int j = 0; j < numPart2Y; j++) {
-			for (int i = 0; i < numPart2X; i++) {
-				// estados al estar cerca de un nodo
-				for (int k = 0; k < 6; k++) {
-					int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
-				
-					if (distancia < dist02) {
-						tamNodos[i + j*numPart2X] = ofMap(distancia, 0, dist02, 50, 5);
-						if (!invertir02) {
-							nodos[i + j*numPart2X].z = distancia;
-						} else {
-							nodos[i + j*numPart2X].z = -distancia;
-						}
-					}
-					if (distancia > 1 && distancia < dist02) {
-						colNodo02[i + j*numPart2X] = distancia;
-					}
-				}
-				
-				// regreso progresivo a su estado inicial
-				if (tamNodos[i + j*numPart2X] > 5)
-					tamNodos[i + j*numPart2X]-=0.5;
-
-				if(!invertir02){
-					if (nodos[i + j*numPart2X].z < 0)
-						nodos[i + j*numPart2X].z++;
-				}
-				else {
-					if (nodos[i + j*numPart2X].z > 0)
-						nodos[i + j*numPart2X].z--;
-				}
-
-				if (colNodo02[i + j*numPart2X] < 125 + incCol02*(i + j*numPart2X))
-					colNodo02[i + j*numPart2X]++;
-				else 
-					colNodo02[i + j*numPart2X]--;
-
-			}
-		}
-		////// superficie
-		if (camara02) {
-			if (rotaParts < 1)
-				rotaParts += 0.0025;
-			if (rotaParts > 0.95)
-				gira2 = true;
-			if (gira2) {
-				rota360 += 0.25;
-				if (rota360 > 360)
-					rota360 = 0;
-			}
-		}
-		else {
-			if (rotaParts > 0)
-				rotaParts -= 0.0025;
-			if (gira2) {
-				if (rota360 < 180) {
-					if (rota360 > 0)
-						rota360 -= 0.25;
-					if (int(rota360) == 0)
-						gira2 = false;
-				}
-				else if (rota360 > 180)
-					if (rota360 < 360)
-						rota360 += 0.25;
-			}
-		}
+		updateEsc02();
 		break;
 	case 3:
+		updateEsc03();
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
 		break;
 	default:
 		break;
@@ -330,21 +214,23 @@ void ofApp::updateOSC() {
 			msg_strings[i] = "";
 		}
 	}
-
 	// check for waiting messages
 	while (receiver.hasWaitingMessages()) {
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
 		//std::cout << "Mensaje: " << m.getAddress() << endl;
-
 		if (m.getAddress() == "/escena") {
 			if (escena == 0 && m.getArgAsInt(0) == 1) {
 				if (!entraLogo)
 					saleLogo = true;
 			}
-			/*else if (escena == 1) {
-			cambia01 = true;
-			}*/
+			else if (escena == 1) {
+				cambia01 = true;
+			}
+			else if (escena == 2) {
+				camara02 = true;
+				escena++;
+			}
 			else {
 				//escena++;
 				escena = m.getArgAsInt(0);
@@ -495,8 +381,7 @@ void ofApp::updateOSC() {
 		}
 	}
 }
-
-
+//--------------------------------------------------------------
 void ofApp::muestraValSensores() {
 	if (debug) {
 		ofPushStyle();
@@ -515,12 +400,11 @@ void ofApp::muestraValSensores() {
 }
 //--------------------------------------------------------------
 void ofApp::draw(){
-	///// DRAW ///////////////////////////////////////////////////////
-	if (titulo) {
-		ofSetColor(255);
-		ofFill();
-		titulos.drawString(ofToString(escena) + ": " + sensaciones[escena], 100, 100);
+	if (alphaActivo) {
+		ofEnableAlphaBlending();
 	}
+	///// DRAW ///////////////////////////////////////////////////////
+
 	
 	switch (escena)
 	{
@@ -535,7 +419,6 @@ void ofApp::draw(){
 		break;
 	case 3:
 		escena03();
-		
 		break;
 	case 4:
 		escena04();
@@ -566,6 +449,11 @@ void ofApp::draw(){
 		debugF();
 		muestraValSensores();
 	}
+	if (titulo) {
+		ofSetColor(255);
+		ofFill();
+		titulos.drawString(ofToString(escena) + ": " + sensaciones[escena], 100, 100);
+	}
 }
 
 void ofApp::debugF() {
@@ -587,7 +475,9 @@ void ofApp::debugF() {
 		ofPopStyle();
 }
 
-/////////////// ESCENA 00
+/////////////// ESCENA 00 
+///////////////////////////// LOGO
+
 void ofApp::escena00() {
 	if(debug){
 		ofSetColor(255);
@@ -601,10 +491,12 @@ void ofApp::escena00() {
 
 	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255, opaLogo);
+	//logoAbismo.draw(-120, ofGetHeight() / 2 - 300);
 	logoAbismo.draw(ofGetWidth() / 2 - 620, ofGetHeight() / 2 - 300);
 	ofDisableAlphaBlending();
 }
 /////////////// ESCENA 01
+///////////////////////////// Entendimiento / Tranquilidad
 void ofApp::setupEsc01() {
 	anchoOndaVentana = ofGetWidth() / 2 - posIniX - sep;
 	for (int i = 0; i < numSens*2; i++) {
@@ -631,7 +523,7 @@ void ofApp::updateEsc01() {
 				ondasFbo[i].end();
 			}
 		}
-		if (pasada >= 2) {
+		if (pasada >= 1) {
 			cambia01 = true;
 		}
 		break;
@@ -658,6 +550,19 @@ void ofApp::updateEsc01() {
 		}
 		if (radio01 < radio01Fin)
 			radio01 += 0.5;
+
+		if (valSensor1[5] > 100) {
+			if (aumentaCuentaPulso = true) {
+				cuentaPulsos++;
+				aumentaCuentaPulso = false;
+			}
+		}
+		else if (valSensor1[5] < 5) {
+			aumentaCuentaPulso = true;
+		}
+		if (cuentaPulsos > 80)
+			cambia01 = true;
+
 		break;
 	case 2:
 		if (!partInPos) {
@@ -689,9 +594,22 @@ void ofApp::updateEsc01() {
 				}
 			}
 		}
-		for (int i = 0; i < numPart; i++) {
+		for (int i = 0; i < numPart - 2; i++) {
 			particulas1[i].set(particulas1[i].x, valSensor1[i] * 150 * escala01, 0);
 		}
+		//ofLogNotice("Val Sensor 1 [5]" + ofToString(ofMap(valSensor1[numPart - 1], 0, 20, 0, 1) * 150 * escala01));
+		//pulso
+		particulas1[numPart - 2].set(
+			particulas1[numPart - 2].x,
+			int(ofMap(valSensor1[numPart - 2], 0, 255, 0, 1) * 150 * escala01),
+			0);
+		//gsr
+		particulas1[numPart - 1].set(
+			particulas1[numPart - 1].x,
+			ofMap(valSensor1[numPart - 1], 0, 20, 0, 1) * 150 * escala01,
+			0);
+		
+
 		break;
 	}
 	// Switch al cambiar de escena o contenido
@@ -735,9 +653,9 @@ void ofApp::escena01() {
 	// ENTENDIMIENTO // TRANQUILIDAD //
 	ofEnableAlphaBlending();
 	ofPushStyle();
-	int cuenta = 0; ////////////////////////////////////////////////////////////////////// BORRAR BORRAR BORRAR BORRAR BORRAR BORRAR
 	switch (esc01) {
 	case 0:
+		ofSetColor(255);
 		/////////////////////////// CONTENIDO PARA USUARIO 1
 		ofPushStyle();
 		for (int i = 0; i < numSens - 2; i++) {
@@ -791,18 +709,6 @@ void ofApp::escena01() {
 		ofPopMatrix();
 		break;
 	case 1: // HEXÁGONOS
-		if (valSensor1[5] > 100) {
-			if (aumentaCuentaPulso = true) {
-				cuentaPulsos++;
-				aumentaCuentaPulso = false;
-			}
-		}
-		else if (valSensor1[5] < 5) {
-			aumentaCuentaPulso = true;
-		}
-		if(cuentaPulsos > 100)
-			cambia01 = true;
-
 		ofPushMatrix();
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 		/////////////////////////////////////////////
@@ -920,38 +826,6 @@ void ofApp::escena01() {
 				particulas1[i].y,
 				5, 5);
 		}
-		/*
-		if (!partInPos) {
-		for (int i = 0; i < numPart; i++) {
-		float pTempX = particulas[i].x;
-
-		particulas[i].set(
-		pTempX, 0, 0
-		);
-
-		if (particulas[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
-		particulas[i].x += 5;
-		else
-		particulas[i].x -= 5;
-		}
-		if (particulas[0].x < -ofGetWidth() / 2 + 2) {
-		iniciaOpa01b = true;
-		partInPos = true;
-		}
-		}
-		else {
-		if (contador < 50)
-		contador++;
-		if (contador == 50) {
-		if (escala01 < 1)
-		escala01 += 0.025;
-		if (!cambia01) {
-		if (opa01b < 255)
-		opa01b++;
-		}
-		}
-		}
-		*/
 		if (iniciaOpa01b) {
 			ofPushStyle();
 			ofSetColor(255, opa01b / anillos);
@@ -1035,31 +909,64 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, int ppYprev, float val, ofCol
 	dibujaLineas(pX, pY);
 	ofPopStyle();
 }
-
 /////////////// ESCENA 02
+///////////////////////////// Expectativa
+void ofApp::setupEsc02() {
+	// ESC 02 /////////////////////////
+	sep2X = ofGetWidth() / (numPart2X - 1);
+	sep2Y = ofGetHeight() / (numPart2Y - 1);
+
+	for (int i = 0; i < 6; i++) {
+		sensorPosiciones[i] = ofVec2f(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()));
+		velSensores[i] = ofVec2f(0, 0);
+	}
+
+	for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			nodos[i + j*numPart2X] = ofVec3f(sep2X*i, sep2Y*j, 0);
+			tamNodos[i + j*numPart2X] = 5.0f;
+		}
+	}
+
+	numPart02 = numPart2X*numPart2Y; // cambiar variable a setup
+	incCol02 = 125 / numPart02;
+
+	superficie02.setMode(OF_PRIMITIVE_TRIANGLES);
+	for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			superficie02.addVertex(ofPoint(nodos[i + j*numPart2X]));
+			superficie02.addColor(ofColor(125 + incCol02*(i + j*numPart2X)));
+			//superficie02.addColor(ofColor((1 / (numPart2X*numPart2Y))*i + j*numPart2X));
+		}
+	}
+	for (int j = 0; j < numPart2Y - 1; j++) {
+		for (int i = 0; i < numPart2X - 1; i++) {
+			superficie02.addIndex(i + j*numPart2X);
+			superficie02.addIndex((i + 1) + j*numPart2X);
+			superficie02.addIndex(i + (j + 1)*numPart2X);
+
+			superficie02.addIndex((i + 1) + j*numPart2X);
+			superficie02.addIndex((i + 1) + (j + 1)*numPart2X);
+			superficie02.addIndex(i + (j + 1)*numPart2X);
+		}
+	}
+}
 void ofApp::escena02() {
-		myCam.begin();
-		ofPushMatrix();
-		
-		//if (camara02) {
-			ofRotateX(180 - rotaParts * 50);
-		//}
-//		else
-		//	ofRotateX(180);
+	myCam.begin();
+	ofPushMatrix();
+	ofRotateX(180 - rotaParts * 50);
 
-		if (gira2)
-			ofRotateZ(rota360);
+	if (gira2)
+		ofRotateZ(rota360);
 
-		ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2, -300);
-
-
+	ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2, -300);
 	if (malla02){
 		if (ampNodo02 < 1)
 			ampNodo02 += 0.0125;
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				superficie02.setVertex(i + j*numPart2X, nodos[i + j*numPart2X]);
-				superficie02.setColor(i + j*numPart2X, ofColor(colNodo02[i+j*numPart2X]*ampNodo02));
+				superficie02.setColor(i + j*numPart2X, ofColor(colNodo02[i + j*numPart2X] * ampNodo02, alphaSrf02));
 			}
 		}
 		superficie02.drawFaces();
@@ -1067,7 +974,6 @@ void ofApp::escena02() {
 	else
 		ampNodo02 = 0;
 	
-
 	if(ejes02){
 		if (colEjes02 < 100)
 			colEjes02 +=0.25;
@@ -1086,15 +992,32 @@ void ofApp::escena02() {
 	if (puntos02) {
 		if (colPuntos02 < 255)
 			colPuntos02 += 0.25;
-		ofSetColor(colPuntos02);
-		ofFill();
-		
-		if (ofGetFrameNum() % 650 == 0)
-			switchEllipse = !switchEllipse;
 
+		if (!cambiaColorNodo03) {
+			ofColor c = ofColor(255, 255, 255, colPuntos02);
+			ofSetColor(c);
+			ofFill();
+		}
+		else {
+			if (colRed < 255) {
+				colRed += 0.25;
+			}
+		}
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				//nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.0005 + i + j*numPart2X) * 250;
+				//ofColor c = ofColor(ofNoise(ofGetElapsedTimeMillis()*.001 + i + j*numPart2X)*colRed, 255, 255);
+				ofColor c;
+				if (cambiaColorNodo03) {
+					if (colRed < 255) {
+						c = ofColor(255, 255 - colRed, 255 - colRed);
+					}
+					else {
+						c = ofColor(ofNoise(ofGetElapsedTimeMillis()*.001 + i + j*numPart2X)*colRed, 0, 0);
+					}
+					ofSetColor(c);
+					ofFill();
+				}
 				if (switchEllipse) {
 					ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
 				}
@@ -1105,26 +1028,192 @@ void ofApp::escena02() {
 			}
 		}
 	}
-	else 
+	else
 		colPuntos02 = 0;
 
-//	if (camara02) {
-		ofPopMatrix();
-		myCam.end();
-//	}
-
-	ofPushStyle();
-	ofSetColor(255);
-	ofFill();
-	if (debug) {
-		ofDrawBitmapString(ofToString(rotaParts), 200, 200);
-		for (int j = 0; j < 6; j++) {
+	ofPopMatrix();
+	myCam.end();
+	
+	if (entra02) {
+		if (opa02 < 255)
+			opa02 += 0.25;
+	}
+	else {
+		if (opa02 > 0)
+			opa02 -= 0.25;
+		if (opa02 == 0)
+			dibujaPosiciones = false;
+	}
+	
+	if (dibujaPosiciones) {
+		ofPushStyle();
+		for (int j = 0; j < numSens; j++) {
+			ofColor c;
+			c.setHsb((360 / (numSens + 1)) * j, 100, 100, opa02);
+			ofSetColor(c);
+			ofFill();
 			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
 		}
+		ofPopStyle();
 	}
-	ofPopStyle();
+	if (debug) {
+		ofDrawBitmapString(ofToString(rotaParts), 200, 200);
+	}
 }
+///////////////
+void ofApp::updateEsc02() {
+	if(opa02>254)
+		cuenta02++;
+	if (autom02) {
+		if (cuenta02 > 400 && cuenta02 < 420) {
+			puntos02 = true;
+		}
+		else if (cuenta02 > 850 && cuenta02 < 870) {
+			ejes02 = true;
+		}
+		else if (cuenta02 > 2300 && cuenta02 < 2320) {
+			malla02 = true;
+			dibujaPosiciones = false;
+		}
+		else if (cuenta02 > 2500 && cuenta02 < 2510) {
+			cambiaRadios02 = true;
+		}
 
+		if (cambiaRadios02) {
+			if (velMult < 10) {
+				if (ofGetFrameNum() % 60 == 0) {
+					velMult++;
+				}
+			}
+
+			dist02 = 170 + sin(ofGetElapsedTimeMillis()*.0001) * 150;
+			if (ofGetFrameNum() % 650 == 0)
+				switchEllipse = !switchEllipse;
+		}
+		
+	}
+	/*
+	puntos02
+	ejes02
+	malla02
+	invertir02
+	dist02
+	camara02
+	circular02???
+	radio02??
+	*/
+	for (int i = 0; i < numSens; i++) {
+		if (i == numSens - 2) {
+			valSensor1[i] = ofMap(valSensor1[i], 0, 255, 0.1, 2);
+			valSensor2[i] = ofMap(valSensor2[i], 0, 255, 0.1, 2);
+		}
+		else if (i == numSens - 1) {
+			valSensor1[i] = ofMap(valSensor1[i], 0, 10, 0, 2);
+			valSensor2[i] = ofMap(valSensor2[i], 0, 10, 0, 2);
+		}
+
+		if (direcciones2X[i]) {
+			velSensores[i].x = valSensor1[i] * velMult;
+		}
+		else {
+			velSensores[i].x = -valSensor1[i] * velMult;
+		}
+		
+		///// Cambiar al sensor 2 movimiento en X lo da un sensor y movimiento en Y lo dará el segundo
+		if (direcciones2Y[i]) {
+			velSensores[i].y = valSensor2[i] * velMult;
+		}
+		else {
+			velSensores[i].y = -valSensor2[i] * velMult;
+		}
+
+		sensorPosiciones[i].set(sensorPosiciones[i].x + velSensores[i].x, sensorPosiciones[i].y + velSensores[i].y);
+
+		// Invertir las direcciones al tener colisión
+		if (sensorPosiciones[i].x > ofGetWidth() || sensorPosiciones[i].x < 0) {
+			direcciones2X[i] = !direcciones2X[i];
+			cuentaFueraPantalla[i]++;
+		}
+
+		if (sensorPosiciones[i].y > ofGetHeight() || sensorPosiciones[i].y < 0) {
+			direcciones2Y[i] = !direcciones2Y[i];
+			cuentaFueraPantalla[i]++;
+		}
+		if (cuentaFueraPantalla[i] > 30) {
+			sensorPosiciones[i].x = ofGetWidth() / 2;
+			sensorPosiciones[i].y = ofGetHeight() / 2;
+			cuentaFueraPantalla[i] = 0;
+		}
+	}
+	ofSetCircleResolution(30);
+	for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			// estados al estar cerca de un nodo
+			for (int k = 0; k < numSens; k++) {////////////////////////////////////////
+				int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
+
+				if (distancia < dist02) {
+					tamNodos[i + j*numPart2X] = ofMap(distancia, 0, dist02, 50, 5);
+					if (!invertir02) {
+						nodos[i + j*numPart2X].z = distancia;
+					}
+					else {
+						nodos[i + j*numPart2X].z = -distancia;
+					}
+				}
+				if (distancia > 1 && distancia < dist02) {
+					colNodo02[i + j*numPart2X] = distancia;
+				}
+			}
+
+			// regreso progresivo a su estado inicial
+			if (tamNodos[i + j*numPart2X] > 5)
+				tamNodos[i + j*numPart2X] -= 0.5;
+
+			if (!invertir02) {
+				if (nodos[i + j*numPart2X].z < 0)
+					nodos[i + j*numPart2X].z++;
+			}
+			else {
+				if (nodos[i + j*numPart2X].z > 0)
+					nodos[i + j*numPart2X].z--;
+			}
+
+			if (colNodo02[i + j*numPart2X] < 125 + incCol02*(i + j*numPart2X))
+				colNodo02[i + j*numPart2X]++;
+			else
+				colNodo02[i + j*numPart2X]--;
+
+		}
+	}
+	////// superficie
+	if (camara02) {
+		if (rotaParts < 1)
+			rotaParts += 0.0025;
+		if (rotaParts > 0.95)
+			gira2 = true;
+		if (gira2) {
+			rota360 += 0.25;
+			if (rota360 > 360)
+				rota360 = 0;
+		}
+	}
+	else {
+		if (rotaParts > 0)
+			rotaParts -= 0.0025;
+		if (gira2) {
+			if (rota360 < 180) {
+				if (rota360 > 0)
+					rota360 -= 0.25;
+				if (int(rota360) == 0)
+					gira2 = false;
+			}
+			else if (rota360 > 180)
+				if (rota360 < 360)
+					rota360 += 0.25;
+		}
+	}
+}
 /* NOTAS CAMARA 3d
 // ofCamera myCam;
 float tweenvalue = (ofGetElapsedTimeMillis() % 6000) / 6000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds
@@ -1165,38 +1254,241 @@ lerpPos.z = ofLerp(tweenvalue, startPos.z, targetPos.z);
 // myCam.setGlobalPosition(lerpPos);
 */
 /////////////// ESCENA 03
+///////////////////////////// MIEDO
 void ofApp::escena03() {
+	escena02();
+}
+void ofApp::updateEsc03() {
+	cuenta03++;
+	if (alphaSrf02 > 0)
+		alphaSrf02 -= 1;
+	else if (alphaSrf02 == 0)
+		malla02 = false;
 
+	if (cuenta03 < 15) {
+		ofSetSphereResolution(6);
+		
+		ejes02 = false;
+		puntos02 = true; 
+		fondo03 = true;
+		cambiaColorNodo03 = true;
+	}
+	else if (cuenta03 > 1500 && cuenta03 < 1550) {
+		ajusta03 = false;
+	}
+	else if (cuenta03 > 1900 && cuenta03 < 1910) {
+		ejes02 = true;
+	}
+	else if (cuenta03 > 3300 && cuenta03 < 3320) {
+		malla02 = true;
+		ejes02 = false;
+	}
+	if (fondo03) {
+		if (valSensor1[5] > 200 || valSensor2[5] > 200) {
+			ofBackground(205, 0, 0);
+		}
+		else {
+			ofBackground(0);
+		}
+	}
+	switchEllipse = true;
+
+	int radio02 = 500;
+	
+	int theta = 360 / numPart2X;
+	int phi = 360 / numPart2Y;
+	float mil03 = ofGetElapsedTimeMillis();
+	if (ajusta03) {
+		for (int j = 0; j < numPart2Y; j++) {
+			for (int i = 0; i < numPart2X; i++) {
+				nodos03[i + j*numPart2X].x = ofGetWidth() / 2 + (sin(phi*j)*cos(theta*i))*radio02;
+				nodos03[i + j*numPart2X].y = ofGetHeight() / 2 + (sin(phi*j)*sin(theta*i))*radio02;
+				nodos03[i + j*numPart2X].z = radio02/2+cos(theta*j)*radio02;
+
+				if (nodos[i + j*numPart2X].x > nodos03[i + j*numPart2X].x)
+					nodos[i + j*numPart2X].x--;
+				else
+					nodos[i + j*numPart2X].x++;
+				if (nodos[i + j*numPart2X].y > nodos03[i + j*numPart2X].y)
+					nodos[i + j*numPart2X].y--;
+				else
+					nodos[i + j*numPart2X].y++;
+				if (nodos[i + j*numPart2X].z > nodos03[i + j*numPart2X].z)
+					nodos[i + j*numPart2X].z--;
+				else
+					nodos[i + j*numPart2X].z++;
+			}
+		}
+	}
+	else {
+		camara02 = true;
+		for (int j = 0; j < numPart2Y; j++) {
+			for (int i = 0; i < numPart2X; i++) {
+				nodos[i + j*numPart2X].x = ofGetWidth() / 2 + (sin(phi*j)*cos(theta*i))*(radio02 + (ofNoise(mil03*0.001+i+j*numPart2X)*120));
+				nodos[i + j*numPart2X].y = ofGetHeight() / 2 + (sin(phi*j)*sin(theta*i))*(radio02 + ofNoise(mil03 + i + j*numPart2X)*20);
+				nodos[i + j*numPart2X].z = cos(theta*j)*(radio02+sin(mil03*.001 + i + j*numPart2X)*50); //+ ofNoise(mil03 + i + j*numPart2X)*20);
+			}
+		}
+	}
+
+	/*
+	puntos02
+	ejes02
+	malla02
+	invertir02
+	dist02
+	camara02
+	circular02???
+	radio02??
+	*/
+	for (int i = 0; i < numSens; i++) {
+		if (i == numSens - 2) {
+			valSensor1[i] = ofMap(valSensor1[i], 0, 255, 0.1, 2);
+			valSensor2[i] = ofMap(valSensor2[i], 0, 255, 0.1, 2);
+		}
+		else if (i == numSens - 1) {
+			valSensor1[i] = ofMap(valSensor1[i], 0, 10, 0, 2);
+			valSensor2[i] = ofMap(valSensor2[i], 0, 10, 0, 2);
+		}
+
+		if (direcciones2X[i]) {
+			velSensores[i].x = valSensor1[i] * velMult;
+		}
+		else {
+			velSensores[i].x = -valSensor1[i] * velMult;
+		}
+
+		///// Cambiar al sensor 2 movimiento en X lo da un sensor y movimiento en Y lo dará el segundo
+		if (direcciones2Y[i]) {
+			velSensores[i].y = valSensor2[i] * velMult;
+		}
+		else {
+			velSensores[i].y = -valSensor2[i] * velMult;
+		}
+
+		sensorPosiciones[i].set(sensorPosiciones[i].x + velSensores[i].x, sensorPosiciones[i].y + velSensores[i].y);
+
+		// Invertir las direcciones al tener colisión
+		if (sensorPosiciones[i].x > ofGetWidth() || sensorPosiciones[i].x < 0) {
+			direcciones2X[i] = !direcciones2X[i];
+			cuentaFueraPantalla[i]++;
+		}
+
+		if (sensorPosiciones[i].y > ofGetHeight() || sensorPosiciones[i].y < 0) {
+			direcciones2Y[i] = !direcciones2Y[i];
+			cuentaFueraPantalla[i]++;
+		}
+		if (cuentaFueraPantalla[i] > 30) {
+			sensorPosiciones[i].x = ofGetWidth() / 2;
+			sensorPosiciones[i].y = ofGetHeight() / 2;
+			cuentaFueraPantalla[i] = 0;
+		}
+	}
+	// NODOS
+	/*for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			// estados al estar cerca de un nodo
+			for (int k = 0; k < numSens; k++) {////////////////////////////////////////
+				int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
+
+				if (distancia < dist02) {
+					tamNodos[i + j*numPart2X] = ofMap(distancia, 0, dist02, 50, 5);
+					if (!invertir02) {
+						nodos[i + j*numPart2X].z = distancia;
+					}
+					else {
+						nodos[i + j*numPart2X].z = -distancia;
+					}
+				}
+				if (distancia > 1 && distancia < dist02) {
+					colNodo02[i + j*numPart2X] = distancia;
+				}
+			}
+
+			// regreso progresivo a su estado inicial
+			if (tamNodos[i + j*numPart2X] > 5)
+				tamNodos[i + j*numPart2X] -= 0.5;
+
+			if (!invertir02) {
+				if (nodos[i + j*numPart2X].z < 0)
+					nodos[i + j*numPart2X].z++;
+			}
+			else {
+				if (nodos[i + j*numPart2X].z > 0)
+					nodos[i + j*numPart2X].z--;
+			}
+
+			if (colNodo02[i + j*numPart2X] < 125 + incCol02*(i + j*numPart2X))
+				colNodo02[i + j*numPart2X]++;
+			else
+				colNodo02[i + j*numPart2X]--;
+
+		}
+	}
+	*/
+	////// superficie
+	if (camara02) {
+		if (rotaParts < 1)
+			rotaParts += 0.0025;
+		if (rotaParts > 0.95)
+			gira2 = true;
+		if (gira2) {
+			rota360 += 0.25;
+			if (rota360 > 360)
+				rota360 = 0;
+		}
+	}
+	else {
+		if (rotaParts > 0)
+			rotaParts -= 0.0025;
+		if (gira2) {
+			if (rota360 < 180) {
+				if (rota360 > 0)
+					rota360 -= 0.25;
+				if (int(rota360) == 0)
+					gira2 = false;
+			}
+			else if (rota360 > 180)
+				if (rota360 < 360)
+					rota360 += 0.25;
+		}
+	}
 }
 /////////////// ESCENA 04
+///////////////////////////// Asombro
 void ofApp::escena04() {
 
 }
 /////////////// ESCENA 05
+///////////////////////////// Euforia
 void ofApp::escena05() {
 
 }
 /////////////// ESCENA 06
+///////////////////////////// Tristeza / Soledad
 void ofApp::escena06() {
 
 }
 /////////////// ESCENA 07
+///////////////////////////// Abismo
 void ofApp::escena07() {
 
 }
 /////////////// ESCENA 08
+///////////////////////////// Felicidad
 void ofApp::escena08() {
 
 }
 /////////////// ESCENA 09
+///////////////////////////// Reconocimiento
 void ofApp::escena09() {
 
 }
-/////////////// ESCENA 00
+/////////////// ESCENA 10
+///////////////////////////// Proximidad
 void ofApp::escena10() {
 
 }
-
 
 //////// Funcion para Gyro y Acc
 void ofApp::dibujaOrientaciones(int pX, int pY, float rX, float rY, float rZ, ofColor col, string texto) {
@@ -1362,7 +1654,8 @@ void ofApp::keyPressed(int key) {
 	if (key == 'i' || key == 'I')
 		isGood = !isGood;
 	if (key == 's' || key == 'S')
-		guardaFrame = !guardaFrame;
+		switchEllipse = !switchEllipse;
+		//guardaFrame = !guardaFrame;
 	if (key == 'f' || key == 'F'){
 		fullScreenDisplay = !fullScreenDisplay;
 		if(fullScreenDisplay)
@@ -1418,7 +1711,6 @@ void ofApp::setupGUI() {
 	gui.add(ejes02.setup("ejes02", false));
 	gui.add(malla02.setup("malla02", false));
 	gui.add(invertir02.setup("invertir02", false));
-	gui.add(dist02.setup("dist02", 300, 50, 500));
 	gui.add(circular02.setup("circular02", false));
 	gui.add(radio02.setup("radio02", 300, 100, 5000));
 

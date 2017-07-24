@@ -43,8 +43,9 @@ class ofApp : public ofBaseApp{
 
 		bool fullScreenDisplay = false;
 		string sensaciones[11] = {
-			"Logo", "Entendimiento / Tranquilidad", "Expectativa ", "Miedo",
-		"Asombro", "Euforia", "Tristeza, Soledad", "Abismo", "Felicidad", "Reconocimiento", "Proximidad"
+			"Logo", "Entendimiento / Tranquilidad", "Expectativa ",
+			"Miedo", "Asombro", "Euforia", "Tristeza, Soledad",
+			"Abismo", "Felicidad", "Reconocimiento", "Proximidad"
 		};
 		ofTrueTypeFont titulos, texto1;
 		int numSens = 7;
@@ -59,24 +60,31 @@ class ofApp : public ofBaseApp{
 
 		/////// ESCENAS //////////////////////////
 		void muestraValSensores();
-		bool titulo = true;
+		bool titulo = false;
 		float velOpa = 1.0f; // Velocidad de opacidad
 		int escena = 0; // escena actual
 		int numEscenas = 11;
-		void setupEsc01();
-		void updateEsc01();
-
+		
 		void escena00(), escena01(), escena02(), escena03(),
 			escena04(), escena05(), escena06(), escena07(), 
 			escena08(), escena09(), escena10();
+		void setupEsc01(), updateEsc01();
+		void setupEsc02(), updateEsc02();
+		void updateEsc03();
+
+		bool alphaActivo = true;
+		/////////////////////////////////////////////////
 		// escena 00
+		/////////////////////////////////////////////////
 		bool iniciaTodo = true;
 		int contador, limiteContador = 50;
 		bool entraLogo = false; 
 		bool saleLogo = false;
 		ofImage logoAbismo;
 		float opaLogo;
+		/////////////////////////////////////////////////
 		// escena 01
+		/////////////////////////////////////////////////
 		int colLine = 100; // Color de lineas esc01
 		int pasada = 0; // Barridos de posicion en X
 		int cuentaPulsos = 0;
@@ -89,6 +97,7 @@ class ofApp : public ofBaseApp{
 		void dibujaOnda(int, int, int, float, ofColor);
 		void dibujaOnda(int, int, int, int, float, ofColor);
 		void dibujaOrientaciones(int, int, float, float, float, ofColor, string);
+		
 		int posActY1[2], posActY2[2];
 		int posPrevY1[2], posPrevY2[2];
 
@@ -118,29 +127,48 @@ class ofApp : public ofBaseApp{
 		float escala01 = 1.0f;
 		bool partInPos = false;
 		bool iniciaOpa01b = false;
-
+		/////////////////////////////////////////////////
 		// escena 02
-		int numPart2X = 60, numPart2Y = 36;
+		/////////////////////////////////////////////////
 		int sep2X, sep2Y;
+		int numPart2X = 60, numPart2Y = 36;
 		ofVec3f nodos[60 * 36];
+		ofVec3f nodos03[60 * 36];
+
 		float tamNodos[60 * 36];
 		int colNodo02[60 * 36];
-		bool switchEllipse = false;
-
 		ofVec2f sensorPosiciones[7];
 		ofVec2f velSensores[7];
 		bool direcciones2X[7], direcciones2Y[7];
 
-		int velMult = 10;
+		int cuentaFueraPantalla[7]; 
+		bool entra02 = true;
+		bool dibujaPosiciones = true;
+		bool cambiaRadios02 = false;
+		float dist02 = 300;
+
+		bool autom02 = true;
+		bool switchEllipse = false; // Cambia numero de elipses
+		float opa02 = 0.0;
+		float alphaSrf02 = 255;
+		int cuenta02; // Contador para comportamientos
+		int velMult = 3; // Multiplicador de velocidad
 		float colEjes02 = 0, colPuntos02 = 0;
 		float ampNodo02 = 0;
+		/////////////////////////////////////////////////
+		// escena 03
+		/////////////////////////////////////////////////
+		bool ajusta03 = true;
+		int cuenta03;
+		bool fondo03;
+		bool cambiaColorNodo03 = false;
+		float colRed = 0;
 		// ahora a modificarlo en una superficie
 		ofxToggle camara02;
 		ofxToggle puntos02;
 		ofxToggle ejes02;
 		ofxToggle malla02;
 		ofxToggle invertir02;
-		ofxFloatSlider dist02;
 		ofxToggle circular02;
 		ofxFloatSlider radio02;
 
