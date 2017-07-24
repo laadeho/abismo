@@ -65,12 +65,15 @@ class ofApp : public ofBaseApp{
 		int escena = 0; // escena actual
 		int numEscenas = 11;
 		
+		void updateEmular();
 		void escena00(), escena01(), escena02(), escena03(),
 			escena04(), escena05(), escena06(), escena07(), 
 			escena08(), escena09(), escena10();
 		void setupEsc01(), updateEsc01();
 		void setupEsc02(), updateEsc02();
-		void updateEsc03();
+		void updateEsc03(), updateEscena04();
+
+		void camAnim();
 
 		bool alphaActivo = true;
 		/////////////////////////////////////////////////
@@ -133,7 +136,7 @@ class ofApp : public ofBaseApp{
 		int sep2X, sep2Y;
 		int numPart2X = 60, numPart2Y = 36;
 		ofVec3f nodos[60 * 36];
-		ofVec3f nodos03[60 * 36];
+		ofVec3f nodosTemp[60 * 36];
 
 		float tamNodos[60 * 36];
 		int colNodo02[60 * 36];
@@ -162,6 +165,7 @@ class ofApp : public ofBaseApp{
 		int cuenta03;
 		bool fondo03;
 		bool cambiaColorNodo03 = false;
+		bool cambiaTamNodo03 = false;
 		float colRed = 0;
 		// ahora a modificarlo en una superficie
 		ofxToggle camara02;

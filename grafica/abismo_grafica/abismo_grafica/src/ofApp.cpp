@@ -101,6 +101,7 @@ void ofApp::update() {
 		updateEsc03();
 		break;
 	case 4:
+		updateEscena04();
 		break;
 	case 5:
 		break;
@@ -111,10 +112,13 @@ void ofApp::update() {
 	default:
 		break;
 	}
-	//escena = escenas;
-
 	updateOSC();
-	/////////////// DATOS EMULADOS
+	updateEmular();
+	camAnim();
+}
+//--------------------------------------------------------------
+/////////////// DATOS EMULADOS
+void ofApp::updateEmular() {
 	if (emularSensores) {
 		artifacts = true;
 		alpha = true;
@@ -152,16 +156,16 @@ void ofApp::update() {
 	if (beta) {
 		valSensor1[1] = ofNoise(float(ofGetFrameNum()*.0035*(0.225 * 1.15 + 1)));
 		valSensor2[1] = ofNoise(float(ofGetFrameNum()*.005*(0.25 * 1 + 1)));
-		}
+	}
 	if (gamma) {
 		valSensor1[2] = ofNoise(float(ofGetFrameNum()*.0075*(0.25 * 2 + 1)));
 		valSensor2[2] = ofNoise(float(ofGetFrameNum()*.00475*(0.225 * 1.75 + 1)));
 	}
-	if (delta){
+	if (delta) {
 		valSensor1[3] = ofNoise(float(ofGetFrameNum()*.0055*(0.25 * 3 + 1)));
 		valSensor2[3] = ofNoise(float(ofGetFrameNum()*.0025*(0.125 * 2.25 + 1)));
 	}
-	if (theta){
+	if (theta) {
 		valSensor1[4] = ofNoise(float(ofGetFrameNum()*.0085*(0.25 * 4 + 1)));
 		valSensor2[4] = ofNoise(float(ofGetFrameNum()*.00385*(0.215 * 4.25 + 1)));
 	}
@@ -169,7 +173,7 @@ void ofApp::update() {
 		valSensor1[5] = ofNoise(float(ofGetFrameNum()*.0065*(0.35 * 4 + 1)));
 		valSensor2[5] = ofNoise(float(ofGetFrameNum()*.00625*(0.135 * 2.4 + 1)));
 	}
-	if (gsr){
+	if (gsr) {
 		valSensor1[6] = ofNoise(float(ofGetFrameNum()*.0035*(0.225 * 4 + 1)));
 		valSensor2[6] = ofNoise(float(ofGetFrameNum()*.00135*(0.1225 * 2.4 + 1)));
 	}
@@ -205,7 +209,6 @@ void ofApp::update() {
 		auxRight2 = ofNoise(ofGetFrameNum()*0.00125);
 	}
 }
-
 //--------------------------------------------------------------
 void ofApp::updateOSC() {
 	// hide old messages
@@ -474,10 +477,39 @@ void ofApp::debugF() {
 		ofDrawCircle(ofGetWidth(), ofGetHeight(), 10);
 		ofPopStyle();
 }
-
+//--------------------------------------------------------------
+void ofApp::camAnim() {
+	////// superficie
+	if (camara02) {
+		if (rotaParts < 1)
+			rotaParts += 0.0025;
+		if (rotaParts > 0.95)
+			gira2 = true;
+		if (gira2) {
+			rota360 += 0.25;
+			if (rota360 > 360)
+				rota360 = 0;
+		}
+	}
+	else {
+		if (rotaParts > 0)
+			rotaParts -= 0.0025;
+		if (gira2) {
+			if (rota360 < 180) {
+				if (rota360 > 0)
+					rota360 -= 0.25;
+				if (int(rota360) == 0)
+					gira2 = false;
+			}
+			else if (rota360 > 180)
+				if (rota360 < 360)
+					rota360 += 0.25;
+		}
+	}
+}
+//--------------------------------------------------------------
 /////////////// ESCENA 00 
 ///////////////////////////// LOGO
-
 void ofApp::escena00() {
 	if(debug){
 		ofSetColor(255);
@@ -495,6 +527,7 @@ void ofApp::escena00() {
 	logoAbismo.draw(ofGetWidth() / 2 - 620, ofGetHeight() / 2 - 300);
 	ofDisableAlphaBlending();
 }
+//--------------------------------------------------------------
 /////////////// ESCENA 01
 ///////////////////////////// Entendimiento / Tranquilidad
 void ofApp::setupEsc01() {
@@ -909,6 +942,7 @@ void ofApp::dibujaOnda(int indice, int pX, int pY, int ppYprev, float val, ofCol
 	dibujaLineas(pX, pY);
 	ofPopStyle();
 }
+//--------------------------------------------------------------
 /////////////// ESCENA 02
 ///////////////////////////// Expectativa
 void ofApp::setupEsc02() {
@@ -1060,7 +1094,7 @@ void ofApp::escena02() {
 		ofDrawBitmapString(ofToString(rotaParts), 200, 200);
 	}
 }
-///////////////
+//--------------------------------------------------------------
 void ofApp::updateEsc02() {
 	if(opa02>254)
 		cuenta02++;
@@ -1092,16 +1126,6 @@ void ofApp::updateEsc02() {
 		}
 		
 	}
-	/*
-	puntos02
-	ejes02
-	malla02
-	invertir02
-	dist02
-	camara02
-	circular02???
-	radio02??
-	*/
 	for (int i = 0; i < numSens; i++) {
 		if (i == numSens - 2) {
 			valSensor1[i] = ofMap(valSensor1[i], 0, 255, 0.1, 2);
@@ -1151,7 +1175,7 @@ void ofApp::updateEsc02() {
 			// estados al estar cerca de un nodo
 			for (int k = 0; k < numSens; k++) {////////////////////////////////////////
 				int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
-
+				
 				if (distancia < dist02) {
 					tamNodos[i + j*numPart2X] = ofMap(distancia, 0, dist02, 50, 5);
 					if (!invertir02) {
@@ -1161,6 +1185,7 @@ void ofApp::updateEsc02() {
 						nodos[i + j*numPart2X].z = -distancia;
 					}
 				}
+				
 				if (distancia > 1 && distancia < dist02) {
 					colNodo02[i + j*numPart2X] = distancia;
 				}
@@ -1184,33 +1209,6 @@ void ofApp::updateEsc02() {
 			else
 				colNodo02[i + j*numPart2X]--;
 
-		}
-	}
-	////// superficie
-	if (camara02) {
-		if (rotaParts < 1)
-			rotaParts += 0.0025;
-		if (rotaParts > 0.95)
-			gira2 = true;
-		if (gira2) {
-			rota360 += 0.25;
-			if (rota360 > 360)
-				rota360 = 0;
-		}
-	}
-	else {
-		if (rotaParts > 0)
-			rotaParts -= 0.0025;
-		if (gira2) {
-			if (rota360 < 180) {
-				if (rota360 > 0)
-					rota360 -= 0.25;
-				if (int(rota360) == 0)
-					gira2 = false;
-			}
-			else if (rota360 > 180)
-				if (rota360 < 360)
-					rota360 += 0.25;
 		}
 	}
 }
@@ -1276,12 +1274,13 @@ void ofApp::updateEsc03() {
 	else if (cuenta03 > 1500 && cuenta03 < 1550) {
 		ajusta03 = false;
 	}
-	else if (cuenta03 > 1900 && cuenta03 < 1910) {
+	else if (cuenta03 > 1750 && cuenta03 < 1760) {
 		ejes02 = true;
 	}
 	else if (cuenta03 > 3300 && cuenta03 < 3320) {
 		malla02 = true;
 		ejes02 = false;
+		cambiaTamNodo03 = true;
 	}
 	if (fondo03) {
 		if (valSensor1[5] > 200 || valSensor2[5] > 200) {
@@ -1301,19 +1300,19 @@ void ofApp::updateEsc03() {
 	if (ajusta03) {
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
-				nodos03[i + j*numPart2X].x = ofGetWidth() / 2 + (sin(phi*j)*cos(theta*i))*radio02;
-				nodos03[i + j*numPart2X].y = ofGetHeight() / 2 + (sin(phi*j)*sin(theta*i))*radio02;
-				nodos03[i + j*numPart2X].z = radio02/2+cos(theta*j)*radio02;
+				nodosTemp[i + j*numPart2X].x = ofGetWidth() / 2 + (sin(phi*j)*cos(theta*i))*radio02;
+				nodosTemp[i + j*numPart2X].y = ofGetHeight() / 2 + (sin(phi*j)*sin(theta*i))*radio02;
+				nodosTemp[i + j*numPart2X].z = radio02/2+cos(theta*j)*radio02;
 
-				if (nodos[i + j*numPart2X].x > nodos03[i + j*numPart2X].x)
+				if (nodos[i + j*numPart2X].x > nodosTemp[i + j*numPart2X].x)
 					nodos[i + j*numPart2X].x--;
 				else
 					nodos[i + j*numPart2X].x++;
-				if (nodos[i + j*numPart2X].y > nodos03[i + j*numPart2X].y)
+				if (nodos[i + j*numPart2X].y > nodosTemp[i + j*numPart2X].y)
 					nodos[i + j*numPart2X].y--;
 				else
 					nodos[i + j*numPart2X].y++;
-				if (nodos[i + j*numPart2X].z > nodos03[i + j*numPart2X].z)
+				if (nodos[i + j*numPart2X].z > nodosTemp[i + j*numPart2X].z)
 					nodos[i + j*numPart2X].z--;
 				else
 					nodos[i + j*numPart2X].z++;
@@ -1385,79 +1384,48 @@ void ofApp::updateEsc03() {
 		}
 	}
 	// NODOS
-	/*for (int j = 0; j < numPart2Y; j++) {
-		for (int i = 0; i < numPart2X; i++) {
-			// estados al estar cerca de un nodo
-			for (int k = 0; k < numSens; k++) {////////////////////////////////////////
-				int distancia = ofDist(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, sensorPosiciones[k].x, sensorPosiciones[k].y);
-
-				if (distancia < dist02) {
-					tamNodos[i + j*numPart2X] = ofMap(distancia, 0, dist02, 50, 5);
-					if (!invertir02) {
-						nodos[i + j*numPart2X].z = distancia;
-					}
-					else {
-						nodos[i + j*numPart2X].z = -distancia;
-					}
-				}
-				if (distancia > 1 && distancia < dist02) {
-					colNodo02[i + j*numPart2X] = distancia;
-				}
+	if (cambiaTamNodo03) {
+		for (int j = 0; j < numPart2Y; j++) {
+			for (int i = 0; i < numPart2X; i++) {
+				tamNodos[i + j*numPart2X] = 1 + abs(ofNoise(ofGetFrameNum()*(i + j*numPart2X) + ofGetElapsedTimeMillis()*.0015) * 25);
 			}
-
-			// regreso progresivo a su estado inicial
-			if (tamNodos[i + j*numPart2X] > 5)
-				tamNodos[i + j*numPart2X] -= 0.5;
-
-			if (!invertir02) {
-				if (nodos[i + j*numPart2X].z < 0)
-					nodos[i + j*numPart2X].z++;
-			}
-			else {
-				if (nodos[i + j*numPart2X].z > 0)
-					nodos[i + j*numPart2X].z--;
-			}
-
-			if (colNodo02[i + j*numPart2X] < 125 + incCol02*(i + j*numPart2X))
-				colNodo02[i + j*numPart2X]++;
-			else
-				colNodo02[i + j*numPart2X]--;
-
-		}
-	}
-	*/
-	////// superficie
-	if (camara02) {
-		if (rotaParts < 1)
-			rotaParts += 0.0025;
-		if (rotaParts > 0.95)
-			gira2 = true;
-		if (gira2) {
-			rota360 += 0.25;
-			if (rota360 > 360)
-				rota360 = 0;
-		}
-	}
-	else {
-		if (rotaParts > 0)
-			rotaParts -= 0.0025;
-		if (gira2) {
-			if (rota360 < 180) {
-				if (rota360 > 0)
-					rota360 -= 0.25;
-				if (int(rota360) == 0)
-					gira2 = false;
-			}
-			else if (rota360 > 180)
-				if (rota360 < 360)
-					rota360 += 0.25;
 		}
 	}
 }
 /////////////// ESCENA 04
 ///////////////////////////// Asombro
 void ofApp::escena04() {
+	escena02();
+}
+void ofApp::updateEscena04() {
+	camara02 = false;
+	for (int j = 0; j < numPart2Y; j++) {
+		for (int i = 0; i < numPart2X; i++) {
+			nodosTemp[i + j*numPart2X] = ofVec3f(sep2X*i, sep2Y*j, 0);
 
+			if (nodos[i + j*numPart2X].x > nodosTemp[i + j*numPart2X].x - 1)
+				nodos[i + j*numPart2X].x--;
+
+			if (nodos[i + j*numPart2X].x < nodosTemp[i + j*numPart2X].x + 1)
+				nodos[i + j*numPart2X].x++;
+
+			if (nodos[i + j*numPart2X].y > nodosTemp[i + j*numPart2X].y - 1)
+				nodos[i + j*numPart2X].y--;
+
+			if (nodos[i + j*numPart2X].y < nodosTemp[i + j*numPart2X].y + 1)
+				nodos[i + j*numPart2X].y++;
+
+			if (nodos[i + j*numPart2X].z > nodosTemp[i + j*numPart2X].z - 1)
+				nodos[i + j*numPart2X].z--;
+
+			if (nodos[i + j*numPart2X].z < nodosTemp[i + j*numPart2X].z + 1)
+				nodos[i + j*numPart2X].z++;
+
+
+			if (tamNodos[i + j*numPart2X] > 5)
+				tamNodos[i + j*numPart2X] -= 0.125;
+		}
+	}
 }
 /////////////// ESCENA 05
 ///////////////////////////// Euforia
