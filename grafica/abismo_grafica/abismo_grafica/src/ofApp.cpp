@@ -1212,45 +1212,6 @@ void ofApp::updateEsc02() {
 		}
 	}
 }
-/* NOTAS CAMARA 3d
-// ofCamera myCam;
-float tweenvalue = (ofGetElapsedTimeMillis() % 6000) / 6000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds
-
-ofQuaternion startQuat;
-ofQuaternion targetQuat;
-ofVec3f startPos;
-ofVec3f targetPos;
-
-// we define the camer's start and end orientation here:
-startQuat.makeRotate(90, 0, 0, 1);			// zero rotation.
-targetQuat.makeRotate(180, 0, 0, 1);			// rotation 90 degrees around y-axis.
-
-// we define the camer's start and end-position here:
-startPos.set(0, 0, 0);
-targetPos.set(0, 0, 0);
-
-
-ofQuaternion tweenedCameraQuaternion;	// this will be the camera's new rotation.
-
-// calculate the interpolated orientation
-tweenedCameraQuaternion.slerp(tweenvalue, startQuat, targetQuat);
-
-ofVec3f lerpPos;					//this will hold our tweened position.
-
-// calculate the interpolated values.
-lerpPos.x = ofLerp(tweenvalue, startPos.x, targetPos.x);
-lerpPos.y = ofLerp(tweenvalue, startPos.y, targetPos.y);
-lerpPos.z = ofLerp(tweenvalue, startPos.z, targetPos.z);
-
-// alternative way to calculate interpolated values:
-//lerpPos = startPos + ((targetPos-startPos) * tweenvalue);
-
-// now update the camera with the calculated orientation and position.
-
-
-// myCam.setOrientation(tweenedCameraQuaternion);
-// myCam.setGlobalPosition(lerpPos);
-*/
 /////////////// ESCENA 03
 ///////////////////////////// MIEDO
 void ofApp::escena03() {
@@ -1329,17 +1290,6 @@ void ofApp::updateEsc03() {
 			}
 		}
 	}
-
-	/*
-	puntos02
-	ejes02
-	malla02
-	invertir02
-	dist02
-	camara02
-	circular02???
-	radio02??
-	*/
 	for (int i = 0; i < numSens; i++) {
 		if (i == numSens - 2) {
 			valSensor1[i] = ofMap(valSensor1[i], 0, 255, 0.1, 2);
@@ -1597,9 +1547,7 @@ void ofApp::museConectado(int pX, int pY, int numS) {
 	ofPopMatrix();
 	ofPopStyle();
 }
-
 //////////////////////////////////////////////////////////////////////////////////
-
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	if(key=='!')
@@ -1726,3 +1674,43 @@ void ofApp::windowResized(int w, int h) {
 void ofApp::dragEvent(ofDragInfo dragInfo) {
 
 }
+/* NOTAS CAMARA 3d
+// ofCamera myCam;
+float tweenvalue = (ofGetElapsedTimeMillis() % 6000) / 6000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds
+
+ofQuaternion startQuat;
+ofQuaternion targetQuat;
+ofVec3f startPos;
+ofVec3f targetPos;
+
+// we define the camer's start and end orientation here:
+startQuat.makeRotate(90, 0, 0, 1);			// zero rotation.
+targetQuat.makeRotate(180, 0, 0, 1);			// rotation 90 degrees around y-axis.
+
+// we define the camer's start and end-position here:
+startPos.set(0, 0, 0);
+targetPos.set(0, 0, 0);
+
+
+ofQuaternion tweenedCameraQuaternion;	// this will be the camera's new rotation.
+
+// calculate the interpolated orientation
+tweenedCameraQuaternion.slerp(tweenvalue, startQuat, targetQuat);
+
+ofVec3f lerpPos;					//this will hold our tweened position.
+
+// calculate the interpolated values.
+lerpPos.x = ofLerp(tweenvalue, startPos.x, targetPos.x);
+lerpPos.y = ofLerp(tweenvalue, startPos.y, targetPos.y);
+lerpPos.z = ofLerp(tweenvalue, startPos.z, targetPos.z);
+
+// alternative way to calculate interpolated values:
+//lerpPos = startPos + ((targetPos-startPos) * tweenvalue);
+
+// now update the camera with the calculated orientation and position.
+
+
+// myCam.setOrientation(tweenedCameraQuaternion);
+// myCam.setGlobalPosition(lerpPos);
+*/
+
