@@ -50,7 +50,7 @@ void loop() {
       if (escribe) {
         if (pinSensorPulso > 0) {
           Serial.println('A'); // imprime val = 65
-          Serial.println('1'); // imprime 49
+          Serial.println('H'); // imprime 49
           Serial.println(int(map(analogRead(pinSensorPulso), 0,1023,0,255)));
           Serial.println(',');
         }
@@ -60,7 +60,7 @@ void loop() {
 
     if (escribe) {
       BTserial.write('A'); // imprime val = 65
-      BTserial.write('1'); // imprime 49
+      BTserial.write('H'); // imprime 49
       BTserial.write(int(map(analogRead(pinSensorPulso), 0,1023,0,255)));
       BTserial.write(',');
     }
@@ -80,7 +80,7 @@ void loop() {
       int diff = smoothReading - oldReading;
       //the op amp inverts, so we're flipping the numbers
       BTserial.write('B'); // imprime val = 65
-      BTserial.write("2"); // imprime 50
+      BTserial.write('I'); // imprime 50
       int mapSmoothReading = int(map(smoothReading, valMin, valMax, 0, 255));
       BTserial.write(mapSmoothReading); // Se mapea a 255 (byte)
       BTserial.write(','); // imprime 44
