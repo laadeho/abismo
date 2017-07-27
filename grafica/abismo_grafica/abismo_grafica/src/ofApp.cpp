@@ -592,22 +592,22 @@ void ofApp::updateEsc01() {
 	case 1:
 		for (int i = 0; i < numPart - 2; i++) {
 			particulas1[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
 				0);
 			particulas2[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
 				0);
 		}
 		for (int i = numPart-2; i < numPart; i++) {
 			particulas1[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + ofMap(valSensor1[i], 0, 255, 0, 1) *multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor1[i], 0, 255, 0, 1) * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + ofMap(valSensor1[i], 0, 255, 0, 1) *multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + +ofMap(valSensor1[i], 0, 255, 0, 1) * multSensores)*escala01,
 				0);
 			particulas2[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
 				0);
 		}
 		if (radio01 < radio01Fin)
@@ -629,13 +629,13 @@ void ofApp::updateEsc01() {
 		break;
 	case 2:
 		if (!partInPos) {
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-2; i++) {
 				float pTempX = particulas1[i].x;
 				particulas1[i].set(
 					pTempX, 0, 0
 				);
 
-				if (particulas1[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
+				if (particulas1[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 2))*i)
 					particulas1[i].x += 5;
 				else
 					particulas1[i].x -= 5;
@@ -662,7 +662,7 @@ void ofApp::updateEsc01() {
 		}
 		//ofLogNotice("Val Sensor 1 [5]" + ofToString(ofMap(valSensor1[numPart - 1], 0, 20, 0, 1) * 150 * escala01));
 		//pulso
-		particulas1[numPart - 2].set(
+/*		particulas1[numPart - 2].set(
 			particulas1[numPart - 2].x,
 			int(ofMap(valSensor1[numPart - 2], 0, 255, 0, 1) * 150 * escala01),
 			0);
@@ -671,7 +671,7 @@ void ofApp::updateEsc01() {
 			particulas1[numPart - 1].x,
 			ofMap(valSensor1[numPart - 1], 0, 20, 0, 1) * 150 * escala01,
 			0);
-		
+	*/	
 
 		break;
 	}
@@ -719,7 +719,8 @@ void ofApp::escena01() {
 	switch (esc01) {
 	case 0:
 		ofSetColor(255);
-		/////////////////////////// CONTENIDO PARA USUARIO 1
+		/////////
+		////////////////// CONTENIDO PARA USUARIO 1
 		ofPushStyle();
 		for (int i = 0; i < numSens - 2; i++) {
 			ofColor c;
@@ -788,7 +789,11 @@ void ofApp::escena01() {
 		ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 		for (int j = 0; j < anillos; j++) {
 			ofBeginShape();
+<<<<<<< HEAD
 			for (int i = 0; i < numPart-1; i++) {
+=======
+			for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08),
@@ -802,7 +807,11 @@ void ofApp::escena01() {
 			ofSetColor(0, opa01 - j * 15);
 			ofNoFill();
 			ofBeginShape();
+<<<<<<< HEAD
 			for (int i = 0; i < numPart-1; i++) {
+=======
+			for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08)
@@ -814,7 +823,11 @@ void ofApp::escena01() {
 		ofSetColor(255, opa01);
 		ofFill();
 		for (int j = 0; j < anillos; j++) {
+<<<<<<< HEAD
 			for (int i = 0; i < numPart-1; i++) {
+=======
+			for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofEllipse(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08),
@@ -839,7 +852,11 @@ void ofApp::escena01() {
 			c.setHsb((360 / (numSens + 1)) * j, 100, 100, opa01 / anillos);
 			ofFill();
 			ofBeginShape();
+<<<<<<< HEAD
 			for (int i = 0; i < numPart-1; i++) {
+=======
+			for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08),
@@ -853,7 +870,11 @@ void ofApp::escena01() {
 			ofSetColor(0, opa01 - j * 15);
 			ofNoFill();
 			ofBeginShape();
+<<<<<<< HEAD
 			for (int i = 0; i < numPart-1; i++) {
+=======
+			for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08)
@@ -866,7 +887,11 @@ void ofApp::escena01() {
 		ofSetColor(255, opa01);
 		ofFill();
 		for (int j = 0; j < anillos; j++) {
+<<<<<<< HEAD
 			for (int i = 0; i < numPart-1; i++) {
+=======
+			for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofEllipse(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08),
@@ -883,7 +908,7 @@ void ofApp::escena01() {
 		ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 		ofSetColor(255, opa01);
 		ofFill();
-		for (int i = 0; i < numPart; i++) {
+		for (int i = 0; i < numPart-2; i++) {
 			ofEllipse(
 				particulas1[i].x,
 				particulas1[i].y,
@@ -896,7 +921,11 @@ void ofApp::escena01() {
 				ofBeginShape();
 				ofVertex(ofGetWidth() / 2, ofGetHeight() / 2);
 				ofVertex(-ofGetWidth() / 2, ofGetHeight() / 2);
+<<<<<<< HEAD
 				for (int i = 0; i < numPart-1; i++) {
+=======
+				for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
 					);
 				}
@@ -906,7 +935,11 @@ void ofApp::escena01() {
 				ofSetColor(0, opa01b - j * 15);
 				ofNoFill();
 				ofBeginShape();
+<<<<<<< HEAD
 				for (int i = 0; i < numPart-1; i++) {
+=======
+				for (int i = 0; i < numPart-2; i++) {
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j);
 				}
 				ofEndShape();

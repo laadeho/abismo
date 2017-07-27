@@ -1,26 +1,6 @@
 # abismo // próximo 
 Proyecto multimedia en torno a la proximidad y el reconocimiento humano.
 
-## ToDo List
-Eduardo H. Obieta:
-* Continuar el desarrollo de programación de herramientas de vídeo (Processing).
-* Continuar con el desarrollo visual de la pieza.
-* Diseño de mobiliario.
-* Hacer pruebas de los sensores construido.
-
-Aimée Theriot 
-* Continuar con la difusión de la página en medios digitales
-* Continuar el desarrollo de programación de herramientas de audio (SuperCollider)
-* Continuar con el diseño sonoro
-* Hacer pruebas de los sensores construidos
-
-Diego Montesinos
-* Programación y mantenimiento de sitio web
-* Programación para comunicación con aplicación de audio y video
-* Hacer pruebas de los sensores construidos
-
-## /////////////
-
 #### Sensaciones
 1. Entendimiento / Tranquilidad 0:00 - 1:29 Funcionamiento de la pieza.
 
@@ -64,6 +44,7 @@ abismo
 - /theta
 
 Artifacts
+- /museon
 - /blink (solo cuando parpadea)
 - /jawClench (solo cuando tensas la mandíbula)
 

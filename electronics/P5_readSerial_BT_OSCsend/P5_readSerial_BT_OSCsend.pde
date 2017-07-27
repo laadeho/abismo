@@ -69,14 +69,19 @@ void setup()
   if (!emular) {
     println(Serial.list());
 
+<<<<<<< HEAD
     String portName = Serial.list()[1];
     String portName2 = Serial.list()[3];
+=======
+    String portName = Serial.list()[4];
+    String portName2 = Serial.list()[1];
+>>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 
     myPort = new Serial(this, portName, 9600);
     myPort2 = new Serial(this, portName2, 9600);
     myPort.clear(); 
     myPort2.clear(); 
-    println(portName+", "+portName2);
+   println(portName+", "+portName2);
   }
 
   oscP5 = new OscP5(this, 12000);
