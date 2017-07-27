@@ -71,11 +71,21 @@ class ofApp : public ofBaseApp{
 			escena08(), escena09(), escena10();
 		void setupEsc01(), updateEsc01();
 		void setupEsc02(), updateEsc02();
-		void updateEsc03(), updateEscena04();
+		void updateEsc03();
+		void updateEscena04();
 
 		void camAnim();
 
 		bool alphaActivo = true;
+		
+		bool switchAlpha = false;
+		bool alphaEncendido = false;
+
+		ofColor c; // Ellipses // nodos
+		ofColor cE; // Ejes
+		ofColor cSrf; 
+		float cSrfR, cSrfG, cSrfB, cSrfA;
+		int ejesGral = 100;
 		/////////////////////////////////////////////////
 		// escena 00
 		/////////////////////////////////////////////////
@@ -167,13 +177,29 @@ class ofApp : public ofBaseApp{
 		bool cambiaColorNodo03 = false;
 		bool cambiaTamNodo03 = false;
 		float colRed = 0;
-		// ahora a modificarlo en una superficie
-		ofxToggle camara02;
-		ofxToggle puntos02;
-		ofxToggle ejes02;
-		ofxToggle malla02;
-		ofxToggle invertir02;
-		ofxToggle circular02;
+		/////////////////////////////////////////////////
+		// escena 04 y 05
+		/////////////////////////////////////////////////
+		int cuenta04 = 0;
+		int cuenta05 = 0;
+		bool noiseSrf = false;
+		bool reset04 = false;
+
+		float tamNoise = 0.0;
+		float maxNoise = 1450.0;
+		float velNoise = 0.00015;
+		float valSin05 = 1;
+		//float sepX05 = 1, sepY05 = 1;
+		/////////////////////////////////////////////////
+		// escena 06
+		/////////////////////////////////////////////////
+
+		bool mallaSrf = false;
+		bool apagaMalla = true;
+		bool camara02 = false;
+		bool puntos02 = false;
+		
+		bool ejes02, invertir02, circular02;
 		ofxFloatSlider radio02;
 
 		ofVec3f posCam;
@@ -185,6 +211,12 @@ class ofApp : public ofBaseApp{
 		ofMesh superficie02;
 		float numPart02;
 		double incCol02;
+
+
+
+
+
+
 
 		// escenas END
 

@@ -30,6 +30,7 @@ void ofApp::setup(){
 
 	// ESC 00 /////////////////////////
 	logoAbismo.load("images/abismoLogo_1240x600.png");
+	
 	setupEsc01();
 	setupEsc02();
 	/*
@@ -42,6 +43,7 @@ void ofApp::setup(){
 	// ESC 03 /////////////////////////
 	// ESC 04 /////////////////////////
 	// ESC 05 /////////////////////////
+	cSrf = ofColor(0, 0, 0, 0);
 	// ESC 06 /////////////////////////
 	// ESC 07 /////////////////////////
 	// ESC 08 /////////////////////////
@@ -104,6 +106,7 @@ void ofApp::update() {
 		updateEscena04();
 		break;
 	case 5:
+		updateEscena04(); // mismo update para continuar grafico
 		break;
 	case 6:
 		break;
@@ -115,6 +118,32 @@ void ofApp::update() {
 	updateOSC();
 	updateEmular();
 	camAnim();
+
+	if (switchAlpha) {
+		alphaEncendido = !alphaEncendido;
+		switchAlpha = false;
+	}
+
+	if (alphaEncendido) {
+		ofSetBackgroundAuto(false);
+	}
+	else {
+		ofSetBackgroundAuto(true);
+	}
+
+	if (apagaMalla) {
+		if (alphaSrf02 > 0)
+			alphaSrf02 -= 0.25;
+		else if (alphaSrf02 == 0) {
+			mallaSrf = false;
+		}
+	}
+	else {
+		if (!mallaSrf)
+			mallaSrf = true;
+		if (alphaSrf02 < 255)
+			alphaSrf02 += 0.25;
+	}
 }
 //--------------------------------------------------------------
 /////////////// DATOS EMULADOS
@@ -994,24 +1023,40 @@ void ofApp::escena02() {
 		ofRotateZ(rota360);
 
 	ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2, -300);
-	if (malla02){
+
+	if (mallaSrf) {
+		ofPushStyle();
 		if (ampNodo02 < 1)
 			ampNodo02 += 0.0125;
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				superficie02.setVertex(i + j*numPart2X, nodos[i + j*numPart2X]);
-				superficie02.setColor(i + j*numPart2X, ofColor(colNodo02[i + j*numPart2X] * ampNodo02, alphaSrf02));
+				if(escena<=4)
+					superficie02.setColor(i + j*numPart2X, ofColor(colNodo02[i + j*numPart2X] * ampNodo02, alphaSrf02));
+				else if (escena == 5) {
+					superficie02.setColor(i + j*numPart2X, ofColor(cSrfR, cSrfG ,cSrfB, cSrfA));
+				}
 			}
 		}
 		superficie02.drawFaces();
+		ofPopStyle();
 	}
-	else
+	/*else
 		ampNodo02 = 0;
-	
+		*/
 	if(ejes02){
-		if (colEjes02 < 100)
-			colEjes02 +=0.25;
-			
+		if (colEjes02 < ejesGral)
+			colEjes02 += 0.25;
+		else if (colEjes02 > ejesGral)
+			colEjes02 -= 0.25;
+
+		if (escena != 6) {
+			ejesGral = 100;
+		}
+		else {
+			ejesGral = 255;
+		}
+
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				superficie02.setColor(i + j*numPart2X, ofColor(colEjes02));
@@ -1022,36 +1067,39 @@ void ofApp::escena02() {
 	}
 	else
 		colEjes02 = 0;
-
+	
 	if (puntos02) {
+		ofPushStyle();
 		if (colPuntos02 < 255)
 			colPuntos02 += 0.25;
 
-		if (!cambiaColorNodo03) {
-			ofColor c = ofColor(255, 255, 255, colPuntos02);
-			ofSetColor(c);
-			ofFill();
-		}
-		else {
-			if (colRed < 255) {
-				colRed += 0.25;
+		if (escena == 2) {
+			c = ofColor(255, 255, 255, colPuntos02);
+		} else if (escena == 3) {
+			if (!cambiaColorNodo03) {
+				c = ofColor(255, 255, 255, colPuntos02);
+			}
+			else {
+				if (colRed < 255) {
+					colRed += 0.25;
+				}
 			}
 		}
+
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
-				//nodos[i + j*numPart2X].z = ofNoise(ofGetElapsedTimeMillis()*0.0005 + i + j*numPart2X) * 250;
-				//ofColor c = ofColor(ofNoise(ofGetElapsedTimeMillis()*.001 + i + j*numPart2X)*colRed, 255, 255);
-				ofColor c;
-				if (cambiaColorNodo03) {
+				if (cambiaColorNodo03 && escena == 3) {
 					if (colRed < 255) {
 						c = ofColor(255, 255 - colRed, 255 - colRed);
 					}
 					else {
 						c = ofColor(ofNoise(ofGetElapsedTimeMillis()*.001 + i + j*numPart2X)*colRed, 0, 0);
 					}
-					ofSetColor(c);
-					ofFill();
 				}
+
+				ofSetColor(c);
+				ofFill();
+
 				if (switchEllipse) {
 					ofEllipse(nodos[i + j*numPart2X].x, nodos[i + j*numPart2X].y, nodos[i + j*numPart2X].z, tamNodos[i + j*numPart2X], tamNodos[i + j*numPart2X]);
 				}
@@ -1061,13 +1109,31 @@ void ofApp::escena02() {
 				}
 			}
 		}
+		ofPopStyle();
 	}
 	else
 		colPuntos02 = 0;
-
+		
 	ofPopMatrix();
 	myCam.end();
 	
+	if (dibujaPosiciones) {
+		ofPushStyle();
+		for (int j = 0; j < numSens; j++) {
+			ofColor cL;
+			cL.setHsb((360 / (numSens + 1)) * j, 100, 100, opa02);
+			ofSetColor(cL);
+			ofFill();
+			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
+		}
+		ofPopStyle();
+	}
+}
+//--------------------------------------------------------------
+void ofApp::updateEsc02() {
+	if (debug) {
+		ofLogNotice(ofToString(cuenta02));
+	}
 	if (entra02) {
 		if (opa02 < 255)
 			opa02 += 0.25;
@@ -1078,39 +1144,23 @@ void ofApp::escena02() {
 		if (opa02 == 0)
 			dibujaPosiciones = false;
 	}
-	
-	if (dibujaPosiciones) {
-		ofPushStyle();
-		for (int j = 0; j < numSens; j++) {
-			ofColor c;
-			c.setHsb((360 / (numSens + 1)) * j, 100, 100, opa02);
-			ofSetColor(c);
-			ofFill();
-			ofEllipse(sensorPosiciones[j].x, sensorPosiciones[j].y, 20, 20);
-		}
-		ofPopStyle();
-	}
-	if (debug) {
-		ofDrawBitmapString(ofToString(rotaParts), 200, 200);
-	}
-}
-//--------------------------------------------------------------
-void ofApp::updateEsc02() {
+
 	if(opa02>254)
 		cuenta02++;
 	if (autom02) {
-		if (cuenta02 > 400 && cuenta02 < 420) {
+		if (cuenta02 > 300 && cuenta02 < 320) {
 			puntos02 = true;
 		}
 		else if (cuenta02 > 850 && cuenta02 < 870) {
 			ejes02 = true;
 		}
-		else if (cuenta02 > 2300 && cuenta02 < 2320) {
-			malla02 = true;
+		else if (cuenta02 > 1900 && cuenta02 < 1920) {
+			apagaMalla = false;
 			dibujaPosiciones = false;
 		}
-		else if (cuenta02 > 2500 && cuenta02 < 2510) {
+		else if (cuenta02 > 2300 && cuenta02 < 2310) {
 			cambiaRadios02 = true;
+			camara02 = true;
 		}
 
 		if (cambiaRadios02) {
@@ -1212,45 +1262,6 @@ void ofApp::updateEsc02() {
 		}
 	}
 }
-/* NOTAS CAMARA 3d
-// ofCamera myCam;
-float tweenvalue = (ofGetElapsedTimeMillis() % 6000) / 6000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds
-
-ofQuaternion startQuat;
-ofQuaternion targetQuat;
-ofVec3f startPos;
-ofVec3f targetPos;
-
-// we define the camer's start and end orientation here:
-startQuat.makeRotate(90, 0, 0, 1);			// zero rotation.
-targetQuat.makeRotate(180, 0, 0, 1);			// rotation 90 degrees around y-axis.
-
-// we define the camer's start and end-position here:
-startPos.set(0, 0, 0);
-targetPos.set(0, 0, 0);
-
-
-ofQuaternion tweenedCameraQuaternion;	// this will be the camera's new rotation.
-
-// calculate the interpolated orientation
-tweenedCameraQuaternion.slerp(tweenvalue, startQuat, targetQuat);
-
-ofVec3f lerpPos;					//this will hold our tweened position.
-
-// calculate the interpolated values.
-lerpPos.x = ofLerp(tweenvalue, startPos.x, targetPos.x);
-lerpPos.y = ofLerp(tweenvalue, startPos.y, targetPos.y);
-lerpPos.z = ofLerp(tweenvalue, startPos.z, targetPos.z);
-
-// alternative way to calculate interpolated values:
-//lerpPos = startPos + ((targetPos-startPos) * tweenvalue);
-
-// now update the camera with the calculated orientation and position.
-
-
-// myCam.setOrientation(tweenedCameraQuaternion);
-// myCam.setGlobalPosition(lerpPos);
-*/
 /////////////// ESCENA 03
 ///////////////////////////// MIEDO
 void ofApp::escena03() {
@@ -1258,18 +1269,13 @@ void ofApp::escena03() {
 }
 void ofApp::updateEsc03() {
 	cuenta03++;
-	if (alphaSrf02 > 0)
-		alphaSrf02 -= 1;
-	else if (alphaSrf02 == 0)
-		malla02 = false;
-
 	if (cuenta03 < 15) {
-		ofSetSphereResolution(6);
-		
+		ofSetSphereResolution(4);
 		ejes02 = false;
 		puntos02 = true; 
 		fondo03 = true;
 		cambiaColorNodo03 = true;
+		apagaMalla = true;
 	}
 	else if (cuenta03 > 1500 && cuenta03 < 1550) {
 		ajusta03 = false;
@@ -1277,11 +1283,13 @@ void ofApp::updateEsc03() {
 	else if (cuenta03 > 1750 && cuenta03 < 1760) {
 		ejes02 = true;
 	}
-	else if (cuenta03 > 3300 && cuenta03 < 3320) {
-		malla02 = true;
-		ejes02 = false;
+	else if (cuenta03 > 2100 && cuenta03 < 2120) {
 		cambiaTamNodo03 = true;
 	}
+	else if (cuenta03 > 2300 && cuenta03 < 2320) {	
+		ejes02 = false;
+	}
+
 	if (fondo03) {
 		if (valSensor1[5] > 200 || valSensor2[5] > 200) {
 			ofBackground(205, 0, 0);
@@ -1290,6 +1298,7 @@ void ofApp::updateEsc03() {
 			ofBackground(0);
 		}
 	}
+
 	switchEllipse = true;
 
 	int radio02 = 500;
@@ -1320,26 +1329,15 @@ void ofApp::updateEsc03() {
 		}
 	}
 	else {
-		camara02 = true;
+		camara02 = false;
 		for (int j = 0; j < numPart2Y; j++) {
 			for (int i = 0; i < numPart2X; i++) {
 				nodos[i + j*numPart2X].x = ofGetWidth() / 2 + (sin(phi*j)*cos(theta*i))*(radio02 + (ofNoise(mil03*0.001+i+j*numPart2X)*120));
 				nodos[i + j*numPart2X].y = ofGetHeight() / 2 + (sin(phi*j)*sin(theta*i))*(radio02 + ofNoise(mil03 + i + j*numPart2X)*20);
-				nodos[i + j*numPart2X].z = cos(theta*j)*(radio02+sin(mil03*.001 + i + j*numPart2X)*50); //+ ofNoise(mil03 + i + j*numPart2X)*20);
+				nodos[i + j*numPart2X].z = cos(theta*j)*(radio02+sin(mil03*.001 + i + j*numPart2X)*50);
 			}
 		}
 	}
-
-	/*
-	puntos02
-	ejes02
-	malla02
-	invertir02
-	dist02
-	camara02
-	circular02???
-	radio02??
-	*/
 	for (int i = 0; i < numSens; i++) {
 		if (i == numSens - 2) {
 			valSensor1[i] = ofMap(valSensor1[i], 0, 255, 0.1, 2);
@@ -1393,44 +1391,167 @@ void ofApp::updateEsc03() {
 	}
 }
 /////////////// ESCENA 04
-///////////////////////////// Asombro
+///////////////////////////// ASOMBRO
 void ofApp::escena04() {
 	escena02();
 }
 void ofApp::updateEscena04() {
-	camara02 = false;
+	if (cuenta04 == 0) {
+		camara02 = false;
+		cambiaColorNodo03 = false;
+	}
+	else if (cuenta04 < 600) {
+		if (c.r > 0)
+			c.r -= 1;
+		if (c.g > 0)
+			c.g -= 1;
+		if (c.b < 255)
+			c.b += 1;
+		if (c.a > 110)
+			c.a--;
+	}
+	else if (cuenta04 == 601) {
+		switchAlpha = true;
+	}
+	else if (cuenta04 > 700 && cuenta04 < 710) {
+		if (!alphaEncendido)
+			alphaEncendido;
+			noiseSrf = true;
+	}
+	else if (cuenta04 > 800 && cuenta04 < 1810) {
+		if (ofGetFrameNum() % 60 == 0) {
+			camara02 = !camara02;
+			reset04 = true;
+			c.r = ofRandom(255);
+			c.b = ofRandom(255);
+			c.g = ofRandom(255);
+		}
+	}
+	else if (cuenta04 == 2480) {
+		camara02 = true;
+		switchAlpha = true;
+	}
+	else if (cuenta04 > 2600 && escena == 4) {
+		c.a = 255;
+		c.r = ofMap((valSensor1[0] + valSensor2[0]), 0, 2, 0, 255);
+		c.g = ofMap((valSensor1[1] + valSensor2[1]), 0, 2, 0, 255);
+		c.b = ofMap((valSensor1[4] + valSensor2[4]), 0, 2, 0, 255);
+		if (valSensor1[5] > 200) {
+			cuentaPulsos++;
+		}
+		if (escena == 4) {
+			if (cuentaPulsos > 2) {
+				ejes02 = !ejes02;
+				cuentaPulsos = 0;
+			}
+		}
+	} 
+
+	if (escena == 5) {
+		cuenta05++; 		
+		if(cuenta05<20)
+			ejes02 = true;
+		else if (cuenta05 > 300 && cuenta05 < 310) {
+			camara02 = false;
+			mallaSrf = true;
+			apagaMalla = false;
+		}
+		if(ofGetFrameNum()%120)
+			maxNoise = ofRandom(-1350, 2500);
+
+	/*	if (alphaSrf02 != 255) {
+			if (alphaSrf02 < 254)
+				alphaSrf02++;
+		}
+		*/
+		if (c.r > 0)
+			c.r *= 0.995;
+		if (c.g > 0)
+			c.g *= 0.995;
+		if (c.b > 0)
+			c.b *= 0.995;
+	}
+
+	if (noiseSrf) {
+		if (escena == 4){
+			if (tamNoise < maxNoise) 
+				tamNoise += 0.125;
+		}
+		else if (escena == 5) {
+			if (tamNoise < maxNoise)
+				tamNoise *= 1.01;
+			else
+				tamNoise *= 0.99;
+		}
+	}
+
+	if (escena == 4)
+		cuenta04++;
+	else
+		cuenta04 = 0;
+
 	for (int j = 0; j < numPart2Y; j++) {
 		for (int i = 0; i < numPart2X; i++) {
-			nodosTemp[i + j*numPart2X] = ofVec3f(sep2X*i, sep2Y*j, 0);
+			if (reset04) {
+				nodosTemp[i + j*numPart2X] = ofVec3f(sep2X*i, sep2Y*j, 0);
+				reset04 = false;
+			}
+			if (noiseSrf) {
+				if (escena == 4) {
+					nodos[i + j*numPart2X] = ofVec3f(
+						sep2X*i, 
+						sep2Y*j*1.75, 
+						ofNoise(ofGetElapsedTimeMillis()*velNoise + i + j*numPart2X) * tamNoise);
+					tamNodos[i + j*numPart2X] = ofNoise(ofGetElapsedTimeMillis()*.0005 + i + j*numPart2X) * 15;
+				}
+				else if (escena == 5){
+					if(colNodo02[i + j*numPart2X]<255)
+						colNodo02[i + j*numPart2X]++;
 
-			if (nodos[i + j*numPart2X].x > nodosTemp[i + j*numPart2X].x - 1)
-				nodos[i + j*numPart2X].x--;
+					if (valSin05 < 50)
+						valSin05 *= 1.005;
+					nodos[i + j*numPart2X] = ofVec3f(
+						sep2X*i,
+						sep2Y*j*1.75,
+						sin(ofGetElapsedTimeMillis()*0.0005 + (360 / numPart2X)*i) * valSin05 + cos(ofGetElapsedTimeMillis()*0.005 + (360 / numPart2Y)*j) * valSin05 + ofNoise(ofGetElapsedTimeMillis()*velNoise + i + j*numPart2X) * tamNoise);
+					tamNodos[i + j*numPart2X] = ofNoise(ofGetElapsedTimeMillis()*.0000005 + i + j*numPart2X) * (25+valSensor1[2]*5+valSensor2[2]*5);
+				}
+			}
+			else {
+				nodosTemp[i + j*numPart2X] = ofVec3f(sep2X*i, sep2Y*j, 0);
 
-			if (nodos[i + j*numPart2X].x < nodosTemp[i + j*numPart2X].x + 1)
-				nodos[i + j*numPart2X].x++;
-
-			if (nodos[i + j*numPart2X].y > nodosTemp[i + j*numPart2X].y - 1)
-				nodos[i + j*numPart2X].y--;
-
-			if (nodos[i + j*numPart2X].y < nodosTemp[i + j*numPart2X].y + 1)
-				nodos[i + j*numPart2X].y++;
-
-			if (nodos[i + j*numPart2X].z > nodosTemp[i + j*numPart2X].z - 1)
-				nodos[i + j*numPart2X].z--;
-
-			if (nodos[i + j*numPart2X].z < nodosTemp[i + j*numPart2X].z + 1)
-				nodos[i + j*numPart2X].z++;
+				if (nodos[i + j*numPart2X].x > nodosTemp[i + j*numPart2X].x)
+					nodos[i + j*numPart2X].x--;
+				else
+					nodos[i + j*numPart2X].x++;
+				if (nodos[i + j*numPart2X].y > nodosTemp[i + j*numPart2X].y)
+					nodos[i + j*numPart2X].y--;
+				else
+					nodos[i + j*numPart2X].y++;
+				if (nodos[i + j*numPart2X].z > nodosTemp[i + j*numPart2X].z)
+					nodos[i + j*numPart2X].z--;
+				else
+					nodos[i + j*numPart2X].z++;
 
 
-			if (tamNodos[i + j*numPart2X] > 5)
-				tamNodos[i + j*numPart2X] -= 0.125;
+				if (escena == 5) {
+					if (cSrfR < 255)
+						cSrfR += 0.5;
+					if (cSrfG < 255)
+						cSrfG += 0.5;
+					if (cSrfB < 255)
+						cSrfB += 0.5;
+					if (cSrfA < 255)
+						cSrfA += 0.5;
+				}
+			}
 		}
 	}
 }
 /////////////// ESCENA 05
 ///////////////////////////// Euforia
 void ofApp::escena05() {
-
+	escena02();
 }
 /////////////// ESCENA 06
 ///////////////////////////// Tristeza / Soledad
@@ -1597,9 +1718,7 @@ void ofApp::museConectado(int pX, int pY, int numS) {
 	ofPopMatrix();
 	ofPopStyle();
 }
-
 //////////////////////////////////////////////////////////////////////////////////
-
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	if(key=='!')
@@ -1673,16 +1792,9 @@ void ofApp::setupGUI() {
 	gui.add(escenas.setup("Escena", 0, 0, 11));
 	gui.add(guardaFrame.setup("Salvar Frames ", false));
 	gui.add(emularSensores.setup("Emular", false));
-
-	gui.add(camara02.setup("camara02", false));
-	gui.add(puntos02.setup("puntos02", false));
-	gui.add(ejes02.setup("ejes02", false));
-	gui.add(malla02.setup("malla02", false));
-	gui.add(invertir02.setup("invertir02", false));
-	gui.add(circular02.setup("circular02", false));
 	gui.add(radio02.setup("radio02", 300, 100, 5000));
-
 }
+//--------------------------------------------------------------
 void ofApp::keyReleased(int key) {
 
 }
@@ -1726,3 +1838,43 @@ void ofApp::windowResized(int w, int h) {
 void ofApp::dragEvent(ofDragInfo dragInfo) {
 
 }
+/* NOTAS CAMARA 3d
+// ofCamera myCam;
+float tweenvalue = (ofGetElapsedTimeMillis() % 6000) / 6000.f; // this will slowly change from 0.0f to 1.0f, resetting every 2 seconds
+
+ofQuaternion startQuat;
+ofQuaternion targetQuat;
+ofVec3f startPos;
+ofVec3f targetPos;
+
+// we define the camer's start and end orientation here:
+startQuat.makeRotate(90, 0, 0, 1);			// zero rotation.
+targetQuat.makeRotate(180, 0, 0, 1);			// rotation 90 degrees around y-axis.
+
+// we define the camer's start and end-position here:
+startPos.set(0, 0, 0);
+targetPos.set(0, 0, 0);
+
+
+ofQuaternion tweenedCameraQuaternion;	// this will be the camera's new rotation.
+
+// calculate the interpolated orientation
+tweenedCameraQuaternion.slerp(tweenvalue, startQuat, targetQuat);
+
+ofVec3f lerpPos;					//this will hold our tweened position.
+
+// calculate the interpolated values.
+lerpPos.x = ofLerp(tweenvalue, startPos.x, targetPos.x);
+lerpPos.y = ofLerp(tweenvalue, startPos.y, targetPos.y);
+lerpPos.z = ofLerp(tweenvalue, startPos.z, targetPos.z);
+
+// alternative way to calculate interpolated values:
+//lerpPos = startPos + ((targetPos-startPos) * tweenvalue);
+
+// now update the camera with the calculated orientation and position.
+
+
+// myCam.setOrientation(tweenedCameraQuaternion);
+// myCam.setGlobalPosition(lerpPos);
+*/
+
