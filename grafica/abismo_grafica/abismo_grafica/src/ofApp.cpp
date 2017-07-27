@@ -592,22 +592,22 @@ void ofApp::updateEsc01() {
 	case 1:
 		for (int i = 0; i < numPart - 2; i++) {
 			particulas1[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + valSensor1[i] * multSensores)*escala01,
 				0);
 			particulas2[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + valSensor2[i] * multSensores)*escala01,
 				0);
 		}
 		for (int i = numPart-2; i < numPart; i++) {
 			particulas1[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + ofMap(valSensor1[i], 0, 255, 0, 1) *multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor1[i], 0, 255, 0, 1) * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + ofMap(valSensor1[i], 0, 255, 0, 1) *multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + +ofMap(valSensor1[i], 0, 255, 0, 1) * multSensores)*escala01,
 				0);
 			particulas2[i].set(
-				sin((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
-				cos((TWO_PI / numPart)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
+				sin((TWO_PI / numPart-2)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
+				cos((TWO_PI / numPart-2)*i)*(radio01 + +ofMap(valSensor2[i], 0, 255, 0, 1) * multSensores)*escala01,
 				0);
 		}
 		if (radio01 < radio01Fin)
@@ -628,13 +628,13 @@ void ofApp::updateEsc01() {
 		break;
 	case 2:
 		if (!partInPos) {
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-2; i++) {
 				float pTempX = particulas1[i].x;
 				particulas1[i].set(
 					pTempX, 0, 0
 				);
 
-				if (particulas1[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 1))*i)
+				if (particulas1[i].x < -ofGetWidth() / 2 + (ofGetWidth() / (numPart - 2))*i)
 					particulas1[i].x += 5;
 				else
 					particulas1[i].x -= 5;
@@ -661,7 +661,7 @@ void ofApp::updateEsc01() {
 		}
 		//ofLogNotice("Val Sensor 1 [5]" + ofToString(ofMap(valSensor1[numPart - 1], 0, 20, 0, 1) * 150 * escala01));
 		//pulso
-		particulas1[numPart - 2].set(
+/*		particulas1[numPart - 2].set(
 			particulas1[numPart - 2].x,
 			int(ofMap(valSensor1[numPart - 2], 0, 255, 0, 1) * 150 * escala01),
 			0);
@@ -670,7 +670,7 @@ void ofApp::updateEsc01() {
 			particulas1[numPart - 1].x,
 			ofMap(valSensor1[numPart - 1], 0, 20, 0, 1) * 150 * escala01,
 			0);
-		
+	*/	
 
 		break;
 	}
