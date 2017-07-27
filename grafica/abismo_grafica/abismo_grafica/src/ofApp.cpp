@@ -364,21 +364,21 @@ void ofApp::updateOSC() {
 			}
 		}
 		else if (m.getAddress() == "/pulse") {
-			int pulseAt1 = int(m.getArgAsInt(0));
+			int pulseAt1 = int(m.getArgAsInt32(0));
 			if (pulseAt1 == 1) {
-				valSensor1[5] = int(m.getArgAsInt(1));
+				valSensor1[5] = abs(int(m.getArgAsInt32(1)));
 			}
 			else if (pulseAt1 == 2) {
-				valSensor2[5] = int(m.getArgAsInt(1));
+				valSensor2[5] = abs(int(m.getArgAsInt32(1)));
 			}
 		}
 		else if (m.getAddress() == "/gsr") {
-			int gsrAt1 = int(m.getArgAsInt(0));
+			int gsrAt1 = int(m.getArgAsInt32(0));
 			if (gsrAt1 == 1) {
-				valSensor1[6] = int(m.getArgAsInt(1));
+				valSensor1[6] = abs(int(m.getArgAsInt32(1)));
 			}
 			else if (gsrAt1 == 2) {
-				valSensor2[6] = int(m.getArgAsInt(1));
+				valSensor2[6] = abs(int(m.getArgAsInt32(1)));
 			}
 		}
 		else {
@@ -622,6 +622,7 @@ void ofApp::updateEsc01() {
 		else if (valSensor1[5] < 5) {
 			aumentaCuentaPulso = true;
 		}
+
 		if (cuentaPulsos > 80)
 			cambia01 = true;
 
@@ -787,7 +788,7 @@ void ofApp::escena01() {
 		ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 		for (int j = 0; j < anillos; j++) {
 			ofBeginShape();
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-1; i++) {
 				ofVertex(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08),
@@ -801,7 +802,7 @@ void ofApp::escena01() {
 			ofSetColor(0, opa01 - j * 15);
 			ofNoFill();
 			ofBeginShape();
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-1; i++) {
 				ofVertex(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08)
@@ -813,7 +814,7 @@ void ofApp::escena01() {
 		ofSetColor(255, opa01);
 		ofFill();
 		for (int j = 0; j < anillos; j++) {
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-1; i++) {
 				ofEllipse(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08),
@@ -838,7 +839,7 @@ void ofApp::escena01() {
 			c.setHsb((360 / (numSens + 1)) * j, 100, 100, opa01 / anillos);
 			ofFill();
 			ofBeginShape();
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-1; i++) {
 				ofVertex(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08),
@@ -852,7 +853,7 @@ void ofApp::escena01() {
 			ofSetColor(0, opa01 - j * 15);
 			ofNoFill();
 			ofBeginShape();
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-1; i++) {
 				ofVertex(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08)
@@ -865,7 +866,7 @@ void ofApp::escena01() {
 		ofSetColor(255, opa01);
 		ofFill();
 		for (int j = 0; j < anillos; j++) {
-			for (int i = 0; i < numPart; i++) {
+			for (int i = 0; i < numPart-1; i++) {
 				ofEllipse(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08),
@@ -895,7 +896,7 @@ void ofApp::escena01() {
 				ofBeginShape();
 				ofVertex(ofGetWidth() / 2, ofGetHeight() / 2);
 				ofVertex(-ofGetWidth() / 2, ofGetHeight() / 2);
-				for (int i = 0; i < numPart; i++) {
+				for (int i = 0; i < numPart-1; i++) {
 					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
 					);
 				}
@@ -905,7 +906,7 @@ void ofApp::escena01() {
 				ofSetColor(0, opa01b - j * 15);
 				ofNoFill();
 				ofBeginShape();
-				for (int i = 0; i < numPart; i++) {
+				for (int i = 0; i < numPart-1; i++) {
 					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j);
 				}
 				ofEndShape();

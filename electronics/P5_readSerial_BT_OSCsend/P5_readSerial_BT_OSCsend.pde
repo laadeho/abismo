@@ -18,7 +18,7 @@ import netP5.*;
 OscP5 oscP5;
 NetAddress puerto7000, puerto57120;
 
-boolean emular = true;
+boolean emular = false;
 
 PImage icon;
 
@@ -69,8 +69,8 @@ void setup()
   if (!emular) {
     println(Serial.list());
 
-    String portName = Serial.list()[7];
-    String portName2 = Serial.list()[5];
+    String portName = Serial.list()[1];
+    String portName2 = Serial.list()[3];
 
     myPort = new Serial(this, portName, 9600);
     myPort2 = new Serial(this, portName2, 9600);
