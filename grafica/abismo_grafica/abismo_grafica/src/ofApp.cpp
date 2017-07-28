@@ -789,11 +789,7 @@ void ofApp::escena01() {
 		ofSetPolyMode(OF_POLY_WINDING_NONZERO);
 		for (int j = 0; j < anillos; j++) {
 			ofBeginShape();
-<<<<<<< HEAD
-			for (int i = 0; i < numPart-1; i++) {
-=======
 			for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08),
@@ -807,11 +803,7 @@ void ofApp::escena01() {
 			ofSetColor(0, opa01 - j * 15);
 			ofNoFill();
 			ofBeginShape();
-<<<<<<< HEAD
-			for (int i = 0; i < numPart-1; i++) {
-=======
 			for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08)
@@ -823,11 +815,7 @@ void ofApp::escena01() {
 		ofSetColor(255, opa01);
 		ofFill();
 		for (int j = 0; j < anillos; j++) {
-<<<<<<< HEAD
-			for (int i = 0; i < numPart-1; i++) {
-=======
 			for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofEllipse(
 					particulas1[i].x*((1 + j)*.08),
 					particulas1[i].y*((1 + j)*.08),
@@ -852,11 +840,7 @@ void ofApp::escena01() {
 			c.setHsb((360 / (numSens + 1)) * j, 100, 100, opa01 / anillos);
 			ofFill();
 			ofBeginShape();
-<<<<<<< HEAD
-			for (int i = 0; i < numPart-1; i++) {
-=======
 			for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08),
@@ -870,11 +854,7 @@ void ofApp::escena01() {
 			ofSetColor(0, opa01 - j * 15);
 			ofNoFill();
 			ofBeginShape();
-<<<<<<< HEAD
-			for (int i = 0; i < numPart-1; i++) {
-=======
 			for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofVertex(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08)
@@ -887,11 +867,7 @@ void ofApp::escena01() {
 		ofSetColor(255, opa01);
 		ofFill();
 		for (int j = 0; j < anillos; j++) {
-<<<<<<< HEAD
-			for (int i = 0; i < numPart-1; i++) {
-=======
 			for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 				ofEllipse(
 					particulas2[i].x*((1 + j)*.08),
 					particulas2[i].y*((1 + j)*.08),
@@ -921,11 +897,7 @@ void ofApp::escena01() {
 				ofBeginShape();
 				ofVertex(ofGetWidth() / 2, ofGetHeight() / 2);
 				ofVertex(-ofGetWidth() / 2, ofGetHeight() / 2);
-<<<<<<< HEAD
-				for (int i = 0; i < numPart-1; i++) {
-=======
 				for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j, sin(i + j*anillos + ofGetElapsedTimeMillis()*.001) * 20
 					);
 				}
@@ -935,11 +907,8 @@ void ofApp::escena01() {
 				ofSetColor(0, opa01b - j * 15);
 				ofNoFill();
 				ofBeginShape();
-<<<<<<< HEAD
-				for (int i = 0; i < numPart-1; i++) {
-=======
+		
 				for (int i = 0; i < numPart-2; i++) {
->>>>>>> 5ab62efbc3ef61c0708346450eaba32b085d9799
 					ofVertex(particulas1[i].x, particulas1[i].y + 25 * j);
 				}
 				ofEndShape();
