@@ -30,7 +30,7 @@ void ofApp::setup(){
 
 	// ESC 00 /////////////////////////
 	logoAbismo.load("images/abismoLogo_1240x600.png");
-	
+
 	setupEsc01();
 	setupEsc02();
 	/*
@@ -47,7 +47,25 @@ void ofApp::setup(){
 	// ESC 06 /////////////////////////
 	// ESC 07 /////////////////////////
 	// ESC 08 /////////////////////////
-	
+	verdana.load("verdana.ttf", 14, true, true);
+	verdana.setLineHeight(18.0f);
+	verdana.setLetterSpacing(1.037);
+
+	helvNormal.load("Helvetica Normal.ttf", 14, true, true);
+	helvNormal.setLineHeight(18.0f);
+	helvNormal.setLetterSpacing(1.037);
+
+	helvBlack.load("Helvetica Bold.ttf", 50, true, true);
+	helvBlack.setLineHeight(55.0f);
+	helvBlack.setLetterSpacing(1.1);
+
+	frabk.load("frabk.ttf", 14, true, true);
+	frabk.setLineHeight(18.0f);
+	frabk.setLetterSpacing(1.037);
+	// ESC 09 /////////////////////////
+	logoAbismoInv.load("images/abismoLogo_1240x600_b.png");
+
+
 	/*
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
 	std::cout << "Alto: " << ofGetScreenHeight() << endl;
@@ -87,7 +105,6 @@ void ofApp::update() {
 			}
 			if (opaLogo == 0) {
 				escena = 1;
-				//escenas = escena;
 				saleLogo = false;
 				iniciaTodo = true;
 			}
@@ -111,6 +128,9 @@ void ofApp::update() {
 	case 6:
 		break;
 	case 7:
+		break;
+	case 8:
+		updateEscena08();
 		break;
 	default:
 		break;
@@ -1466,11 +1486,11 @@ void ofApp::updateEscena04() {
 				alphaSrf02++;
 		}
 		*/
-		if (c.r > 0)
+		if (c.r > 180)
 			c.r *= 0.995;
-		if (c.g > 0)
+		if (c.g > 180)
 			c.g *= 0.995;
-		if (c.b > 0)
+		if (c.b > 180)
 			c.b *= 0.995;
 	}
 
@@ -1558,22 +1578,191 @@ void ofApp::escena05() {
 /////////////// ESCENA 06
 ///////////////////////////// Tristeza / Soledad
 void ofApp::escena06() {
+	escena02();
 
 }
 /////////////// ESCENA 07
 ///////////////////////////// Abismo
 void ofApp::escena07() {
-
+	escena02();
 }
 /////////////// ESCENA 08
 ///////////////////////////// Felicidad
-void ofApp::escena08() {
+void ofApp::updateEscena08() {
+	//if(cuenta08<5500)
+	cuenta08++;
+	ofLogNotice(ofToString(cuenta08));
+
+	if (cuenta08 < 15) {
+		entraOpa = true;
+	}
+	else if (cuenta08 > 500 && cuenta08 < 510){//  ||  || cuenta08 > 3500 && cuenta08 < 3510) {
+		saleOpa = true; // sale tu nombre
+	}
+	else if (cuenta08 > 2000 && cuenta08 < 2010) {
+		saleOpa = true; // sale que sentiste
+	}
+	else if (cuenta08 > 2600 && cuenta08 < 2610) {
+		saleOpa = true; // sale gato o perro
+	}
+	else if (cuenta08 > 4000 && cuenta08 < 4010) {
+		saleOpa = true; // sale que paso por tu mente
+	}
+	else if (cuenta08 > 6500 && cuenta08 < 6510) {
+		saleOpa = true; // sale conversar
+	}
+	else if (cuenta08 > 7200 && cuenta08 < 7210) {
+		saleOpa = true; // sale gracias
+	}
+
+	if (entraOpa) {
+		if (valOpa < 255)
+			valOpa ++;
+		if (valOpa == 255)
+			entraOpa = false;
+	}
+	if (saleOpa) {
+		if (valOpa > 0)
+			valOpa --;
+		if (valOpa == 0) {
+			preguntas++;
+			if (preguntas < 6)
+				entraOpa = true;
+			else
+				escena++;
+			
+			saleOpa = false;
+			ofLogNotice(ofToString(preguntas));
+
+		}
+	}
+}
+void ofApp::escena08() {	//////////////////// Preguntas
+	if (preguntas < 2) {
+		ofSetColor(valSensor1[0] * 255, valSensor1[1] * 255, valSensor1[2] * 255, valOpa);
+		ofFill();
+		textoCentro("En voz alta", true, false, 0, 280, 1, 0);
+	}
+	ofSetColor(valSensor2[0] * 255, valSensor2[1] * 255, valSensor2[2] * 255, valOpa);
+	ofFill();
+
+	switch (preguntas) {
+	case 0:
+		textoCentro("DI TU NOMBRE", true, true, 0, 0, 2, 0);
+		break;
+	case 1:
+		textoCentro("¿QUE ES LO QUE SIENTES", true, true, 0, -50, 2, 0);
+		textoCentro("EN ESTE MOMENTO?", true, true, 0, 50, 2, 0);
+		break;
+	case 2:
+		textoCentro("GATO O PERRO?", true, true, 0, 0, 2, 0);
+		break;
+	case 3:
+		textoCentro("¿QUE PASO POR TU MENTE", true, true, 0, -50, 2, 0);
+		textoCentro("EN LOS ULTIMOS MINUTOS?", true, true, 0, 50, 2, 0);
+		break;
+	case 4:
+		textoCentro("ES MOMENTO DE CONVERSAR", true, true, 0, 0, 2, 0);
+		break;
+	case 5:
+		textoCentro("GRACIAS", true, true, 0, 0, 2, 0);
+		break;
+	default:
+		break;
+	}
+
+
+	
+
+}
+void ofApp::textoCentro(string texto, bool centradoH, bool centradoV, int posTextX, int posTextY, int numFont, int tamFont) {
+	string renglon = texto;
+	ofRectangle bounds1 = verdana.getStringBoundingBox(renglon, 0, 0);
+	ofRectangle bounds2 = helvNormal.getStringBoundingBox(renglon, 0, 0);
+	ofRectangle bounds3 = helvBlack.getStringBoundingBox(renglon, 0, 0);
+	ofRectangle bounds4 = frabk.getStringBoundingBox(renglon, 0, 0);
+
+
+	if (centradoH && centradoV) {
+		switch (numFont) {
+		case 0:
+			verdana.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds1.width / 2, posTextY + ofGetHeight() / 2 - bounds1.height / 2);
+			break;
+		case 1:
+			helvNormal.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds2.width / 2, posTextY + ofGetHeight() / 2 - bounds2.height / 2);
+			break;
+		case 2:
+			helvBlack.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds3.width / 2, posTextY + ofGetHeight() / 2 - bounds3.height / 2);
+			break;
+		case 3:
+			frabk.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds4.width / 2, posTextY + ofGetHeight() / 2 - bounds4.height / 2);
+			break;
+		}
+	}
+	else if (centradoH && !centradoV) {
+		switch (numFont) {
+		case 0:
+			verdana.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds1.width / 2, posTextY);
+			break;
+		case 1:
+			helvNormal.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds2.width / 2, posTextY);
+			break;
+		case 2:
+			helvBlack.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds3.width / 2, posTextY);
+			break;
+		case 3:
+			frabk.drawString(renglon, posTextX + ofGetWidth() / 2 - bounds4.width / 2, posTextY);
+			break;
+		}
+	}
+	else if (!centradoH && centradoV) {
+		switch (numFont) {
+		case 0:
+			verdana.drawString(renglon, posTextX, posTextY + ofGetHeight() / 2 - bounds1.height / 2);
+			break;
+		case 1:
+			helvNormal.drawString(renglon, posTextX, posTextY + ofGetHeight() / 2 - bounds2.height / 2);
+			break;
+		case 2:
+			helvBlack.drawString(renglon, posTextX, posTextY + ofGetHeight() / 2 - bounds3.height / 2);
+			break;
+		case 3:
+			frabk.drawString(renglon, posTextX, posTextY + ofGetHeight() / 2 - bounds4.height / 2);
+			break;
+		}
+	}
+	else {
+		switch (numFont) {
+		case 0:
+			verdana.drawString(renglon, posTextX, posTextY);
+			break;
+		case 1:
+			helvNormal.drawString(renglon, posTextX, posTextY);
+			break;
+		case 2:
+			helvBlack.drawString(renglon, posTextX, posTextY);
+			break;
+		case 3:
+			frabk.drawString(renglon, posTextX, posTextY);
+			break;
+		}
+	}
 
 }
 /////////////// ESCENA 09
 ///////////////////////////// Reconocimiento
 void ofApp::escena09() {
+	if(valBack09 < 255) {
+		valBack09 += 0.125;
+	}
 
+	ofBackground(valBack09);
+
+	ofEnableAlphaBlending();
+	ofSetColor(255, 255, 255);
+	//logoAbismo.draw(-120, ofGetHeight() / 2 - 300);
+	logoAbismoInv.draw(ofGetWidth() / 2 - 620, ofGetHeight() / 2 - 300);
+	ofDisableAlphaBlending();
 }
 /////////////// ESCENA 10
 ///////////////////////////// Proximidad
@@ -1727,6 +1916,24 @@ void ofApp::keyPressed(int key) {
 		ofSetWindowPosition(ofGetWindowWidth(), 0);
 	if(key=='"')
 		ofSetWindowPosition(0, 0);
+
+	if (key == 'z' || key == 'Z')
+		alphaEncendido = !alphaEncendido;
+	if (key == 'x' || key == 'X')
+		ofBackground(0);
+	if (key == 'c' || key == 'C')
+		camara02 = !camara02;
+	if (key == 's' || key == 'S')
+		switchEllipse = !switchEllipse;
+
+	if (key == 'f' || key == 'F') {
+		fullScreenDisplay = !fullScreenDisplay;
+		if (fullScreenDisplay)
+			ofSetFullscreen(true);
+		else
+			ofSetFullscreen(false);
+	}
+
 	if (key == 'd' || key == 'D')
 		debug = !debug;
 	if (key == 'g' || key == 'G')
@@ -1735,23 +1942,11 @@ void ofApp::keyPressed(int key) {
 		emularSensores = !emularSensores;
 	if (key == 'h' || key == 'H')
 		help = !help;
-	if (key == 'b' || key == 'B') {
-		ofBackground(0);
-	}
+
 	if (key == 't' || key == 'T')
 		titulo = !titulo;
-	if (key == 'i' || key == 'I')
-		isGood = !isGood;
-	if (key == 's' || key == 'S')
-		switchEllipse = !switchEllipse;
-		//guardaFrame = !guardaFrame;
-	if (key == 'f' || key == 'F'){
-		fullScreenDisplay = !fullScreenDisplay;
-		if(fullScreenDisplay)
-			ofSetFullscreen(true);
-		else
-			ofSetFullscreen(false);
-	}
+
+	//guardaFrame = !guardaFrame;
 
 	if (key == '0') escena = 0;
 	if (key == '1') escena = 1;

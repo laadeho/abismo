@@ -72,7 +72,7 @@ class ofApp : public ofBaseApp{
 		void setupEsc01(), updateEsc01();
 		void setupEsc02(), updateEsc02();
 		void updateEsc03();
-		void updateEscena04();
+		void updateEscena04(), updateEscena08();
 
 		void camAnim();
 
@@ -93,7 +93,7 @@ class ofApp : public ofBaseApp{
 		int contador, limiteContador = 50;
 		bool entraLogo = false; 
 		bool saleLogo = false;
-		ofImage logoAbismo;
+		ofImage logoAbismo, logoAbismoInv;
 		float opaLogo;
 		/////////////////////////////////////////////////
 		// escena 01
@@ -213,9 +213,23 @@ class ofApp : public ofBaseApp{
 		double incCol02;
 
 
-
-
-
+		/////////////////////////////////////////////////
+		// escena 08
+		/////////////////////////////////////////////////
+		void textoCentro(string, bool, bool, int, int, int, int);
+		// texto, centroH, centroV, pX, pY, numFont, tamFont
+		ofTrueTypeFont	verdana;
+		ofTrueTypeFont	helvNormal;
+		ofTrueTypeFont	helvBlack;
+		ofTrueTypeFont	frabk;
+		bool entraOpa, saleOpa;
+		int valOpa = 0;
+		int cuenta08 = 0;
+		int preguntas;
+		/////////////////////////////////////////////////
+		// escena 09
+		/////////////////////////////////////////////////
+		float valBack09 = 0.0f;
 
 
 		// escenas END
