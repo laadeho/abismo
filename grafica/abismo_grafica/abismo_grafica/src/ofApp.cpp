@@ -1467,11 +1467,11 @@ void ofApp::updateEscena04() {
 				alphaSrf02++;
 		}
 		*/
-		if (c.r > 0)
+		if (c.r > 135)
 			c.r *= 0.995;
-		if (c.g > 0)
+		if (c.g > 135)
 			c.g *= 0.995;
-		if (c.b > 0)
+		if (c.b > 135)
 			c.b *= 0.995;
 	}
 
