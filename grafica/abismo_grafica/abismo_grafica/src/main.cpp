@@ -12,6 +12,7 @@ int main( ){
 	*/
 	ofSetupOpenGL(&window, 1920, 1080, OF_WINDOW);
 	ofSetWindowPosition(1920, 0);
+	
 	//ofSetWindowPosition(1000, 0);
 	//ofSetupOpenGL(1920, 1080, OF_FULLSCREEN);
 	
