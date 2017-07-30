@@ -47,11 +47,11 @@ void ofApp::setup(){
 	// ESC 06 /////////////////////////
 	// ESC 07 /////////////////////////
 	// ESC 08 /////////////////////////
-	verdana.load("verdana.ttf", 14, true, true);
-	verdana.setLineHeight(18.0f);
-	verdana.setLetterSpacing(1.037);
+	verdana.load("verdana.ttf", 30, true, true);
+	verdana.setLineHeight(22.0f);
+	verdana.setLetterSpacing(1.057);
 
-	helvNormal.load("Helvetica Normal.ttf", 14, true, true);
+	helvNormal.load("Helvetica Normal.ttf", 24, true, true);
 	helvNormal.setLineHeight(18.0f);
 	helvNormal.setLetterSpacing(1.037);
 
@@ -64,7 +64,6 @@ void ofApp::setup(){
 	frabk.setLetterSpacing(1.037);
 	// ESC 09 /////////////////////////
 	logoAbismoInv.load("images/abismoLogo_1240x600_b.png");
-
 
 	/*
 	std::cout << "Ancho: " << ofGetScreenWidth() << endl;
@@ -1486,19 +1485,12 @@ void ofApp::updateEscena04() {
 				alphaSrf02++;
 		}
 		*/
-<<<<<<< HEAD
-		if (c.r > 135)
-			c.r *= 0.995;
-		if (c.g > 135)
-			c.g *= 0.995;
-		if (c.b > 135)
-=======
+
 		if (c.r > 180)
 			c.r *= 0.995;
 		if (c.g > 180)
 			c.g *= 0.995;
 		if (c.b > 180)
->>>>>>> 2c9bd59b0d4449c3e550ac9c4906ad9442f7b8f7
 			c.b *= 0.995;
 	}
 
@@ -1599,7 +1591,7 @@ void ofApp::escena07() {
 void ofApp::updateEscena08() {
 	//if(cuenta08<5500)
 	cuenta08++;
-	ofLogNotice(ofToString(cuenta08));
+	//ofLogNotice(ofToString(cuenta08));
 
 	if (cuenta08 < 15) {
 		entraOpa = true;
