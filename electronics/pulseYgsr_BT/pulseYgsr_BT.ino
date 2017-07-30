@@ -35,6 +35,7 @@ int pulso = 0;
 boolean escribe = true;
 boolean debug = true;
 int cuenta = 0;
+
 void setup() {
   pinMode(pinLed, OUTPUT);
   Serial.begin(19200); // Imprime en el puerto serial
@@ -51,7 +52,7 @@ void loop() {
         if (pinSensorPulso > 0) {
           Serial.println('A'); // imprime val = 65
           Serial.println('H'); // imprime 49
-          Serial.println(int(map(analogRead(pinSensorPulso), 0,1023,0,255)));
+          Serial.println(int(map(analogRead(pinSensorPulso), 0, 1023, 0, 255)));
           Serial.println(',');
         }
       }
@@ -61,7 +62,7 @@ void loop() {
     if (escribe) {
       BTserial.write('A'); // imprime val = 65
       BTserial.write('H'); // imprime 49
-      BTserial.write(int(map(analogRead(pinSensorPulso), 0,1023,0,255)));
+      BTserial.write(int(map(analogRead(pinSensorPulso), 0, 1023, 0, 255)));
       BTserial.write(',');
     }
   } else {
@@ -71,20 +72,17 @@ void loop() {
     addToArray();
     int smoothReading = findAverage();
     if (smoothReading > -1) {
-      /*
-        if (debug) {
-        Serial.print("SIN: ");
-        Serial.print(smoothReading);
-        Serial.print(", MAP: ");
-        }*/
       int diff = smoothReading - oldReading;
-      //the op amp inverts, so we're flipping the numbers
-      BTserial.write('B'); // imprime val = 65
-      BTserial.write('I'); // imprime 50
       int mapSmoothReading = int(map(smoothReading, valMin, valMax, 0, 255));
-      BTserial.write(mapSmoothReading); // Se mapea a 255 (byte)
-      BTserial.write(','); // imprime 44
+      //the op amp inverts, so we're flipping the numbers
+      if (mapSmoothReading >= 0) {
+        BTserial.write('B'); // imprime val = 65
+        BTserial.write('I'); // imprime 50
+        BTserial.write(mapSmoothReading); // Se mapea a 255 (byte)
+        BTserial.write(','); // imprime 44
+      }
       if (debug) {
+        Serial.println(mapSmoothReading);
         if (mapSmoothReading > 1)
           Serial.println(mapSmoothReading);
       }

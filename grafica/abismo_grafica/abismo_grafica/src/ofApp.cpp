@@ -672,7 +672,6 @@ void ofApp::updateEsc01() {
 			ofMap(valSensor1[numPart - 1], 0, 20, 0, 1) * 150 * escala01,
 			0);
 	*/	
-
 		break;
 	}
 	// Switch al cambiar de escena o contenido
@@ -1132,7 +1131,6 @@ void ofApp::escena02() {
 		ofPopStyle();
 	}
 }
-//--------------------------------------------------------------
 void ofApp::updateEsc02() {
 	if (debug) {
 		ofLogNotice(ofToString(cuenta02));
@@ -1265,6 +1263,7 @@ void ofApp::updateEsc02() {
 		}
 	}
 }
+//--------------------------------------------------------------
 /////////////// ESCENA 03
 ///////////////////////////// MIEDO
 void ofApp::escena03() {
