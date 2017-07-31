@@ -134,6 +134,11 @@ void ofApp::update() {
 	default:
 		break;
 	}
+
+	if (jawClench1 || jawClench2) {
+		camara02 = !camara02;
+	}
+
 	updateOSC();
 	updateEmular();
 	camAnim();
@@ -642,7 +647,7 @@ void ofApp::updateEsc01() {
 			aumentaCuentaPulso = true;
 		}
 
-		if (cuentaPulsos > 80)
+		if (cuentaPulsos > 40)
 			cambia01 = true;
 
 		break;
@@ -1639,11 +1644,11 @@ void ofApp::updateEscena08() {
 }
 void ofApp::escena08() {	//////////////////// Preguntas
 	if (preguntas < 2) {
-		ofSetColor(valSensor1[0] * 255, valSensor1[1] * 255, valSensor1[2] * 255, valOpa);
+		ofSetColor(20 + valSensor1[0] * 255, 20 + valSensor1[1] * 255, 20 + valSensor1[2] * 255, valOpa);
 		ofFill();
 		textoCentro("En voz alta", true, false, 0, 280, 1, 0);
 	}
-	ofSetColor(valSensor2[0] * 255, valSensor2[1] * 255, valSensor2[2] * 255, valOpa);
+	ofSetColor(20 + valSensor2[0] * 255, 20 + valSensor2[1] * 255, 20 + valSensor2[2] * 255, valOpa);
 	ofFill();
 
 	switch (preguntas) {
@@ -1651,8 +1656,8 @@ void ofApp::escena08() {	//////////////////// Preguntas
 		textoCentro("DI TU NOMBRE", true, true, 0, 0, 2, 0);
 		break;
 	case 1:
-		textoCentro("¿QUE ES LO QUE SIENTES", true, true, 0, -50, 2, 0);
-		textoCentro("EN ESTE MOMENTO?", true, true, 0, 50, 2, 0);
+		textoCentro("¿CUAL ES LA PRIMER PALABRA", true, true, 0, -50, 2, 0);
+		textoCentro("QUE SE VIENE A TU MENTE?", true, true, 0, 50, 2, 0);
 		break;
 	case 2:
 		textoCentro("GATO O PERRO?", true, true, 0, 0, 2, 0);
