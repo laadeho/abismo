@@ -456,6 +456,7 @@ void ofApp::muestraValSensores() {
 }
 //--------------------------------------------------------------
 void ofApp::draw(){
+	//ofScale(0.5, 0.5);
 	if (alphaActivo) {
 		ofEnableAlphaBlending();
 	}
@@ -1678,10 +1679,6 @@ void ofApp::escena08() {	//////////////////// Preguntas
 	default:
 		break;
 	}
-
-
-	
-
 }
 void ofApp::textoCentro(string texto, bool centradoH, bool centradoV, int posTextX, int posTextY, int numFont, int tamFont) {
 	string renglon = texto;
