@@ -66,13 +66,14 @@ class ofApp : public ofBaseApp{
 		int numEscenas = 11;
 		
 		void updateEmular();
-		void escena00(), escena01(), escena02(), escena03(),
-			escena04(), escena05(), escena06(), escena07(), 
-			escena08(), escena09(), escena10();
+		void escena00(), escena01(), escena02(),
+			escena03(),	escena04(), escena05(),
+			escena06(), escena07(), escena08(), 
+			escena09(), escena10();
 		void setupEsc01(), updateEsc01();
 		void setupEsc02(), updateEsc02();
-		void updateEsc03();
-		void updateEscena04(), updateEscena08();
+		void updateEsc03(), updateEscena04(),
+			updateEscena07(), updateEscena08();
 
 		void camAnim();
 

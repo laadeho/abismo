@@ -1591,12 +1591,13 @@ void ofApp::escena06() {
 void ofApp::escena07() {
 	escena02();
 }
+void ofApp::updateEscena07() {
+
+}
 /////////////// ESCENA 08
 ///////////////////////////// Felicidad
 void ofApp::updateEscena08() {
-	//if(cuenta08<5500)
 	cuenta08++;
-	//ofLogNotice(ofToString(cuenta08));
 
 	if (cuenta08 < 15) {
 		entraOpa = true;
@@ -1643,11 +1644,13 @@ void ofApp::updateEscena08() {
 	}
 }
 void ofApp::escena08() {	//////////////////// Preguntas
-	if (preguntas < 2) {
+	//if (preguntas < 2) {
+	if (preguntas < 5) {
 		ofSetColor(20 + valSensor1[0] * 255, 20 + valSensor1[1] * 255, 20 + valSensor1[2] * 255, valOpa);
 		ofFill();
 		textoCentro("En voz alta", true, false, 0, 280, 1, 0);
 	}
+
 	ofSetColor(20 + valSensor2[0] * 255, 20 + valSensor2[1] * 255, 20 + valSensor2[2] * 255, valOpa);
 	ofFill();
 
