@@ -75,7 +75,7 @@ void ofApp::setup(){
 void ofApp::update() {
 	if (guardaFrame) {
 		captura.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
-		captura.save("frames/" + ofToString(ofGetFrameNum()) + ".tif");
+		captura.save("frames/Escena02/" + ofToString(ofGetFrameNum()) + ".png");
 		//ofSaveScreen("frames/"+ ofToString(ofGetFrameNum()) + ".tif");
 		//ofSaveImage("frames/" + ofToString(ofGetFrameNum()) + ".tif");
 	}
@@ -1993,7 +1993,7 @@ void ofApp::setupGUI() {
 	gui.setName("abismo // proximo UI");
 	gui.add(escenas.setup("Escena", 0, 0, 11));
 	gui.add(guardaFrame.setup("Salvar Frames ", false));
-	gui.add(emularSensores.setup("Emular", false));
+	gui.add(emularSensores.setup("Emular", true));
 	gui.add(radio02.setup("radio02", 300, 100, 5000));
 }
 //--------------------------------------------------------------

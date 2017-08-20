@@ -41,7 +41,7 @@ class ofApp : public ofBaseApp{
 		bool showGui = false;
 		/////////////////////////////
 
-		bool fullScreenDisplay = false;
+		bool fullScreenDisplay = true;
 		string sensaciones[11] = {
 			"Logo", "Entendimiento / Tranquilidad", "Expectativa ",
 			"Miedo", "Asombro", "Euforia", "Tristeza, Soledad",
@@ -61,8 +61,12 @@ class ofApp : public ofBaseApp{
 		/////// ESCENAS //////////////////////////
 		void muestraValSensores();
 		bool titulo = false;
+		
 		float velOpa = 1.0f; // Velocidad de opacidad
+		
+
 		int escena = 0; // escena actual
+		
 		int numEscenas = 11;
 		
 		void updateEmular();
@@ -249,6 +253,8 @@ class ofApp : public ofBaseApp{
 		void setupGUI();
 		ofxIntSlider escenas;
 		ofxToggle guardaFrame;
+		ofxToggle emularSensores;
+
 		bool alpha, beta, gamma, delta, theta;
 		bool artifacts, museOn1, museOn2, blink1, blink2, jawClench1, jawClench2;
 		bool acc, gyro, isGood;
@@ -256,7 +262,6 @@ class ofApp : public ofBaseApp{
 		float gyroX1, gyroX2, gyroX3, gyroY1, gyroY2, gyroY3, gyroZ1, gyroZ2, gyroZ3;
 		float EEG11, EEG12, EEG13, EEG21, EEG22, EEG23, EEG31, EEG32, EEG33, EEG41, EEG42, EEG43;
 		float auxLeft1, auxLeft2, auxRight1, auxRight2;
-		ofxToggle emularSensores = false;
 
 		bool pulse = false;
 		bool gsr = false;
